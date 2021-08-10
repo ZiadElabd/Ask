@@ -1,13 +1,13 @@
-package Main.backend;
+package Ask.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AskBackEndApplication {
+public class BackEndApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AskBackEndApplication.class, args);
+		SpringApplication.run(BackEndApplication.class, args);
 	}
 
 }
