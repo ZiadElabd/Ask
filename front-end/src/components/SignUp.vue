@@ -23,6 +23,12 @@
             <label>Confirm Password</label>
             <input type="password" class="form-control form-control-lg shadow-none" placeholder="password" />
 
+            <!--<div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
+                <input placeholder="Select date" type="text" id="example" class="form-control">
+                <label for="example">Try me...</label>
+                <i class="fas fa-calendar input-prefix"></i>
+            </div>-->
+
             <div class="form-group ">
                 <button class="btn btn-primary btn-lg btn-full" type="submit"> Create new account </button>
             </div>
