@@ -1,7 +1,8 @@
 <template>
     <div class=" signin" >
         <form>
-            <h3>Create new account</h3>
+            <h3>Sign Up</h3>
+            <span>Already have an account? </span>  <router-link to="/signin">Log in</router-link>
             <div class="form-group">
                 <label>First Name</label>
                 <input type="email" class="form-control form-control-lg" />
@@ -39,6 +40,7 @@
 
 <script>
     export default {
+        name: 'SignUp',
         data() {
             return {}
         }
