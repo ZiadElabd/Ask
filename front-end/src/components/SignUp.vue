@@ -29,6 +29,11 @@
                 <label for="example">Try me...</label>
                 <i class="fas fa-calendar input-prefix"></i>
             </div>-->
+            <div>
+                <label for="example-datepicker">Choose a date</label>
+                <b-form-datepicker id="example-datepicker" v-model="value" class="mb-2"></b-form-datepicker>
+                <p>Value: '{{ value }}'</p>
+            </div>
 
             <div class="form-group ">
                 <button class="btn btn-primary btn-lg btn-full" type="submit"> Create new account </button>
@@ -42,7 +47,9 @@
     export default {
         name: 'SignUp',
         data() {
-            return {}
+            return {
+                value: '',
+            }
         }
     }
 </script>
