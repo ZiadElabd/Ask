@@ -5,11 +5,11 @@
             <span>don't have an account yet</span>  <router-link to="/signup">Sign Up</router-link>
             <div class="form-group">
                 <label>Login</label>
-                <input type="email" class="form-control form-control-lg" placeholder="Username or e-mail" />
+                <input type="email" v-model="user.email" class="form-control form-control-lg" placeholder="Username or e-mail" />
             </div>
 
                 <label>Password</label>
-                <input type="password" class="form-control form-control-lg shadow-none" placeholder="password" />
+                <input type="password" v-model="user.password" class="form-control form-control-lg shadow-none" placeholder="password" />
             <div class="form-group">
             </div>
             <div class="form-group ">
@@ -33,7 +33,12 @@
     export default {
         name: 'SignIn',
         data() {
-            return {}
+            return {
+                user:{
+                    email:'',
+                    password:'',
+                }
+            }
         }
     }
 </script>

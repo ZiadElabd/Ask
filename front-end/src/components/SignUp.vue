@@ -5,36 +5,36 @@
             <span>Already have an account? </span>  <router-link to="/signin">Log in</router-link>
             <div class="form-group">
                 <label>First Name</label>
-                <input type="email" class="form-control form-control-lg" />
+                <input type="email"  v-model="user.firstName" class="form-control form-control-lg" />
             </div>
 
             <div class="form-group">
                 <label>Second Name</label>
-                <input type="email" class="form-control form-control-lg" />
+                <input type="email"  v-model="user.secondName" class="form-control form-control-lg" />
             </div>
 
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" class="form-control form-control-lg" placeholder="Username or e-mail" />
+                <input type="email"  v-model="user.email" class="form-control form-control-lg" placeholder="Username or e-mail" />
             </div>
 
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" class="form-control form-control-lg shadow-none" placeholder="password" />
+                <input type="password"  v-model="user.password" class="form-control form-control-lg shadow-none" placeholder="password" />
             </div>
 
             <div class="form-group">
                 <label>Confirm Password</label>
-                <input type="password" class="form-control form-control-lg shadow-none" placeholder="confirm Password" />
+                <input type="password"  v-model="user.confirmPassword" class="form-control form-control-lg shadow-none" placeholder="confirm Password" />
             </div>
 
             <div class="form-group">
-                <label>Date</label>
-                <el-date-picker v-model="date" type="date" placeholder="Pick a date"> </el-date-picker>
+                <label>Choose Date</label>
+                <el-date-picker v-model="user.date" type="date" placeholder="Pick a date"> </el-date-picker>
             </div>
 
             <div class="form-group ">
-                <button class="btn btn-primary btn-lg btn-full" type="submit"> Create new account </button>
+                <button class="btn btn-primary btn-lg btn-full" type="submit" @click="create_new_account"> Create new account </button>
             </div>
         </form>
             
@@ -46,8 +46,27 @@
         name: 'SignUp',
         data() {
             return {
-                date: '',
+                user:{
+                    firstName:'',
+                    secondName:'',
+                    email:'',
+                    password:'',
+                    confirmPassword:'',
+                    date: '',
+                },
             }
+        },
+        methods:{
+            check_password() {
+                return this.user.password === this.user.confirmPassword;
+            },
+            /*create_new_account(){
+                if(this.check_password){
+
+                }else{
+                    
+                }
+            },*/
         }
     }
 </script>
@@ -73,12 +92,15 @@
     }
 
     .form-group{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
         margin-top: 15px;
         font-size: 10px;
     }
     .form-group label{
-        margin-bottom: 5px;
-        margin-right: 15px;
+        width: 80px;
     }
     .form-group input{
         font-size: 13px;
