@@ -2,7 +2,7 @@
     <div class=" signUp" >
         <form>
             <h3>Sign Up</h3>
-            <span>Already have an account? </span>  <router-link to="/signin">Log in</router-link>
+            <span>Already have an account? </span>  <router-link to="/">Log in</router-link>
             <div class="form-group">
                 <label>First Name</label>
                 <input type="email"  v-model="user.firstName" class="form-control form-control-lg" />
@@ -63,7 +63,7 @@
             },
 
             check_email(email){
-                return fetch("http://localhost:8085/" + this.form.username,{ method: "get"} )
+                return fetch("http://localhost:8085/" + email,{ method: "get"} )
                 .then((response) => {
                     return response.json();
                 }).then((data) => {
@@ -73,7 +73,7 @@
 
             create_new_account(){
                 if(this.check_password){
-                    if(!this.check_email){
+                    if(!this.check_email(this.user.email)){
                         fetch("http://localhost:8085/", {
                             method: "post",
                             headers: { "Content-Type": "application/json" },
