@@ -25,7 +25,7 @@
 
             <div class="form-group">
                 <label>Confirm Password</label>
-                <input type="password"  v-model="user.confirmPassword" class="form-control form-control-lg shadow-none" placeholder="confirm Password" />
+                <input type="password"  v-model="confirmPassword" class="form-control form-control-lg shadow-none" placeholder="confirm Password" />
             </div>
 
             <div class="form-group">
@@ -46,27 +46,48 @@
         name: 'SignUp',
         data() {
             return {
-                user:{
+                confirmPassword:'',
+                user: {
                     firstName:'',
                     secondName:'',
                     email:'',
                     password:'',
-                    confirmPassword:'',
                     date: '',
                 },
             }
         },
         methods:{
+
             check_password() {
                 return this.user.password === this.user.confirmPassword;
             },
-            /*create_new_account(){
-                if(this.check_password){
 
+            check_email(email){
+                return fetch("http://localhost:8085/" + this.form.username,{ method: "get"} )
+                .then((response) => {
+                    return response.json();
+                }).then((data) => {
+                    return data
+                });
+            },
+
+            create_new_account(){
+                if(this.check_password){
+                    if(!this.check_email){
+                        fetch("http://localhost:8085/", {
+                            method: "post",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(this.user),
+                        });
+                        alert("Signed up seccessfully");
+                        //this.$router.push({ name: "signIn" });
+                    }else{
+                        alert("there is an account with ths email");
+                    }
                 }else{
-                    
+                    alert("please make sure that the two passwords match");
                 }
-            },*/
+            },
         }
     }
 </script>

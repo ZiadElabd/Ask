@@ -5,15 +5,15 @@
             <span>don't have an account yet</span>  <router-link to="/signup">Sign Up</router-link>
             <div class="form-group">
                 <label>Login</label>
-                <input type="email" v-model="user.email" class="form-control form-control-lg" placeholder="Username or e-mail" />
+                <input type="email" v-model="form.email" class="form-control form-control-lg" placeholder="Username or e-mail" />
             </div>
 
                 <label>Password</label>
-                <input type="password" v-model="user.password" class="form-control form-control-lg shadow-none" placeholder="password" />
+                <input type="password" v-model="form.password" class="form-control form-control-lg shadow-none" placeholder="password" />
             <div class="form-group">
             </div>
             <div class="form-group ">
-          <button class="btn btn-primary btn-lg btn-full" type="submit">
+          <button class="btn btn-primary btn-lg btn-full" @click.prevent="login">
             Search
           </button>
         </div>
@@ -34,11 +34,32 @@
         name: 'SignIn',
         data() {
             return {
-                user:{
+                form:{
                     email:'',
                     password:'',
-                }
+                },
+                checkState: false,
             }
+        },
+        methods:{
+            async login(){
+                await fetch( "http://localhost:8085/login/" + this.form.email +"/" + this.form.password, { method: "get"} )
+                .then((response) => {
+                    return response.json();
+                }).then((data) => {
+                    //console.log("this is data ", data);
+                    this.checkState = data;
+                });
+                console.log("this is check ", this.checkState);
+                if (this.checkState === true) {
+                    alert("very good");
+                    this.$router.push({ name: "SignUp" });
+                    // window.open("#/signedIn");
+                } else {
+                    alert("Please try agian, email or password is wrong :(");
+                }
+            },
+
         }
     }
 </script>
