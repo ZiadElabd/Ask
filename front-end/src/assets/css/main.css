@@ -1,13 +1,13 @@
 * {
     box-sizing: border-box;
   }
-  
+/*   
   body {
     background: #131619 !important;
     min-height: 100vh;
     display: flex;
     font-weight: 400;
-  }
+  } */
   
   body,
   html,
@@ -160,3 +160,20 @@
 .btn-group-lg>.btn, .btn-lg 
 {width: 100%;}
  
+.nav li a
+{
+  color: #898B8C;
+}
+
+.nav li a:hover, .navbar-brand
+{
+  color: #EE1144;
+  font-weight: bolder;
+  font-family:'Lobster', cursive
+}
+ div > .navbar-brand
+{
+  font-family:'Lobster', cursive
+}
+
+
