@@ -3,14 +3,14 @@
 
    <div class="container">
       <div>
-      <b-navbar-brand href="#">ASKfm</b-navbar-brand>
+      <b-navbar-brand href="#"><router-link to="/Home">ASKfm</router-link></b-navbar-brand>
     </div>
     <div>
       <b-nav>
-        <b-nav-item active> <font-awesome-icon icon="home" /></b-nav-item>
-        <b-nav-item><font-awesome-icon icon="question-circle" /></b-nav-item>
-        <b-nav-item><font-awesome-icon icon="user-friends" /></b-nav-item>
-        <b-nav-item ><font-awesome-icon icon="bolt" /></b-nav-item>
+        <b-nav-item active> <router-link to="/Home"><font-awesome-icon icon="home" /></router-link></b-nav-item>
+        <b-nav-item><router-link to="/Questions"><font-awesome-icon icon="question-circle" /></router-link></b-nav-item>
+        <b-nav-item><router-link to="/Friends"><font-awesome-icon icon="user-friends" /></router-link></b-nav-item>
+        <b-nav-item ><router-link to="/Notifications"><font-awesome-icon icon="bolt" /></router-link></b-nav-item>
          
           <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
@@ -56,11 +56,12 @@
   font-size: 130%;
 }
 
- .navbar-brand 
+ .navbar-brand a
 {
   color: #EE1144;
   font-weight: bolder;
-  font-family:'Lobster', cursive
+  font-family:'Lobster', cursive;
+    text-decoration: none
 }
 .nav li a:hover ,.navbar-brand:hover
 {
@@ -75,7 +76,7 @@
 {
   font-family:'Lobster', cursive
 }
-.nav-link:focus{
+.nav-link a:focus{
   color: #EE1144;
   font-size: 97.5%;
 }
@@ -83,10 +84,7 @@
 {
   width: 60%;
 }
-.nav-link
-{
-  color: #898B8C;
-}
+
 
 
  
