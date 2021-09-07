@@ -160,20 +160,11 @@
 .btn-group-lg>.btn, .btn-lg 
 {width: 100%;}
  
-.nav li a
+.nav-link
 {
   color: #898B8C;
 }
-
-.nav li a:hover, .navbar-brand
+.nav-link:hover
 {
   color: #EE1144;
-  font-weight: bolder;
-  font-family:'Lobster', cursive
 }
- div > .navbar-brand
-{
-  font-family:'Lobster', cursive
-}
-
-
