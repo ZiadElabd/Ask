@@ -5,6 +5,7 @@ import Home from '../views/Home.vue'
 import Notifications from '../views/Notifications.vue'
 import Questions from '../views/Questions.vue'
 import Settings from '../views/Settings.vue'
+import AnswerQuestion from '../views/AnswerQuestion.vue'
 import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
 
@@ -42,6 +43,11 @@ const routes = [
     path: '/Questions',
     name: 'Questions',
     component: Questions
+  },
+  {
+    path: '/AnswerQuestion',
+    name: 'AnswerQuestion',
+    component: AnswerQuestion
   },
   {
     path: '/Settings',
