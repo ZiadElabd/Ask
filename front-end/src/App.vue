@@ -20,11 +20,17 @@ export default {
 </script>
 
 <style>
+#app
+{
+  background-color: #131619;
+  min-width: 100%;
+  min-height: 100%;
+}
 .navbar
 {
   display: flex;
   justify-content: space-between;
-  background-color: black;
+  background-color: #131619;
   
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="notifications">
-    Notifications page
+    
   </div>
 </template>
 
@@ -13,3 +13,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+.notifications
+{
+  background-color: #131619;
+}
+</style>
