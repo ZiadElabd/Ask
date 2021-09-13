@@ -1,53 +1,35 @@
 <template>
   <div class="container">
-    <div class="home_item">
+   
+     <div v-for="msg in messages" class="home_item" :key="msg.id">
       <div class="quetion">
-        <h4>what is your name ?</h4>
+       <div v-if="msg.anymonous==false" class="send">
+          <span>
+            <b-avatar :src="msg.photo" size="1.5rem"></b-avatar>
+          </span>
+            <span class="sender"> {{msg.name}}</span>
+       </div>
+        <h4>{{msg.question}}</h4>
       </div>
       <div class="name">
           <div class="name_photo">
-            <b-avatar src="https://placekitten.com/300/300"></b-avatar>
+            <b-avatar :src="msg.photo"></b-avatar>
           </div>
           <div class="name_time">
             <h6 class="myname">
-               <span> Nour ahmed</span>
+               <span> {{msg.name}}</span>
             </h6>
             <div class="time">
-                <span>10 days ago</span>
+                <span>{{msg.time}}</span>
             </div>
           </div>
       </div>
       <div class="answer">
-        <span>my name is omahhhhhhhhhhhhh hhhhhhhhhhhhhhh gggggggggggggggggg fffffffffffffff ddddddddddddddd ggggggggggggggggg ttttttttttttttttttt sssssssssssssssss r</span>
+        <span>{{msg.answer}}</span>
       </div>
       <div class="like">
-             <button class="btn btn-default" @click="toggleLike" ><span class="grey" v-if="liked==false"><font-awesome-icon icon="home" /></span>
-             <span class="red" v-if="liked==true"><font-awesome-icon icon="home" /></span> {{ likesCount }}</button>
-      </div>
-    </div>
-     <div class="home_item">
-      <div class="quetion">
-        <h4>what is your name ?</h4>
-      </div>
-      <div class="name">
-          <div class="name_photo">
-            <b-avatar src="https://placekitten.com/300/300"></b-avatar>
-          </div>
-          <div class="name_time">
-            <h6 class="myname">
-               <span> Nour ahmed</span>
-            </h6>
-            <div class="time">
-                <span>10 days ago</span>
-            </div>
-          </div>
-      </div>
-      <div class="answer">
-        <span>my name is omahhhhhhhhhhhhh hhhhhhhhhhhhhhh gggggggggggggggggg fffffffffffffff ddddddddddddddd ggggggggggggggggg ttttttttttttttttttt sssssssssssssssss r</span>
-      </div>
-      <div class="like">
-             <button class="btn btn-default" @click="toggleLike" ><span :class="[liked==true ? 'red' : 'grey']"><font-awesome-icon icon="home" /></span>
-{{ likesCount }}</button>
+             <button class="btn btn-default" @click="toggleLike(msg)" ><span :class="[msg.liked==true ? 'red' : 'grey']"><font-awesome-icon icon="home" /></span>
+{{ msg.number_of_likes }}</button>
       </div>
     </div>
   </div>
@@ -60,17 +42,50 @@ export default {
   data(){
     return{
      liked: false,
-     likesCount: 12
+     likesCount: 12,
+     messages: [
+       {
+         question : "What is your name",
+         name : "Ali Ibrahem",
+         photo : "https://placekitten.com/300/300",
+         time : "10 days ago",
+         answer : "My name is omar",
+         liked : true ,
+         number_of_likes : 12 ,
+         anymonous : false ,
+       },
+       {
+         question : "What is your name",
+         name : "Ali Ibrahem",
+         photo : "https://placekitten.com/300/300",
+         time : "10 days ago",
+         answer : "My name is omar",
+         liked : true ,
+         number_of_likes : 12 ,
+         anymonous : true ,
+       },
+       {
+         question : "What is your name",
+         name : "Ali Ibrahem",
+         photo : "https://placekitten.com/300/300",
+         time : "10 days ago",
+         answer : "My name is omar",
+         liked : false ,
+         number_of_likes : 11 ,
+         anymonous : true ,
+       }
+
+     ]
     }
   },
   components: {
     
   },
   methods: {
-        toggleLike: function() { 
-            this.liked = ! this.liked;
+        toggleLike: function(msg) { 
+            msg.liked = ! msg.liked;
 
-            this.liked ? this.likesCount++ : this.likesCount--;
+            msg.liked ? msg.number_of_likes++ : msg.number_of_likes--;
         }
     }
 }
@@ -85,6 +100,10 @@ export default {
 }
 .container 
 {width: 60%;}
+.sender 
+{
+  font-size: 13px;
+}
 .name
 {
   display: flex;
