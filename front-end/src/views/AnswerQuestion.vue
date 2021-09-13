@@ -1,12 +1,41 @@
 <template>
-    <form class="answer-panel" @submit.prevent="submitAnswer" >
-        <label for="answerArea"><strong> Answer Question</strong> <small> ({{answerCharacterCount}}/180)</small></label>
-        <textarea id="answerArea" rows="4"  v-model="answerContent"/>
+  <div class="container" >
+    <div class= "question-answer">
+      <div class="name">
+          <div class="name_photo">
+            <b-avatar src="https://placekitten.com/300/300"></b-avatar>
+          </div>
+          <div class="name_time">
+            <h6 class="myname">
+                <span> Nour ahmed</span>
+            </h6>
+            <div class="time">
+                <span>10 days ago</span>
+            </div>
+          </div>
+      </div>
 
-        <div class="answer__submit">
-            <button> Answer! </button>
-        </div>
-    </form>
+      <div class="quetion">
+        <h4>what is your name ?</h4>
+      </div>
+
+      <form  @submit.prevent="submitAnswer" >
+          <b-form-textarea
+            id="textarea"
+            v-model="answerContent"
+            placeholder="Write your answer"
+            rows="4"
+            max-rows="4"
+          >
+          </b-form-textarea>
+
+          <div class="answer__submit">
+              <button > Answer! </button>
+          </div>
+      </form>
+      
+    </div>
+  </div>
 </template>
 
 <script>
@@ -34,21 +63,27 @@ export default {
 </script>
 
 <style scoped>
-.answer-panel {
-  margin-top: 20px;
-  padding: 100px 100px 100px 100px;
-  display: flex;
-  flex-direction: column;
+
+.container {
+  width: 60%;
 }
 
-textarea {
-    border: 1px solid #DFE3E8;
-    border-radius: 5px;
+.quetion{
+  margin-bottom: 30px;
 }
+.question-answer{
+  background-color: #FFF;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px;
+}
+
+
 
 .answer__submit{
     display: flex;
-    justify-content: space-between;
+    flex-direction:row-reverse;
+    /*justify-content: space-between;*/
 }
 
 button {
@@ -59,17 +94,28 @@ button {
     background-color: deeppink;
     color: white;
     font-weight: bold;
+    margin-top: 20px;
 }
-/*
-.create-twoot-panel.--exceeded {
-    color: red;
-    border-color: red;
+.name
+{
+  display: flex;
 }
-button {
-    background-color: red;
-    color: white;
+.name .name_photo , .name .answer
+{
+  margin: 5px;
 }
-
-:class="{'--exceeded':answerCharacterCount>180}"
-*/
+.name .myname
+{
+  margin-top: 6px;
+  font-size: 90%;
+}
+.name_time{
+  padding-left: 4px;
+}
+.name .time
+{
+  font-size: 70%;
+  margin-top: -7px;
+  color: #B9B9BB;
+}
 </style>

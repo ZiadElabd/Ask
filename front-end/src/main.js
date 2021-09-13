@@ -15,12 +15,12 @@ import router from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHome,faQuestionCircle,faUserFriends,faBolt,faCog,faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
+import { FormTextareaPlugin } from 'bootstrap-vue'
 library.add(faHome,faQuestionCircle,faUserFriends,faBolt,faCog,faPlusSquare )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
-
+Vue.use(FormTextareaPlugin)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 

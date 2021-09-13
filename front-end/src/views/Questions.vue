@@ -1,5 +1,5 @@
 <template>
-  <div class="questions">
+  <div class="container">
     <div class= "Questions-wrapper">
       <QuestionItem 
         v-for ="question in user.questions" 
@@ -45,11 +45,16 @@ export default {
 </script>
 
 <style  scoped>
-
+.container {
+  width: 60%;
+}
+/*
 .Questions-wrapper{
   display: grid;
   grid-gap: 10px;
+  height: auto;
+  width: 500px;
   padding: 50px 50px 50px 50px;
 }
-
+*/
 </style>
