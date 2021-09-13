@@ -8,6 +8,8 @@ import Settings from '../views/Settings.vue'
 import AnswerQuestion from '../views/AnswerQuestion.vue'
 import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
+import profile from '../views/profile.vue'
+
 
 
 Vue.use(VueRouter)
@@ -30,7 +32,7 @@ const routes = [
     component: Friends
   },
   {
-    path: '/Home',
+    path: '/',
     name: 'Home',
     component: Home
   },
@@ -53,6 +55,11 @@ const routes = [
     path: '/Settings',
     name: 'Settings',
     component: Settings
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: profile
   },
 ]
 
