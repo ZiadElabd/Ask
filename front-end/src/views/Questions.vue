@@ -2,9 +2,9 @@
   <div class="container">
     <div class= "Questions-wrapper">
       <QuestionItem 
-        v-for ="question in user.questions" 
+        v-for ="question in questions" 
         :key="question.id" 
-        :userName="user.userName" 
+        :userName="user.userName"
         :question = "question"  
         @answer="answer(question.id)"
       />
@@ -29,16 +29,17 @@ export default {
         firstName: 'ziad',
         secondName: 'elabd',
         email: 'ziad.elabd91@gmail.com',
-        questions: [
-          { id: 1 , conntent: "ziad is my Name" },
-          { id: 2 , conntent: "osama is my brother" }
-        ]
       }
     }
   },
   methods: {
     answer(id){
       console.log(`Favourite tweet #${id}`);
+    }
+  },
+  computed:{
+    questions(){
+      return this.$store.state.questions;
     }
   },
 }
