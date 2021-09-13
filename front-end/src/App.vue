@@ -31,8 +31,10 @@ export default {
   display: flex;
   justify-content: space-between;
   background-color: #131619;
+  z-index: 10000000;
   
 }
+
 
 </style>
 

@@ -168,3 +168,16 @@
 {
   color: #EE1144;
 }
+.navbar .b-avatar .b-avatar-img img
+{
+  border: 2px solid ;
+}
+.navbar .b-avatar .b-avatar-img img:hover 
+{
+  border: 2px solid #FFF ;
+}
+.home, .profile
+{
+  margin-top: 63px;
+  padding-top: 15px;
+}
