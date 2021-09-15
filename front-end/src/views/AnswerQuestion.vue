@@ -58,10 +58,8 @@ export default {
   },
   methods: {
     submitAnswer(){
-      if(this.newTwootContent  && this.answerCharacterCount < 180){
-        this.$emit('add-twoot',this.answerContent)
-        // return to the previous page
-      }
+      this.$emit('aanswer',this.answerContent)
+      // return to the previous page
     }
   },
 }
