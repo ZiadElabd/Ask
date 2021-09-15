@@ -16,7 +16,7 @@
       </div>
 
       <div class="quetion">
-        <h4>what is your name ?</h4>
+        <h4>what is your name ?  id = {{question}}</h4>
       </div>
 
       <form  @submit.prevent="submitAnswer" >
@@ -49,14 +49,17 @@ export default {
   computed: {
       answerCharacterCount(){
         return this.answerContent.length;
+      },
+      question(){
+        console.log('ziad');
+        console.log(this.$route.params.questionID);
+        return this.$route.params.questionID;
       }
   },
   methods: {
     submitAnswer(){
-      if(this.newTwootContent  && this.answerCharacterCount < 180){
-        this.$emit('add-twoot',this.answerContent)
-        // return to the previous page
-      }
+      this.$emit('aanswer',this.answerContent)
+      // return to the previous page
     }
   },
 }

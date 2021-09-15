@@ -47,7 +47,7 @@ const routes = [
     component: Questions
   },
   {
-    path: '/AnswerQuestion',
+    path: '/AnswerQuestion/:questionID',
     name: 'AnswerQuestion',
     component: AnswerQuestion
   },

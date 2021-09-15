@@ -34,7 +34,8 @@ export default {
   },
   methods: {
     answer(id){
-      console.log(`Favourite tweet #${id}`);
+      console.log(id);
+      this.$router.push({ name: "AnswerQuestion" , params: { questionID: id } });
     }
   },
   computed:{

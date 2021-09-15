@@ -62,7 +62,7 @@
                 return this.user.password === this.user.confirmPassword;
             },
 
-            check_email(email){
+            async check_email(email){
                 return fetch("http://localhost:8085/" + email,{ method: "get"} )
                 .then((response) => {
                     return response.json();

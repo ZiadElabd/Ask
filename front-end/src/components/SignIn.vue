@@ -43,8 +43,11 @@
         },
         methods:{
             async login(){
-                await fetch( "http://localhost:8085/login/" + this.form.email +"/" + this.form.password, { method: "get"} )
-                .then((response) => {
+                await fetch( "http://localhost:8085/login/" , { 
+                    method: "get" , 
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(this.form)
+                }).then((response) => {
                     return response.json();
                 }).then((data) => {
                     //console.log("this is data ", data);
