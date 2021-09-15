@@ -18,17 +18,8 @@
           <template #button-content>
             <em><font-awesome-icon icon="cog" /></em>
           </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-        </b-nav-item-dropdown>
-
-         <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
-          <template #button-content>
-            <em><font-awesome-icon icon="plus-square" /></em>
-          </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+          <b-dropdown-item to="/Settings">Settings</b-dropdown-item>
+          <b-dropdown-item href="#">Log Out</b-dropdown-item>
         </b-nav-item-dropdown>
           
          

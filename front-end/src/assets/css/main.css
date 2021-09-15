@@ -176,8 +176,8 @@
 {
   border: 2px solid #FFF ;
 }
-.home, .profile
+.home, .profile , .Settings
 {
-  margin-top: 63px;
+  margin-top: 60px;
   padding-top: 15px;
 }
