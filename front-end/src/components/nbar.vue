@@ -60,7 +60,7 @@
 }
 .nav
 {
-  font-size: 130%;
+  font-size: 110%;
 }
 
  .navbar-brand a
