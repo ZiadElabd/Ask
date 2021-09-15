@@ -1,9 +1,10 @@
-package models;
+package Ask.backend.models;
 
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
-import java.util.Date;
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import java.util.List;
 
 public class user {
@@ -87,10 +88,17 @@ public class user {
 
     @Override
     public String toString() {
+        byte[] decodedBytes = Base64.getDecoder().decode(password);
+        String pass = null;
+        try {
+             pass=new String(decodedBytes,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return "user{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                ", password='" + password+"  " +pass+ '\'' +
                 ", userName='" + userName + '\'' +
                 ", askedQuestions=" + askedQuestions +
                 ", answeredQuestions=" + answeredQuestions +

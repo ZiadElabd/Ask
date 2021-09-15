@@ -1,4 +1,4 @@
-package models;
+package Ask.backend.models;
 
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
