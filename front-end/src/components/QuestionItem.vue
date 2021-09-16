@@ -1,5 +1,6 @@
 <template>
-  <div class= "question-item" >
+  
+    <div class= "question-item" >
     <div class="name">
         <div class="name_photo">
           <b-avatar src="https://placekitten.com/300/300"></b-avatar>

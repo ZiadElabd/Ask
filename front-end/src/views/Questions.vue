@@ -1,4 +1,6 @@
 <template>
+<div>
+  <Navbar />
   <div class="container">
     <div class= "Questions-wrapper">
       <QuestionItem 
@@ -10,16 +12,19 @@
       />
     </div>
   </div>
+  </div>
 </template>
 
 <script>
 
 import QuestionItem from "../components/QuestionItem.vue";
+import Navbar from '../components/nbar.vue';
 
 export default {
   name: 'Questions',
   components: {
-    QuestionItem
+    QuestionItem,
+    Navbar
   },
   data() {
     return {

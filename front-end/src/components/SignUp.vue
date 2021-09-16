@@ -1,5 +1,6 @@
 <template>
-    <div class=" signUp" >
+    <div class="container">
+        <div class=" signUp" >
         <form>
             <h3>Sign Up</h3>
             <span>Already have an account? </span>  <router-link to="/signin">Log in</router-link>
@@ -38,6 +39,7 @@
             </div>
         </form>
             
+    </div>
     </div>
 </template>
 
@@ -140,5 +142,10 @@
 
     .btn-group-lg>.btn, .btn-lg 
     {width: 100%;}
+.container
+{
+    width: 35%;
+    padding-top: 30px;
+}
  
 </style>

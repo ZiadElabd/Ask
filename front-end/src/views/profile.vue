@@ -1,6 +1,8 @@
 <template>
 
  <div class="profile">
+  <Navbar />
+
      <div class="background">
          <div class="overlay">
 
@@ -10,23 +12,25 @@
 
          </div>
      </div>
-     <div class="profile-content">
-          <div class="container">
-          <div class="profile_photo">
-               <div class="name">
-                    <div class="name_photo">
-                        <b-avatar src="https://placekitten.com/300/300"></b-avatar>
-                    </div>
-                    <div class="name_time">
-                        <div class="time">
-                            <span>@omarrehan0020</span>
+    <div class="container">
+       <div class="profile-content">
+                <div class="profile_photo">
+                    <div class="name">
+                          <div class="name_photo">
+                              <b-avatar src="https://placekitten.com/300/300"></b-avatar>
+                          </div>
+                          <div class="name_time">
+                              <div class="time">
+                                  <span>@omarrehan0020</span>
+                              </div>
+                              <h6 class="myname">
+                              <span> Omar Rehan</span>
+                              </h6>
+                          </div>
                         </div>
-                        <h6 class="myname">
-                        <span> Omar Rehan</span>
-                        </h6>
-                    </div>
-              </div>  
-          </div> 
+                
+     
+      </div>
           <div class="send_question">
               <div class="ask_yourself">
                   <span>Ask yourself</span>
@@ -42,31 +46,25 @@
                         </label>
                         <label for="any">Ask anonymously {{checked}}</label>
                     </div>
+                    <span class="send">Send</span>
               </div>
               </div>  
      <div v-for="msg in messages" class="home_item" :key="msg.id">
       <div class="quetion">
-       <div v-if="msg.anymonous==false" class="send">
-          <span>
+       
+      </div>
+       <div class="send" >
+          <div class="anymo" v-if="msg.anymonous==false">
+            <span>
             <b-avatar :src="msg.photo" size="1.5rem"></b-avatar>
           </span>
-            <span class="sender"> {{msg.name}}</span>
-       </div>
+          <span class="sender"> {{msg.sender}}</span>
+          </div>
         <h4>{{msg.question}}</h4>
-      </div>
-      <div class="name">
-          <div class="name_photo">
-            <b-avatar :src="msg.photo"></b-avatar>
-          </div>
-          <div class="name_time">
-            <h6 class="myname">
-               <span> {{msg.name}}</span>
-            </h6>
-            <div class="time">
-                <span>{{msg.time}}</span>
-            </div>
-          </div>
-      </div>
+        <div class="time">
+            <span>{{msg.time}}</span>
+        </div>
+      
       <div class="answer">
         <span>{{msg.answer}}</span>
       </div>
@@ -76,13 +74,14 @@
       </div>
     </div>
   </div>
-     </div>
       
-     
+     </div>
+    </div>
  </div>
 </template>
 
 <script>
+import Navbar from '../components/nbar.vue';
 
 export default {
   name: 'profile',
@@ -163,7 +162,7 @@ export default {
     }
   },
   components: {
-    
+    Navbar
   },
   methods: {
      
@@ -254,6 +253,13 @@ export default {
   margin-top: -7px;
   color: #B9B9BB;
 }
+.home_item .time
+{
+  margin-top: -10px;
+  font-size: 12px;
+  color: #8f8f96;
+  margin-bottom: 10px;
+}
 .like
 {
   margin-left: -10px;
@@ -289,6 +295,10 @@ export default {
     color: #FFF;
     font-size: 120%;
 }
+.profile_photo .name .name_photo
+{
+  cursor: pointer;
+}
 .profile_photo .time
 {
     color: #FFF;
@@ -305,6 +315,7 @@ export default {
     border-radius: 7px;
     min-height: 20px;
     margin: 15px 0 ;
+    padding: 10px ;
 }
 
 
@@ -385,6 +396,22 @@ input:checked + .slider:before {
 .send_question .ask_yourself span
 {
     color: #FFF;
+}
+.question-buttons
+{
+  position: relative;
+  padding-top: 10px;
+}
+.question-buttons .send
+{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: #FFF;
+  background-color: #E01144;
+  padding: 7px 30px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 </style>

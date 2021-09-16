@@ -1,5 +1,6 @@
 <template>
-    <div class=" signin" >
+    <div class="container">
+        <div class=" signin" >
         <form>
             <h3>Log in</h3>
             <span>don't have an account yet</span>  <router-link to="/signup">Sign Up</router-link>
@@ -26,6 +27,7 @@
 
         </form>
             
+    </div>
     </div>
 </template>
 
@@ -66,3 +68,11 @@
         }
     }
 </script>
+<style scoped>
+.container
+{
+    width: 30%;
+    padding-top: 30px;
+}
+
+</style>

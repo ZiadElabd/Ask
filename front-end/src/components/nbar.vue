@@ -19,7 +19,7 @@
             <em><font-awesome-icon icon="cog" /></em>
           </template>
           <b-dropdown-item to="/Settings">Settings</b-dropdown-item>
-          <b-dropdown-item href="#">Log Out</b-dropdown-item>
+          <b-dropdown-item to="/signin">Log Out</b-dropdown-item>
         </b-nav-item-dropdown>
           
          

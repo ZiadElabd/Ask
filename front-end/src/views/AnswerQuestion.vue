@@ -1,5 +1,6 @@
 <template>
-  <div class="container" >
+ <div class="questions">
+    <div class="container" >
     <div class= "question-answer">
       <div class="name">
           <div class="name_photo">
@@ -36,6 +37,7 @@
       
     </div>
   </div>
+ </div>
 </template>
 
 <script>

@@ -1,8 +1,8 @@
 <template>
     <div class="birthdate">
         <span>
-     <select name="month">
-        <option value="01">January</option>
+     <select name="month" v-model="month">
+        <option value="01" selected>January</option>
         <option value="02">February</option>
         <option value="03">March</option>
         <option value="04">April</option>
@@ -17,8 +17,8 @@
      </select> 
 </span>
 <span>
-     <select name="day">
-          <option value="01">1</option>
+     <select name="day" v-model="day">
+          <option value="01" selected>1</option>
           <option value="02">2</option>
           <option value="03">3</option>
           <option value="04">4</option>
@@ -52,7 +52,7 @@
      </select>
 </span>
 <span>
-     <select name="year">
+     <select name="year" v-model="year">
           <option value="2030">2030</option>
           <option value="2029">2029</option>
           <option value="2028">2028</option>
@@ -83,7 +83,7 @@
           <option value="2003">2003</option>
           <option value="2002">2002</option>
           <option value="2001">2001</option>
-          <option value="2000">2000</option>
+          <option value="2000" selected>2000</option>
           <option value="1999">1999</option>
           <option value="1998">1998</option>
           <option value="1997">1997</option>
@@ -192,6 +192,7 @@
     <script>
     export default {
         name: 'birthdate',
+        props: ['day', 'month', 'year'],
     }
 </script>
 <style >

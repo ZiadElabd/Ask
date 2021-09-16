@@ -1,5 +1,6 @@
 <template>
 <div class="home">
+  <Navbar />
   <div class="container">
    
      <div v-for="msg in messages" class="home_item" :key="msg.id">
@@ -38,7 +39,7 @@
 </template>
 
 <script>
-
+import Navbar from '../components/nbar.vue';
 export default {
   name: 'Home',
   data(){
@@ -84,7 +85,7 @@ export default {
     }
   },
   components: {
-    
+    Navbar
   },
   methods: {
         toggleLike: function(msg) { 
