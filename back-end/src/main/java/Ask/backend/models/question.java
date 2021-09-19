@@ -3,23 +3,25 @@ package Ask.backend.models;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-public class question {
+public class question implements Imodel {
     @BsonProperty("_id")
     private ObjectId id;
     @BsonProperty("askedID")
     private String askedID;
     @BsonProperty("answeredID")
-    private List<String> answeredID;
+    private String answeredID;
     @BsonProperty("questionText")
     private String questionText;
     @BsonProperty("replies")
-    private List<reply> replies;
+    private reply replies;
     @BsonProperty("time")
-    private LocalDateTime time;
-
+    private String time;
+    @BsonProperty("anoymos")
+    private boolean anoymos;
+    @BsonProperty("likes")
+    private List<String> likes;
 
     public ObjectId getId() {
         return id;
@@ -27,6 +29,39 @@ public class question {
 
     public void setId(ObjectId id) {
         this.id = id;
+    }
+
+
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    public reply getReplies() {
+        return replies;
+    }
+
+    public void setReplies(reply replies) {
+        this.replies = replies;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public boolean isAnoymos() {
+        return anoymos;
+    }
+
+    public void setAnoymos(boolean anoymos) {
+        this.anoymos = anoymos;
     }
 
     public String getAskedID() {
@@ -37,35 +72,19 @@ public class question {
         this.askedID = askedID;
     }
 
-    public List<String> getAnsweredID() {
+    public String getAnsweredID() {
         return answeredID;
     }
 
-    public void setAnsweredID(List<String> answeredID) {
+    public void setAnsweredID(String answeredID) {
         this.answeredID = answeredID;
     }
 
-    public String getQuestionText() {
-        return questionText;
+    public List<String> getLikes() {
+        return likes;
     }
 
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
-    }
-
-    public List<reply> getReplies() {
-        return replies;
-    }
-
-    public void setReplies(List<reply> replies) {
-        this.replies = replies;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
+    public void setLikes(List<String> likes) {
+        this.likes = likes;
     }
 }

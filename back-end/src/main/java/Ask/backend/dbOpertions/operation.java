@@ -1,5 +1,6 @@
 package Ask.backend.dbOpertions;
 
+import Ask.backend.models.user;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -9,7 +10,7 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 
-
+import java.util.NoSuchElementException;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -31,16 +32,21 @@ public class operation {
         }
         return true;
     }
-    public Object readFromdb(String name,String email){
-        MongoCollection collection=database.getCollection(name);
-        Bson queryFilter = new Document("email",email);
+    public user readuserFromdb(String name, String username){
+        MongoCollection collection=database.getCollection(name,user.class);
+        Bson queryFilter = new Document("userName",username);
         Bson projection = new Document("email",1).append("password",1);
-        Object result= collection
-                .find(queryFilter)
-                .projection( projection)
-                .limit(1)
-                .iterator()
-                .next();
+        user result = null;
+        try {
+             result = (user) collection
+                    .find(queryFilter)
+                    .projection(projection)
+                    .limit(1)
+                    .iterator()
+                    .tryNext();
+        }catch (NoSuchElementException e){
+            return null;
+        }
         return result;
     }
 
