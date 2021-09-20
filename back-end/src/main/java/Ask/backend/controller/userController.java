@@ -46,6 +46,8 @@ public class userController {
      */
     @PostMapping("/signin")
     public ResponseEntity<String> signinController( @RequestBody String dataSent){
+        System.out.println("sssssss");
+        System.out.println(dataSent);
         String status=handler.signIn(dataSent);
         if (status!=null)  return new ResponseEntity<>(status, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);

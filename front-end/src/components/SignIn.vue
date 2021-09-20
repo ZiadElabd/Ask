@@ -45,24 +45,26 @@
         },
         methods:{
             async login(){
-                await fetch( "http://localhost:8085/login/" , { 
-                    method: "get" , 
+                await fetch( "http://localhost:5050/signin/" , {
+                    method: "post" , 
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(this.form)
                 }).then((response) => {
-                    return response.json();
+                    //return response.json();
+                    console.log(response)
                 }).then((data) => {
-                    //console.log("this is data ", data);
-                    this.checkState = data;
+                    console.log(data.headers.text);
+                    console.log("this is data ", data);
+                    //this.checkState = data;
                 });
-                console.log("this is check ", this.checkState);
+                /*console.log("this is check ", this.checkState);
                 if (this.checkState === true) {
                     alert("very good");
                     this.$router.push({ name: "SignUp" });
                     // window.open("#/signedIn");
                 } else {
                     alert("Please try agian, email or password is wrong :(");
-                }
+                }*/
             },
 
         }

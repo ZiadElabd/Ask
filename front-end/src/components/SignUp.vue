@@ -10,8 +10,13 @@
             </div>
 
             <div class="form-group">
-                <label>Second Name</label>
-                <input type="email"  v-model="user.secondName" class="form-control form-control-lg" />
+                <label>Last Name</label>
+                <input type="email"  v-model="user.lastName" class="form-control form-control-lg" />
+            </div>
+
+            <div class="form-group">
+                <label>userName</label>
+                <input type="email"  v-model="user.username" class="form-control form-control-lg" placeholder="Username" />
             </div>
 
             <div class="form-group">
@@ -31,7 +36,7 @@
 
             <div class="form-group">
                 <label>Choose Date</label>
-                <el-date-picker v-model="user.date" type="date" placeholder="Pick a date"> </el-date-picker>
+                <el-date-picker v-model="user.birthDate" type="date" placeholder="Pick a date"> </el-date-picker>
             </div>
 
             <div class="form-group ">
@@ -51,10 +56,12 @@
                 confirmPassword:'',
                 user: {
                     firstName:'',
-                    secondName:'',
+                    lastName:'',
+                    username:'',
                     email:'',
                     password:'',
-                    date: '',
+                    gender:'Male',
+                    birthDate:'',
                 },
             }
         },
@@ -64,31 +71,28 @@
                 return this.user.password === this.user.confirmPassword;
             },
 
-            async check_email(email){
-                return fetch("http://localhost:8085/" + email,{ method: "get"} )
+            check_email(){
+                return false;
+                /*email
+                this.user.email
+                return fetch("http://localhost:5050/" + email,{ method: "get"} )
                 .then((response) => {
                     return response.json();
                 }).then((data) => {
                     return data
-                });
+                });*/
             },
-
             create_new_account(){
-                if(this.check_password){
-                    if(!this.check_email(this.user.email)){
-                        fetch("http://localhost:8085/", {
-                            method: "post",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(this.user),
-                        });
-                        alert("Signed up seccessfully");
-                        //this.$router.push({ name: "signIn" });
-                    }else{
-                        alert("there is an account with ths email");
-                    }
-                }else{
-                    alert("please make sure that the two passwords match");
-                }
+                fetch("http://localhost:5050/signup", {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(this.user),
+                }).then((response) => {
+                    return response.json();
+                }).then((data) => {
+                    console.log("this is data ", data);
+                });
+                alert("Signed up seccessfully");
             },
         }
     }

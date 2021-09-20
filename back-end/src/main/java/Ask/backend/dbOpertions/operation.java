@@ -35,7 +35,7 @@ public class operation {
     public user readuserFromdb(String name, String username){
         MongoCollection collection=database.getCollection(name,user.class);
         Bson queryFilter = new Document("userName",username);
-        Bson projection = new Document("email",1).append("password",1);
+        Bson projection = new Document("userName",1).append("password",1);
         user result = null;
         try {
              result = (user) collection
