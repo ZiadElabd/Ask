@@ -44,19 +44,32 @@
             }
         },
         methods:{
-            async login(){
-                await fetch( "http://localhost:5050/signin/" , {
-                    method: "post" , 
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(this.form)
-                }).then((response) => {
-                    //return response.json();
-                    console.log(response)
-                }).then((data) => {
-                    console.log(data.headers.text);
-                    console.log("this is data ", data);
-                    //this.checkState = data;
+            parseJSON: function (resp) {
+                return (resp.text ? resp.text() : resp)
+            },
+            checkStatus: function (resp) {
+                console.log('status');
+                if (resp.status >= 200 && resp.status < 300) {
+                    console.log('good status');
+                    return resp;
+                }
+                console.log('bad status');
+                return this.parseJSON(resp).then((resp) => {
+                    throw resp;
                 });
+            },
+            async login(){
+                try {
+                    const response = await fetch( "http://localhost:5050/signin/" , {
+                        method: "post" , 
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(this.form)
+                    }).then(this.parseJSON)
+                    console.log('ziad');
+                    console.log(response);
+                } catch (error) {
+                    alert('error');
+                } 
                 /*console.log("this is check ", this.checkState);
                 if (this.checkState === true) {
                     alert("very good");
