@@ -3,10 +3,7 @@ package Ask.backend.controller;
 import Ask.backend.requestHandler.userRequestHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -33,24 +30,21 @@ public class userController {
      *
      * @return
      */
-    @PostMapping ("/checkUsername")
-        public ResponseEntity<Boolean> checkUsernameController( @RequestBody String temp){
-
-          return null;
+    @GetMapping  ("/checkUsername/{userName}")
+        public ResponseEntity<Boolean> checkUsernameController( @PathVariable("userName") String temp){
+             if(handler.checkUserName(temp)) return new ResponseEntity<>(true, HttpStatus.ACCEPTED);
+             return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
 
     /**
      *
-     * @param temp
+     * @param dataSent
      * @return
      */
     @PostMapping("/signin")
     public ResponseEntity<String> signinController( @RequestBody String dataSent){
-        System.out.println("sssssss");
-        System.out.println(dataSent);
         String status=handler.signIn(dataSent);
-        System.out.println(status);
-        if (status!=null)  return new ResponseEntity<>(status, HttpStatus.ACCEPTED);
+        if (status!=null)  return new ResponseEntity<>(status, HttpStatus.OK);
         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
 }

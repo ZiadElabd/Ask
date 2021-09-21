@@ -9,32 +9,36 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class userRequestHandler {
-    private operation dbOperations=new operation();
+    private userOperation dbOperations=new userOperation();
     private passcoding passOperations=new passcoding();
     private Singleton trackingSystem;
     private Director director=new Director();
     public boolean signup(String object){
         user newUser= (user) director.composeModel("user",object);
         if(newUser==null) return false;
-        if (dbOperations.writeTOdb("user", user.class,newUser)) return true;
+        if (dbOperations.writeUserTOdb(newUser)) return true;
         return false;
     }
 
     public String signIn(String dataSent){
-        String email;
+        String userName;
         String password;
         try {
             JSONObject obj = new JSONObject(dataSent);
-            email=obj.getString("email");
+            userName=obj.getString("email");
             password=obj.getString("password");
         } catch (JSONException e) {
             return null;
         }
-        user temp= dbOperations.readuserFromdb("user",email);
+        user temp= dbOperations.readuserFromdb(userName);
         if(temp==null) return null;
         if(!passOperations.passwordCheck(password,temp.getPassword())) return null;
         trackingSystem=Singleton.getInstance();
         return trackingSystem.addOnlineUser(temp.getId());
+    }
+    public boolean checkUserName(String userName){
+        if(dbOperations.readuserFromdb(userName)==null) return true;
+        return false;
     }
 
 

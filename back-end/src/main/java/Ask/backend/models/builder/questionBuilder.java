@@ -6,6 +6,8 @@ import Ask.backend.models.reply;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class questionBuilder implements Ibuilder{
@@ -19,8 +21,11 @@ public class questionBuilder implements Ibuilder{
     public void buildreplies(){
         this.newQuestion.setReplies(new reply());
     }
-    public void buildtime(String time){
-        this.newQuestion.setTime(time);
+    public void buildtime(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        this.newQuestion.setTime(now.toString());
+
     }
     public void buildanoymos(boolean state){
         this.newQuestion.setAnoymos(state);
@@ -35,7 +40,8 @@ public class questionBuilder implements Ibuilder{
             JSONObject obj = new JSONObject(sentData);
             buildaskedID(obj.getString("askedID"));
             buildanoymos(obj.getBoolean("anoymos"));
-            buildtime(obj.getString("date"));
+            buildquestionText(obj.getString("text"));
+            buildtime();
             buildreplies();
             buildLikes();
         } catch (JSONException e) {
