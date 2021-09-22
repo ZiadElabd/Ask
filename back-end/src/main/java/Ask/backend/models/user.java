@@ -9,7 +9,7 @@ import java.util.List;
 
 public class user implements Imodel{
     @BsonProperty("_id")
-    private ObjectId id;
+    private ObjectId id ;
     @BsonProperty("email")
     private String email;
     @BsonProperty("password")
