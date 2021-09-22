@@ -16,7 +16,7 @@
     </div>
 
     <div class="question"  @click="answerQuestion(question.id)" >
-      <h4>what is your name ?</h4>
+      <h4>{{question.questionText}}</h4>
     </div>
 
     
@@ -39,7 +39,21 @@ export default {
   methods: {
     answerQuestion(id){
       this.$emit('answer' , id);
-    }
+    },
+    async getQuestions(){
+        try {
+          const response = await fetch( "http://localhost:5050/signin/" , {
+              method: "post" , 
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(this.form)
+          }).then(this.checkState)
+          .then(this.parseJSON)
+          console.log('ziad');
+          console.log(response);
+      } catch (error) {
+          alert('error');
+      } 
+    },
   }
 }
 </script>

@@ -40,7 +40,7 @@
             </div>
 
             <div class="form-group ">
-                <button class="btn btn-primary btn-lg btn-full" type="submit" @click="create_new_account"> Create new account </button>
+                <button class="btn btn-primary btn-lg btn-full" type="submit" @click.prevent="create_new_account"> Create new account </button>
             </div>
         </form>
             
@@ -66,33 +66,60 @@
             }
         },
         methods:{
+            parseJSON: function (resp) {
+                console.log(resp);
+                console.log(resp.text());
+                return resp.text() ? resp.text() : resp;
+            },
+            checkStatus: function (resp) {
+                // console.log('status');
+                // console.log(resp);
+                // console.log(resp.status);
+                if (resp.status >= 200 && resp.status < 300) {
+                    console.log('good status');
+                    return true;
+                }
+                console.log('bad status');
+                return false;
+            },
 
             check_password() {
                 return this.user.password === this.user.confirmPassword;
             },
 
-            check_email(){
-                return false;
-                /*email
-                this.user.email
-                return fetch("http://localhost:5050/" + email,{ method: "get"} )
-                .then((response) => {
-                    return response.json();
-                }).then((data) => {
-                    return data
-                });*/
+            async check_email(email){
+                const response = await fetch("http://localhost:5050/checkUsername/" + email,{ 
+                    method: "get" ,
+                    headers: {'Content-Type': 'application/json'}
+                });
+                // console.log(response.status);
+                // console.log('return of check function ' + this.checkStatus(response));
+                return this.checkStatus(response);
             },
-            create_new_account(){
+            async create_new_account(){
+                if( ! this.check_password ){
+                    alert("please make sure that the two passwords match");
+                    return;
+                }
+                const valid = await this.check_email(this.user.username);
+                //console.log("vvvvvv");
+                console.log("valid " + valid);
+                if( ! valid ){
+                    alert("there is an account with ths userName");
+                    return;
+                }
+                //console.log("check userName = true");
                 fetch("http://localhost:5050/signup", {
                     method: "post",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(this.user),
                 }).then((response) => {
-                    return response.json();
+                    return response.text();
                 }).then((data) => {
-                    console.log("this is data ", data);
+                    console.log("signup =  " +  data);
                 });
                 alert("Signed up seccessfully");
+                this.$router.push({ name: "SignIn" });
             },
         }
     }

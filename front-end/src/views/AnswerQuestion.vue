@@ -17,7 +17,7 @@
       </div>
 
       <div class="quetion">
-        <h4>what is your name ?  id = {{question}}</h4>
+        <h4>{{question.questionText}}  id = {{questionID.str}}</h4>
       </div>
 
       <form  @submit.prevent="submitAnswer" >
@@ -52,16 +52,39 @@ export default {
       answerCharacterCount(){
         return this.answerContent.length;
       },
-      question(){
+      questionID(){
         console.log('ziad');
         console.log(this.$route.params.questionID);
         return this.$route.params.questionID;
+      },
+      questions(){
+        return this.$store.state.questions;
+      },
+      question(){
+        for(var i=0; i<this.questions.length; i++) {
+          if(this.questions[i].id == this.questionID) {
+            return this.questions[i];
+          }
+        }
+        return null;
+      },
+      userID(){
+        return this.$store.state.userID;
       }
   },
   methods: {
     submitAnswer(){
-      this.$emit('aanswer',this.answerContent)
+      //this.$emit('answer',this.answerContent)
       // return to the previous page
+      fetch("http://localhost:5050/answerquestion/" + this.userID , {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(this.user),
+      }).then((response) => {
+          return response.text();
+      }).then((data) => {
+          console.log("signup =  " +  data);
+      });
     }
   },
 }

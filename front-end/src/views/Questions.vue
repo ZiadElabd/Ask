@@ -18,7 +18,7 @@
 <script>
 
 import QuestionItem from "../components/QuestionItem.vue";
-import Navbar from '../components/nbar.vue';
+import Navbar from '../components/nbar.vue'; 
 
 export default {
   name: 'Questions',
@@ -48,6 +48,10 @@ export default {
       return this.$store.state.questions;
     }
   },
+  created(){
+    console.log('userID in questions page' + this.$store.state.userID);
+    this.$store.dispatch('getQuestions');
+  }
 }
 </script>
 

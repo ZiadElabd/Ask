@@ -25,8 +25,12 @@ Vue.use(FormTextareaPlugin)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+//import mixin from './mixin.js'
+//Vue.use(mixin);
+
 new Vue({
   router,
   store: store,
+  beforeCreate() { this.$store.commit('initialiseStore');},
   render: h => h(App)
 }).$mount('#app')

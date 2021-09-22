@@ -6,7 +6,7 @@
             <span>don't have an account yet</span>  <router-link to="/signup">Sign Up</router-link>
             <div class="form-group">
                 <label>Login</label>
-                <input type="email" v-model="form.email" class="form-control form-control-lg" placeholder="Username or e-mail" />
+                <input type="email" v-model="form.userName" class="form-control form-control-lg" placeholder="Username or e-mail" />
             </div>
 
                 <label>Password</label>
@@ -37,7 +37,7 @@
         data() {
             return {
                 form:{
-                    email:'',
+                    userName:'',
                     password:'',
                 },
                 checkState: false,
@@ -45,9 +45,9 @@
         },
         methods:{
             parseJSON: function (resp) {
-                return (resp.text ? resp.text() : resp)
+                return resp.text();
             },
-            checkStatus: function (resp) {
+            checkStatus1: function (resp) {
                 console.log('status');
                 if (resp.status >= 200 && resp.status < 300) {
                     console.log('good status');
@@ -64,9 +64,16 @@
                         method: "post" , 
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(this.form)
-                    }).then(this.parseJSON)
-                    console.log('ziad');
-                    console.log(response);
+                    }).then(this.checkStatus1)
+                    .then(this.parseJSON)
+                    // console.log('ziad');
+                    // console.log(response);
+                    this.$store.commit('saveUserData',{
+                        _id: response,
+                        _name: this.form.userName
+                    });
+                    console.log(this.$store.state.userID);
+                    console.log(this.$store.state.userName);
                 } catch (error) {
                     alert('error');
                 } 
