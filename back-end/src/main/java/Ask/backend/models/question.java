@@ -20,6 +20,8 @@ public class question implements Imodel {
     private String time;
     @BsonProperty("anoymos")
     private boolean anoymos;
+    @BsonProperty("answered")
+    private boolean answered;
     @BsonProperty("likes")
     private List<String> likes;
 
@@ -86,5 +88,13 @@ public class question implements Imodel {
 
     public void setLikes(List<String> likes) {
         this.likes = likes;
+    }
+
+    public boolean isAnswered() {
+        return answered;
+    }
+
+    public void setAnswered(boolean answered) {
+        this.answered = answered;
     }
 }

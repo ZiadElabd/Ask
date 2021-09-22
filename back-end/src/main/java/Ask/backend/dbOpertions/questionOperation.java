@@ -39,10 +39,17 @@ public class questionOperation {
 
     public List<question> getAskedQuestion(ObjectId id){
         List<ObjectId> AskedQuestionsID=userDBoperation.getUserAskedQuestions(id);
-        MongoCollection collection=database.getCollection("question", question.class);
         Bson queryFilter=in("_id",AskedQuestionsID);
         List<question> result=new ArrayList<>();
         collection.find(queryFilter).into(result);
         return result;
     }
+    public List<question> getAnsweredQuestions(ObjectId id){
+        List<ObjectId> AnsweredQuestionsID=userDBoperation.getUserAnsweredQuestions(id);
+        Bson queryFilter=in("_id",AnsweredQuestionsID);
+        List<question> result=new ArrayList<>();
+        collection.find(queryFilter).into(result);
+        return result;
+    }
+
 }

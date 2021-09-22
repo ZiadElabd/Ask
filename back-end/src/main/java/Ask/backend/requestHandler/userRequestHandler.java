@@ -1,7 +1,7 @@
 package Ask.backend.requestHandler;
 
-import Ask.backend.dbOpertions.*;
-import Ask.backend.models.builder.*;
+import Ask.backend.dbOpertions.userOperation;
+import Ask.backend.models.builder.Director;
 import Ask.backend.models.user;
 import Ask.backend.security.Singleton;
 import Ask.backend.security.passcoding;
@@ -25,7 +25,7 @@ public class userRequestHandler {
         String password;
         try {
             JSONObject obj = new JSONObject(dataSent);
-            userName=obj.getString("email");
+            userName=obj.getString("userName");
             password=obj.getString("password");
         } catch (JSONException e) {
             return null;
@@ -40,6 +40,7 @@ public class userRequestHandler {
         if(dbOperations.readuserFromdb(userName)==null) return true;
         return false;
     }
+
 
 
 }

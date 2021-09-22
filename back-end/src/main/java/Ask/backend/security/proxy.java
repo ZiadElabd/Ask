@@ -9,6 +9,7 @@ public class proxy  {
     private userOperation dbOperations=new userOperation();
 
     public ObjectId checkAcess(String id){
+        trackingSystem=Singleton.getInstance();
        return trackingSystem.checkUserExist(id);
     }
 }

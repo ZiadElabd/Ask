@@ -30,6 +30,7 @@ public class questionBuilder implements Ibuilder{
     public void buildanoymos(boolean state){
         this.newQuestion.setAnoymos(state);
     }
+    public void buildAnswered(){this.newQuestion.setAnswered(false);}
     public void buildLikes(){
         this.newQuestion.setLikes(new ArrayList<>());
     }
@@ -41,6 +42,7 @@ public class questionBuilder implements Ibuilder{
             buildaskedID(obj.getString("askedID"));
             buildanoymos(obj.getBoolean("anoymos"));
             buildquestionText(obj.getString("text"));
+            buildAnswered();
             buildtime();
             buildreplies();
             buildLikes();
