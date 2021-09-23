@@ -21,7 +21,7 @@
                           </div>
                           <div class="name_time">
                               <div class="time">
-                                  <span>@omarrehan0020</span>
+                                  <span>@omarrehan0020{{userName}}</span>
                               </div>
                               <h6 class="myname">
                               <span> Omar Rehan</span>
@@ -171,7 +171,17 @@ export default {
 
             msg.liked ? msg.number_of_likes++ : msg.number_of_likes--;
         }
+  },
+  computed:{
+    userName(){
+      console.log("in profile page => " + this.$route.params.userName)
+      return this.$route.params.userName;
     }
+  },
+  created(){
+    //console.log('userID in questions page' + this.$store.state.userID);
+    //this.$store.dispatch('loadProfile' , );
+  }
 }
 </script>
 <style scoped>

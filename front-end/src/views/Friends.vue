@@ -136,6 +136,15 @@ export default {
     },
   components: {
     Navbar
+  },
+  computed:{
+    users(){
+      return this.$store.state.users;
+    }
+  },
+  created(){
+    console.log('userID in questions page' + this.$store.state.userID);
+    this.$store.dispatch('getFriends');
   }
 }
 </script>

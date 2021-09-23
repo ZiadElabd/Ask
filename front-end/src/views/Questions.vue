@@ -5,10 +5,10 @@
     <div class= "Questions-wrapper">
       <QuestionItem 
         v-for ="question in questions" 
-        :key="question.id" 
+        :key="question.StringID"
         :userName="user.userName"
         :question = "question"  
-        @answer="answer(question.id)"
+        @answer="answer(question.stringID)"
       />
     </div>
   </div>
@@ -39,6 +39,7 @@ export default {
   },
   methods: {
     answer(id){
+      console.log("answer");
       console.log(id);
       this.$router.push({ name: "AnswerQuestion" , params: { questionID: id } });
     }
