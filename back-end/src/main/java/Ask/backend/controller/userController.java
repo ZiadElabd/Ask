@@ -52,7 +52,7 @@ public class userController {
     }
     @GetMapping("/getUsers/{ID}/{start}/{num}")
         public ResponseEntity<List<user>>  getUsersController(@PathVariable("ID") String id,@PathVariable("start") int start,@PathVariable("num") int num){
-         return (ResponseEntity<List<user>>) handler.getUser(id,start,num);
+         return  new ResponseEntity<>(handler.getUser(id,start,num),HttpStatus.OK);
         }
 
 }

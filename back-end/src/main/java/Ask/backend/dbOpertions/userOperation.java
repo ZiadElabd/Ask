@@ -82,7 +82,7 @@ public class userOperation {
                 ;
         return result.getMeFollow();
     }
-    
+
     public boolean deleteUser(ObjectId id){
         Bson queryFilter = new Document("_id",id);
         if (collection.findOneAndDelete(queryFilter)!=null) return true;
@@ -100,7 +100,10 @@ public class userOperation {
     }
     public List<user> getAllUsers(int start,int num){
          List<user> users=new ArrayList<>();
-         collection.find().skip(start).limit(num).into(users);
+         Bson projection=new Document("firstname",1).append("lastname",1).append("userName",1);
+         collection.find()
+                 .projection(projection)
+                 .skip(start).limit(num).into(users);
          return users;
     }
 
