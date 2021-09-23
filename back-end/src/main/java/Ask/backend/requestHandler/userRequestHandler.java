@@ -5,6 +5,7 @@ import Ask.backend.models.builder.Director;
 import Ask.backend.models.user;
 import Ask.backend.security.Singleton;
 import Ask.backend.security.passcoding;
+import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,13 +43,16 @@ public class userRequestHandler {
         if(dbOperations.readuserFromdb(userName)==null) return true;
         return false;
     }
-    public List<user> getUser(int start,int num){
+    public List<user> getUser(String id,int start,int num){
+        ObjectId realID=trackingSystem.checkUserExist(id);
+        if (realID.equals(null)) return null;
        List<user> users= dbOperations.getAllUsers(start,num);
         for (user u:users) {
             u.setStringID(u.getId().toHexString());
         }
      return users;
     }
+
 
 
 

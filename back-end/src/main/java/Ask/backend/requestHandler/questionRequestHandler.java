@@ -17,12 +17,12 @@ public class questionRequestHandler {
     private questionOperation dbQuestionOperation=new questionOperation();
     private userOperation dbUserOperation=new userOperation();
     Director director=new Director();
-    public List<question> getfollowersQuestion(String id){
+   /* public List<question> getfollowersQuestion(String id){
         ObjectId realID=trackingSystem.checkAcess(id);
         if (realID==null) return null;
         List<ObjectId> IDS=dbUserOperation.getuserMeFollow(realID);
         return  null;
-    }
+    }*/
     public boolean AddQuestion(String AskedQuestionID,String userName,String obj){
         ObjectId realID;
         realID=trackingSystem.checkAcess(AskedQuestionID);

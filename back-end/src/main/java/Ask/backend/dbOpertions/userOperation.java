@@ -72,7 +72,7 @@ public class userOperation {
                 ;
         return result.getAskedQuestions();
     }
-    public List<ObjectId> getuserMeFollow(ObjectId id){
+    public List<ObjectId> getuserMeFollowlist(ObjectId id){
         Bson queryFilter = new Document("_id",id);
         Bson projection = new Document("mefollow",1);
         user result = (user) collection
@@ -82,6 +82,7 @@ public class userOperation {
                 ;
         return result.getMeFollow();
     }
+    
     public boolean deleteUser(ObjectId id){
         Bson queryFilter = new Document("_id",id);
         if (collection.findOneAndDelete(queryFilter)!=null) return true;
