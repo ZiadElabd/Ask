@@ -15,8 +15,8 @@
                 <span>{{user.firstName + ' ' + user.lastName}}</span>
               </div>
               <div class="follow">
-              <b-button variant="outline-danger" v-if="follow == true" @click="toggleFollow">Follow</b-button>
-              <b-button variant="danger" v-if="follow==false" @click="toggleFollow" @mouseover="mouseenter" @mouseleave="mouseleave">{{hover}}</b-button>
+              <b-button variant="outline-danger" v-if="followers.includes(user.username)== false" @click="afterfollow(user)">Follow</b-button>
+              <b-button variant="danger" v-if="followers.includes(user.username)== true" @click="afterunfollow(user)" >Following</b-button>
             </div>
             
       </div>
@@ -34,7 +34,7 @@ export default {
      return{
        follow: false ,
        searchValue: '',
-       hover: "Following",
+       followers:['omarrehan0020' , 'omarrehan0010'],
        users:[
          {
            username:'omarrehan0010',
@@ -60,14 +60,13 @@ export default {
      }
    },
    methods: {
-        toggleFollow: function() { 
-            this.follow = ! this.follow;
+        afterfollow: function(user) { 
+            this.followers.push(user.username) ;
+            console.log(this.followers);
         },
-        mouseenter: function(){
-          this.hover = "Unfollow" ;
-        },
-        mouseleave: function(){
-          this.hover = "Following" ;
+        afterunfollow:function(user) { 
+            this.followers.splice(this.followers.indexOf(user.username),1);
+            console.log(this.followers);
         },
         select: function(user){
           console.log( user.username);
