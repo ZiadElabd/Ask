@@ -1,13 +1,10 @@
 package Ask.backend.models;
 
 import org.bson.codecs.pojo.annotations.BsonProperty;
-import org.bson.types.ObjectId;
 
 import java.util.List;
 
 public class reply implements Imodel{
-    @BsonProperty("_id")
-    private ObjectId id;
     @BsonProperty("nodeQuestionID")
     private String nodeQuestionID;
     @BsonProperty("userAnsweredID")
@@ -27,14 +24,6 @@ public class reply implements Imodel{
 
     public void setReplyText(String replyText) {
         this.replyText = replyText;
-    }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
     }
 
     public String getNodeQuestionID() {

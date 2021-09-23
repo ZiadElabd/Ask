@@ -1,5 +1,6 @@
 package Ask.backend.models;
 
+import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
@@ -8,6 +9,8 @@ import java.util.List;
 public class question implements Imodel {
     @BsonProperty("_id")
     private ObjectId id;
+    @BsonIgnore
+    private String StringID;
     @BsonProperty("askedID")
     private String askedID;
     @BsonProperty("answeredID")
@@ -33,6 +36,13 @@ public class question implements Imodel {
         this.id = id;
     }
 
+    public String getStringID() {
+        return StringID;
+    }
+
+    public void setStringID(String stringID) {
+        StringID = stringID;
+    }
 
     public String getQuestionText() {
         return questionText;

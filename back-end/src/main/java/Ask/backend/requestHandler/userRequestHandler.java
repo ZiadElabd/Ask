@@ -8,6 +8,8 @@ import Ask.backend.security.passcoding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class userRequestHandler {
     private userOperation dbOperations=new userOperation();
     private passcoding passOperations=new passcoding();
@@ -39,6 +41,13 @@ public class userRequestHandler {
     public boolean checkUserName(String userName){
         if(dbOperations.readuserFromdb(userName)==null) return true;
         return false;
+    }
+    public List<user> getUser(int start,int num){
+       List<user> users= dbOperations.getAllUsers(start,num);
+        for (user u:users) {
+            u.setStringID(u.getId().toHexString());
+        }
+     return users;
     }
 
 

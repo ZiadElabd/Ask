@@ -11,6 +11,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -95,6 +96,11 @@ public class userOperation {
         Bson queryFilter=eq("userName",userName);
         Bson update=addToSet("answeredQuestions",questionID);
         collection.updateOne(queryFilter,update);
+    }
+    public List<user> getAllUsers(int start,int num){
+         List<user> users=new ArrayList<>();
+         collection.find().skip(start).limit(num).into(users);
+         return users;
     }
 
 }

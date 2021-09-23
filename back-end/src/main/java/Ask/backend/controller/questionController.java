@@ -23,6 +23,10 @@ public class questionController {
     public ResponseEntity<List<question>> getQuestionController(@PathVariable("ID") String id ){
         return new ResponseEntity<>(handler.getUserAnsweredQuestion(id), HttpStatus.OK);
     }
+    @PostMapping("/answerQuestion/{ID}")
+    public void answerQuestion(@PathVariable("ID") String id){
+
+    }
     /*
     @GetMapping("/getHomeQuestion/{ID}")
     public ResponseEntity<List<question>> getHomeQuestionController(@PathVariable("ID") String id){

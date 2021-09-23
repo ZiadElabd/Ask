@@ -1,6 +1,7 @@
 package Ask.backend.dbOpertions;
 
 import Ask.backend.models.question;
+import Ask.backend.models.reply;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static com.mongodb.client.model.Filters.in;
+import static com.mongodb.client.model.Updates.addToSet;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
@@ -50,6 +52,11 @@ public class questionOperation {
         List<question> result=new ArrayList<>();
         collection.find(queryFilter).into(result);
         return result;
+    }
+    public void addReply(ObjectId questionID,reply newReply){
+        Bson queryFilter=in("_id",questionID);
+        Bson update=addToSet("replies",newReply);
+        collection.updateOne(queryFilter,update);
     }
 
 }

@@ -1,9 +1,12 @@
 package Ask.backend.controller;
 
+import Ask.backend.models.user;
 import Ask.backend.requestHandler.userRequestHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -47,5 +50,9 @@ public class userController {
         if (status!=null)  return new ResponseEntity<>(status, HttpStatus.OK);
         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
+    @GetMapping("/getUsers/{start}/{num}")
+        public ResponseEntity<List<user>>  getUsersController(@PathVariable("start") int start,@PathVariable("num") int num){
+         return (ResponseEntity<List<user>>) handler.getUser(start,num);
+        }
 
 }

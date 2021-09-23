@@ -5,6 +5,8 @@ import Ask.backend.models.reply;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class replyBuilder implements Ibuilder{
@@ -18,8 +20,11 @@ public class replyBuilder implements Ibuilder{
     public void buildReplyText(String text){
         this.newRely.setReplyText(text);
     }
-    public void buildTime(String date){
-        this.newRely.setTime(date);
+    public void buildTime(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        this.newRely.setTime(now.toString());
+
     }
     public void buildLikes(){
         this.newRely.setLikes(new ArrayList<>());
@@ -33,7 +38,7 @@ public class replyBuilder implements Ibuilder{
             buildnodeQuestionID( obj.getString("nodeQuestionID"));
             buildReplyText(obj.getString("text"));
             builduserAnsweredID(obj.getString("userAnsweredID"));
-            buildTime(obj.getString("time"));
+            buildTime();
             buildLikes();
         } catch (JSONException e) {
           System.out.println("reply creation error");

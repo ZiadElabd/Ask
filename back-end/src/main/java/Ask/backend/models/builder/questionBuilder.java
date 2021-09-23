@@ -25,7 +25,6 @@ public class questionBuilder implements Ibuilder{
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         this.newQuestion.setTime(now.toString());
-
     }
     public void buildanoymos(boolean state){
         this.newQuestion.setAnoymos(state);

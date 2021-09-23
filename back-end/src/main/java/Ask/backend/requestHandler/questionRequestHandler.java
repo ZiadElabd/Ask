@@ -4,8 +4,11 @@ import Ask.backend.dbOpertions.questionOperation;
 import Ask.backend.dbOpertions.userOperation;
 import Ask.backend.models.builder.Director;
 import Ask.backend.models.question;
+import Ask.backend.models.reply;
 import Ask.backend.security.proxy;
 import org.bson.types.ObjectId;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -39,7 +42,22 @@ public class questionRequestHandler {
 
     public List<question>  getUserAnsweredQuestion(String id){
         ObjectId realID=trackingSystem.checkAcess(id);
-        return dbQuestionOperation.getAnsweredQuestions(realID);
+        List<question> result= dbQuestionOperation.getAnsweredQuestions(realID);
+        for (question q:result) {
+            q.setStringID(q.getId().toHexString());
+        }
+        return result;
+    }
+    public boolean AnswerQuestion(String id,String dataSent){
+        ObjectId realID=trackingSystem.checkAcess(id);
+        reply newReply= (reply) director.composeModel("reply",dataSent);
+        try {
+            JSONObject obj = new JSONObject(dataSent);
+            //ObjectId idobject=obj.getJSONObject("questionID");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
 
