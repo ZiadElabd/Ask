@@ -2,6 +2,7 @@ package Ask.backend.models;
 
 import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 
 import java.io.UnsupportedEncodingException;
@@ -23,6 +24,8 @@ public class user implements Imodel{
     private String lastname;
     @BsonProperty("userName")
     private String userName;
+    @BsonProperty("profileimage")
+    private Binary image;
     @BsonProperty("askedQuestions")
     private List<ObjectId> askedQuestions;
     @BsonProperty("answeredQuestions")
@@ -78,6 +81,14 @@ public class user implements Imodel{
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Binary getImage() {
+        return image;
+    }
+
+    public void setImage(Binary image) {
+        this.image = image;
     }
 
     public List<ObjectId> getAskedQuestions() {
@@ -143,6 +154,7 @@ public class user implements Imodel{
     public void setFollowMe(List<ObjectId> followMe) {
         this.followMe = followMe;
     }
+
 
     @Override
     public String toString() {

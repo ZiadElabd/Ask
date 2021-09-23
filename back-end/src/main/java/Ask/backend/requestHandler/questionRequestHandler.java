@@ -40,9 +40,19 @@ public class questionRequestHandler {
         return true;
     }
 
-    public List<question>  getUserAnsweredQuestion(String id){
+    public List<question>  getUserUnAnsweredQuestion(String id,String userName){
         ObjectId realID=trackingSystem.checkAcess(id);
-        List<question> result= dbQuestionOperation.getAnsweredQuestions(realID);
+        if (realID.equals(null)) return null;
+        List<question> result= dbQuestionOperation.getAnsweredQuestions(userName);
+        for (question q:result) {
+            q.setStringID(q.getId().toHexString());
+        }
+        return result;
+    }
+    public List<question> getUserAnsweredQuestion(String id,String userName){
+        ObjectId realID=trackingSystem.checkAcess(id);
+        if (realID.equals(null)) return null;
+        List<question> result=dbQuestionOperation.getUnAnsweredQuestions(userName);
         for (question q:result) {
             q.setStringID(q.getId().toHexString());
         }
@@ -50,15 +60,18 @@ public class questionRequestHandler {
     }
     public boolean AnswerQuestion(String id,String dataSent){
         ObjectId realID=trackingSystem.checkAcess(id);
+        ObjectId questionID;
         reply newReply= (reply) director.composeModel("reply",dataSent);
         try {
             JSONObject obj = new JSONObject(dataSent);
-            //ObjectId idobject=obj.getJSONObject("questionID");
+            questionID=new ObjectId(obj.getString("stringID"));
         } catch (JSONException e) {
-            e.printStackTrace();
+            return false;
         }
+        dbQuestionOperation.addReply(questionID,newReply);
         return true;
     }
+
 
 
 }

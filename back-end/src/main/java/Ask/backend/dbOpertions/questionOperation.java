@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
-import static com.mongodb.client.model.Filters.in;
+import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Updates.addToSet;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -46,9 +46,16 @@ public class questionOperation {
         collection.find(queryFilter).into(result);
         return result;
     }
-    public List<question> getAnsweredQuestions(ObjectId id){
-        List<ObjectId> AnsweredQuestionsID=userDBoperation.getUserAnsweredQuestions(id);
-        Bson queryFilter=in("_id",AnsweredQuestionsID);
+    public List<question> getAnsweredQuestions(String userName){
+        List<ObjectId> AnsweredQuestionsID=userDBoperation.getUserAnsweredQuestions(userName);
+        Bson queryFilter=and(in("_id",AnsweredQuestionsID),eq("answered",true));
+        List<question> result=new ArrayList<>();
+        collection.find(queryFilter).into(result);
+        return result;
+    }
+    public List<question> getUnAnsweredQuestions(String userName){
+        List<ObjectId> AnsweredQuestionsID=userDBoperation.getUserAnsweredQuestions(userName);
+        Bson queryFilter=and(in("_id",AnsweredQuestionsID),eq("answered",false));
         List<question> result=new ArrayList<>();
         collection.find(queryFilter).into(result);
         return result;

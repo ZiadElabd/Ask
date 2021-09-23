@@ -51,8 +51,20 @@ public class userController {
         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
     @GetMapping("/getUsers/{ID}/{start}/{num}")
-        public ResponseEntity<List<user>>  getUsersController(@PathVariable("ID") String id,@PathVariable("start") int start,@PathVariable("num") int num){
-         return  new ResponseEntity<>(handler.getUser(id,start,num),HttpStatus.OK);
+        public ResponseEntity<List<user>>  getUsersController(
+                @PathVariable("ID") String id,
+                @PathVariable("start") int start,
+                @PathVariable("num") int num)
+    {
+         return  new ResponseEntity<>(handler.getUsers(id,start,num),HttpStatus.OK);
+    }
+    @GetMapping("/{ID}/getProfileData/{userName}")
+    public ResponseEntity<user> getProfileController(
+            @PathVariable("ID") String id,
+            @PathVariable("userName") String userName)
+        {
+            return  new ResponseEntity<>(handler.getuserProfile(id,userName),HttpStatus.OK);
         }
+
 
 }

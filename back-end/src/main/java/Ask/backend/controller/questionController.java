@@ -19,13 +19,15 @@ public class questionController {
             @RequestBody String question){
         handler.AddQuestion(id,userName,question);
     }
-    @GetMapping("/getQuestion/{ID}")
-    public ResponseEntity<List<question>> getQuestionController(@PathVariable("ID") String id ){
-        return new ResponseEntity<>(handler.getUserAnsweredQuestion(id), HttpStatus.OK);
+    @GetMapping("/getQuestion/{ID}/{userName}")
+    public ResponseEntity<List<question>> getUnAnsweredQuestionController
+            (@PathVariable("ID") String id,
+             @PathVariable("userName") String userName ){
+        return new ResponseEntity<>(handler.getUserUnAnsweredQuestion(id,userName), HttpStatus.OK);
     }
     @PostMapping("/answerQuestion/{ID}")
-    public void answerQuestion(@PathVariable("ID") String id){
-
+    public void answerQuestion(@PathVariable("ID") String id,String reply){
+        handler.AnswerQuestion(id,reply);
     }
     /*
     @GetMapping("/getHomeQuestion/{ID}")
@@ -33,4 +35,11 @@ public class questionController {
 
 
     }*/
+    @GetMapping("/getProfileQuestion/{ID}/{userName}")
+    public ResponseEntity<List<question>> getProfileAnsweredQuestionController
+                   (@PathVariable("ID") String id,
+                    @PathVariable("userName") String userName)
+    {
+        return new ResponseEntity<>(handler.getUserAnsweredQuestion(id,userName), HttpStatus.OK);
+    }
 }

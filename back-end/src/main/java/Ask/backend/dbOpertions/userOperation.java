@@ -52,8 +52,8 @@ public class userOperation {
         }
         return result;
     }
-    public List<ObjectId> getUserAnsweredQuestions(ObjectId id){
-        Bson queryFilter = new Document("_id",id);
+    public List<ObjectId> getUserAnsweredQuestions(String userName){
+        Bson queryFilter = new Document("userName",userName);
         Bson projection = new Document("answeredQuestions",1);
         user result = (user) collection
                 .find(queryFilter)
@@ -105,6 +105,16 @@ public class userOperation {
                  .projection(projection)
                  .skip(start).limit(num).into(users);
          return users;
+    }
+    public user getuser(String userName){
+        Bson queryFilter=eq("userName",userName);
+        Bson projection=new Document("firstname",1)
+                .append("lastname",1).
+                append("userName",1).
+                append("profileimage",1);
+         return (user) collection.find(queryFilter)
+                .projection(projection)
+                .first();
     }
 
 }
