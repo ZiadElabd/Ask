@@ -3,11 +3,11 @@
 
    <div class="container">
       <div>
-      <b-navbar-brand href="#"><router-link to="/">ASKfm</router-link></b-navbar-brand>
+      <b-navbar-brand href="#"><router-link to="/home">ASKfm</router-link></b-navbar-brand>
     </div>
     <div>
       <b-nav>
-        <b-nav-item active> <router-link to="/"><font-awesome-icon icon="home" /></router-link></b-nav-item>
+        <b-nav-item active> <router-link to="/home"><font-awesome-icon icon="home" /></router-link></b-nav-item>
         <b-nav-item><router-link to="/Questions"><font-awesome-icon icon="question-circle" /></router-link></b-nav-item>
         <b-nav-item><router-link to="/profile"><b-avatar src="https://placekitten.com/300/300" size="1.5rem"></b-avatar></router-link></b-nav-item>
         <b-nav-item><router-link to="/Friends"><font-awesome-icon icon="user-friends" /></router-link></b-nav-item>

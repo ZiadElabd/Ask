@@ -17,7 +17,7 @@ Vue.use(VueRouter)
 const routes = [
   
   {
-    path: '/signin',
+    path: '/',
     name: 'SignIn',
     component: SignIn
   },
@@ -32,7 +32,7 @@ const routes = [
     component: Friends
   },
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
