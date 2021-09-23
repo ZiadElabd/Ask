@@ -30,7 +30,7 @@
         <span>{{msg.answer}}</span>
       </div>
       <div class="like">
-             <button class="btn btn-default" @click="toggleLike(msg)" ><span :class="[msg.liked==true ? 'red' : 'grey']"><font-awesome-icon icon="home" /></span>
+             <button class="btn btn-default" @click="toggleLike(msg)" ><span :class="[msg.liked==true ? 'red' : 'grey']"><i class="fa fa-heart" aria-hidden="true"></i></span>
 {{ msg.number_of_likes }}</button>
       </div>
     </div>

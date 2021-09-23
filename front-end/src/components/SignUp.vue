@@ -3,7 +3,7 @@
         <div class=" signUp" >
         <form>
             <h3>Sign Up</h3>
-            <span>Already have an account? </span>  <router-link to="/signin">Log in</router-link>
+            <span>Already have an account? </span>  <router-link to="/">Log in</router-link>
             <div class="form-group">
                 <label>First Name</label>
                 <input type="email"  v-model="user.firstName" class="form-control form-control-lg" />
