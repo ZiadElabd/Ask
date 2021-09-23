@@ -17,7 +17,7 @@
       </div>
 
       <div class="quetion">
-        <h4>{{question.questionText}}  id = {{questionID.str}}</h4>
+        <h4>{{question.questionText}}  id = {{questionID.valueOf()}}</h4>
       </div>
 
       <form  @submit.prevent="submitAnswer" >
@@ -61,12 +61,13 @@ export default {
         return this.$store.state.questions;
       },
       question(){
-        for(var i=0; i<this.questions.length; i++) {
+        return this.questions.find(x => x.id == this.questionID);
+        /*for(var i=0; i<this.questions.length; i++) {
           if(this.questions[i].id == this.questionID) {
             return this.questions[i];
           }
         }
-        return null;
+        return null;*/
       },
       userID(){
         return this.$store.state.userID;
@@ -79,12 +80,15 @@ export default {
       fetch("http://localhost:5050/answerquestion/" + this.userID , {
           method: "post",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(this.user),
-      }).then((response) => {
+          body: JSON.stringify({
+            id : this.questionID,
+            answer: this.answerContent
+          }),
+      })/*.then((response) => {
           return response.text();
       }).then((data) => {
           console.log("signup =  " +  data);
-      });
+      });*/
     }
   },
 }
