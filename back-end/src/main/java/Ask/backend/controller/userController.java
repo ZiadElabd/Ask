@@ -58,7 +58,7 @@ public class userController {
     {
          return  new ResponseEntity<>(handler.getUsers(id,start,num),HttpStatus.OK);
     }
-    @GetMapping("/{ID}/getProfileData/{userName}")
+    @GetMapping("/getProfileData/{ID}/{userName}")
     public ResponseEntity<user> getProfileController(
             @PathVariable("ID") String id,
             @PathVariable("userName") String userName)
