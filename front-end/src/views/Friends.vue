@@ -2,108 +2,22 @@
   <div class="friends">
     <Navbar />
     <div class="users container">
-      <input type="search" />
-      <div class="user-content">
-              <div class="user-img">
+      <input type="search" v-model="searchValue"  @keyup="filter" placeholder="Search using username" />
+      
+     
+    
+     
+      <div class="user-content" v-for="user in users1" :key="user.username" ref="user.username">
+              <div class="user-img"  @click="select(user)">
                 <span>
                   <b-avatar src="" size="3rem"></b-avatar>
                 </span>
-                <span>Omar Rehan</span>
+                <span>{{user.firstName + ' ' + user.lastName}}<span class="username">{{user.username}}</span></span> 
+                
               </div>
               <div class="follow">
-              <b-button variant="outline-danger" v-if="follow == true" @click="toggleFollow">Follow</b-button>
-              <b-button variant="danger" v-if="follow==false" @click="toggleFollow" @mouseover="mouseenter" @mouseleave="mouseleave">{{hover}}</b-button>
-            </div>
-            
-      </div>
-      <div class="user-content">
-              <div class="user-img">
-                <span>
-                  <b-avatar src="" size="3rem"></b-avatar>
-                </span>
-                <span>Omar Rehan</span>
-              </div>
-              <div class="follow">
-              <b-button variant="outline-danger" v-if="follow == true" @click="toggleFollow">Follow</b-button>
-              <b-button variant="danger" v-if="follow==false" @click="toggleFollow" @mouseover="mouseenter" @mouseleave="mouseleave">{{hover}}</b-button>
-            </div>
-            
-      </div>
-      <div class="user-content">
-              <div class="user-img">
-                <span>
-                  <b-avatar src="" size="3rem"></b-avatar>
-                </span>
-                <span>Omar Rehan</span>
-              </div>
-              <div class="follow">
-              <b-button variant="outline-danger" v-if="follow == true" @click="toggleFollow">Follow</b-button>
-              <b-button variant="danger" v-if="follow==false" @click="toggleFollow" @mouseover="mouseenter" @mouseleave="mouseleave">{{hover}}</b-button>
-            </div>
-            
-      </div>
-      <div class="user-content">
-              <div class="user-img">
-                <span>
-                  <b-avatar src="" size="3rem"></b-avatar>
-                </span>
-                <span>Omar Rehan</span>
-              </div>
-              <div class="follow">
-              <b-button variant="outline-danger" v-if="follow == true" @click="toggleFollow">Follow</b-button>
-              <b-button variant="danger" v-if="follow==false" @click="toggleFollow" @mouseover="mouseenter" @mouseleave="mouseleave">{{hover}}</b-button>
-            </div>
-            
-      </div>
-      <div class="user-content">
-              <div class="user-img">
-                <span>
-                  <b-avatar src="" size="3rem"></b-avatar>
-                </span>
-                <span>Omar Rehan</span>
-              </div>
-              <div class="follow">
-              <b-button variant="outline-danger" v-if="follow == true" @click="toggleFollow">Follow</b-button>
-              <b-button variant="danger" v-if="follow==false" @click="toggleFollow" @mouseover="mouseenter" @mouseleave="mouseleave">{{hover}}</b-button>
-            </div>
-            
-      </div>
-      <div class="user-content">
-              <div class="user-img">
-                <span>
-                  <b-avatar src="" size="3rem"></b-avatar>
-                </span>
-                <span>Omar Rehan</span>
-              </div>
-              <div class="follow">
-              <b-button variant="outline-danger" v-if="follow == true" @click="toggleFollow">Follow</b-button>
-              <b-button variant="danger" v-if="follow==false" @click="toggleFollow" @mouseover="mouseenter" @mouseleave="mouseleave">{{hover}}</b-button>
-            </div>
-            
-      </div>
-      <div class="user-content">
-              <div class="user-img">
-                <span>
-                  <b-avatar src="" size="3rem"></b-avatar>
-                </span>
-                <span>Omar Rehan</span>
-              </div>
-              <div class="follow">
-              <b-button variant="outline-danger" v-if="follow == true" @click="toggleFollow">Follow</b-button>
-              <b-button variant="danger" v-if="follow==false" @click="toggleFollow" @mouseover="mouseenter" @mouseleave="mouseleave">{{hover}}</b-button>
-            </div>
-            
-      </div>
-      <div class="user-content">
-              <div class="user-img">
-                <span>
-                  <b-avatar src="" size="3rem"></b-avatar>
-                </span>
-                <span>Omar Rehan</span>
-              </div>
-              <div class="follow">
-              <b-button variant="outline-danger" v-if="follow == true" @click="toggleFollow">Follow</b-button>
-              <b-button variant="danger" v-if="follow==false" @click="toggleFollow" @mouseover="mouseenter" @mouseleave="mouseleave">{{hover}}</b-button>
+              <b-button variant="outline-danger" v-if="followers.includes(user.username)== false" @click="afterfollow(user)">Follow</b-button>
+              <b-button variant="danger" v-if="followers.includes(user.username)== true" @click="afterunfollow(user)" >Following</b-button>
             </div>
             
       </div>
@@ -120,22 +34,76 @@ export default {
    data(){
      return{
        follow: false ,
-       hover: "Following",
+       searchValue: '',
+       followers:['omarrehan0020' , 'omarrehan0010'],
+       users:[
+         {
+           username:'omarrehan0010',
+           firstName: 'omar',
+           lastName: 'rehan',
+         },
+         {
+           username:'omarrehan0020',
+           firstName: 'omar',
+           lastName: 'rehan',
+         },
+         {
+           username:'omarrehan0030',
+           firstName: 'omar',
+           lastName: 'rehan',
+         },
+         {
+           username:'omarrehan0040',
+           firstName: 'omar',
+           lastName: 'rehan',
+         },
+       ]
      }
    },
    methods: {
-        toggleFollow: function() { 
-            this.follow = ! this.follow;
+        afterfollow: function(user) { 
+            this.followers.push(user.username) ;
+            console.log(this.followers);
         },
-        mouseenter: function(){
-          this.hover = "Unfollow" ;
+        afterunfollow:function(user) { 
+            this.followers.splice(this.followers.indexOf(user.username),1);
+            console.log(this.followers);
         },
-        mouseleave: function(){
-          this.hover = "Following" ;
+        select: function(user){
+          console.log( user.username);
         },
+       filter: function(users) {
+
+            if (this.searchValue === '') {
+                return users;
+            }
+            return users.filter(function(user) {
+              return user.username.indexOf(this.searchValue) >= 0;
+            })
+       }
+    
+        
     },
   components: {
     Navbar
+  },
+  computed:{
+    /*
+    users(){
+      return this.$store.state.users;
+    }
+    */
+   
+    users1() {
+      return this.users.filter(user => {
+        return user.username.toLowerCase().includes(this.searchValue.toLowerCase())
+      })
+    }
+  
+  },
+  created(){
+    console.log('userID in questions page' + this.$store.state.userID);
+    this.$store.dispatch('getFriends');
   }
 }
 </script>
@@ -171,6 +139,18 @@ export default {
   justify-content: space-between;
   padding: 10px 0 ;
   border-bottom: 1px solid #DDD;
+}
+.user-img
+{
+  cursor: pointer;
+}
+.username
+{
+  display: block;
+  font-size: 10px;
+  color: rgb(165, 156, 156);
+ margin-left: 48px;
+  margin-top: -20px;
 }
 
 </style>

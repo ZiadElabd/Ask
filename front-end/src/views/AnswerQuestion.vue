@@ -17,7 +17,7 @@
       </div>
 
       <div class="quetion">
-        <h4>{{question.questionText}}  id = {{questionID.valueOf()}}</h4>
+        <h4>{{question.questionText}}  id = {{questionID}}</h4>
       </div>
 
       <form  @submit.prevent="submitAnswer" >
@@ -61,7 +61,7 @@ export default {
         return this.$store.state.questions;
       },
       question(){
-        return this.questions.find(x => x.id == this.questionID);
+        return this.questions.find(x => x.stringID == this.questionID);
         /*for(var i=0; i<this.questions.length; i++) {
           if(this.questions[i].id == this.questionID) {
             return this.questions[i];

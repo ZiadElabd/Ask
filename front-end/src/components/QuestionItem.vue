@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div class="question"  @click="answerQuestion(question.id)" >
+    <div class="question"  @click="answerQuestion(question.stringID)" >
       <h4>{{question.questionText}}</h4>
     </div>
 
