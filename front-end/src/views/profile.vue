@@ -21,10 +21,10 @@
                           </div>
                           <div class="name_time">
                               <div class="time">
-                                  <span>@omarrehan0020{{this.userName}}</span>
+                                  <span>{{this.userName}}</span>
                               </div>
                               <h6 class="myname">
-                              <span> Omar Rehan</span>
+                              <span>{{user.firstName + ' ' + user.lastname}}</span>
                               </h6>
                           </div>
                         </div>

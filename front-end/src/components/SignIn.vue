@@ -14,8 +14,8 @@
             <div class="form-group">
             </div>
             <div class="form-group ">
-          <button class="btn btn-primary btn-lg btn-full" @click.prevent="login">
-            Search
+          <button class="btn btn-danger btn-lg btn-full danger" @click.prevent="login">
+            Log in 
           </button>
         </div>
 
@@ -96,6 +96,10 @@
 {
     width: 30%;
     padding-top: 30px;
+}
+.form-group
+{
+    margin-bottom: 10px;
 }
 
 </style>

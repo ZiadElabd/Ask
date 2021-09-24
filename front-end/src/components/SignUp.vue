@@ -6,12 +6,12 @@
             <span>Already have an account? </span>  <router-link to="/">Log in</router-link>
             <div class="form-group">
                 <label>First Name</label>
-                <input type="email"  v-model="user.firstName" class="form-control form-control-lg" />
+                <input type="text" placeholder="Enter your first name"  v-model="user.firstName" class="form-control form-control-lg" />
             </div>
 
             <div class="form-group">
                 <label>Last Name</label>
-                <input type="email"  v-model="user.lastName" class="form-control form-control-lg" />
+                <input type="text" placeholder="Enter your last name"  v-model="user.lastName" class="form-control form-control-lg" />
             </div>
 
             <div class="form-group">
@@ -35,12 +35,12 @@
             </div>
 
             <div class="form-group">
-                <label>Choose Date</label>
+                <label>BirthDate</label>
                 <el-date-picker v-model="user.birthDate" type="date" placeholder="Pick a date"> </el-date-picker>
             </div>
 
             <div class="form-group ">
-                <button class="btn btn-primary btn-lg btn-full" type="submit" @click.prevent="create_new_account"> Create new account </button>
+                <button class="btn btn-danger btn-lg btn-full" type="submit" @click.prevent="create_new_account"> Create new account </button>
             </div>
         </form>
             
@@ -148,7 +148,7 @@
     .form-group{
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: left;
         align-items: center;
         margin-top: 15px;
         font-size: 10px;
@@ -159,7 +159,6 @@
     .form-group input{
         font-size: 13px;
         padding: 10px;
-        border-radius: 10px;
     }
 
     .form-control:focus,
