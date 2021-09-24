@@ -12,7 +12,7 @@ import java.util.List;
 @CrossOrigin
 public class questionController {
     questionRequestHandler handler=new questionRequestHandler();
-    @PostMapping("/{ID}/{userName}/AddQuestion")
+    @PostMapping("/AddQuestion{ID}/{userName}")
     public void AddQuestionController(
             @PathVariable("ID") String id,
             @PathVariable("userName") String userName,
