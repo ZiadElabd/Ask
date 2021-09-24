@@ -12,7 +12,8 @@
                 <span>
                   <b-avatar src="" size="3rem"></b-avatar>
                 </span>
-                <span>{{user.firstName + ' ' + user.lastName}}</span>
+                <span>{{user.firstName + ' ' + user.lastName}}<span class="username">{{user.username}}</span></span> 
+                
               </div>
               <div class="follow">
               <b-button variant="outline-danger" v-if="followers.includes(user.username)== false" @click="afterfollow(user)">Follow</b-button>
@@ -142,6 +143,14 @@ export default {
 .user-img
 {
   cursor: pointer;
+}
+.username
+{
+  display: block;
+  font-size: 10px;
+  color: rgb(165, 156, 156);
+ margin-left: 48px;
+  margin-top: -20px;
 }
 
 </style>
