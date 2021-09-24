@@ -11,11 +11,8 @@ import java.util.ArrayList;
 
 public class replyBuilder implements Ibuilder{
    private reply newRely;
-    public void buildnodeQuestionID(String id){
-        this.newRely.setNodeQuestionID(id);
-    }
-    public void builduserAnsweredID(String id){
-        this.newRely.setUserAnsweredID(id);
+    public void builduserAnsweredID(String userName){
+        this.newRely.setUserAnsweredID(userName);
     }
     public void buildReplyText(String text){
         this.newRely.setReplyText(text);
@@ -35,9 +32,8 @@ public class replyBuilder implements Ibuilder{
         newRely=new reply();
         try {
             JSONObject obj = new JSONObject(sentData);
-            buildnodeQuestionID( obj.getString("nodeQuestionID"));
             buildReplyText(obj.getString("text"));
-            builduserAnsweredID(obj.getString("userAnsweredID"));
+            builduserAnsweredID(obj.getString("userName"));
             buildTime();
             buildLikes();
         } catch (JSONException e) {

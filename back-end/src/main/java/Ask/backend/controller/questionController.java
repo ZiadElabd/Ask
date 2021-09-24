@@ -26,7 +26,7 @@ public class questionController {
         return new ResponseEntity<>(handler.getUserUnAnsweredQuestion(id,userName), HttpStatus.OK);
     }
     @PostMapping("/answerQuestion/{ID}")
-    public void answerQuestion(@PathVariable("ID") String id,String reply){
+    public void answerQuestion(@PathVariable("ID") String id,@RequestBody String reply){
         handler.AnswerQuestion(id,reply);
     }
     /*

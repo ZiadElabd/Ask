@@ -43,10 +43,10 @@ public class userRequestHandler {
         if(dbOperations.readuserFromdb(userName)==null) return true;
         return false;
     }
-    public List<user> getUsers(String id,int start,int num){
+    public List<user> getUsers(String id){
         ObjectId realID=trackingSystem.checkUserExist(id);
         if (realID.equals(null)) return null;
-       List<user> users= dbOperations.getAllUsers(start,num);
+       List<user> users= dbOperations.getAllUsers();
         for (user u:users) {
             u.setStringID(u.getId().toHexString());
         }
@@ -55,7 +55,9 @@ public class userRequestHandler {
     public user  getuserProfile(String id,String userName){
         ObjectId realID=trackingSystem.checkUserExist(id);
         if (realID.equals(null))return null;
-        return dbOperations.getuser(userName);
+        user result=dbOperations.getuser(userName);
+        result.setStringID(result.getId().toHexString());
+        return result;
 
     }
 

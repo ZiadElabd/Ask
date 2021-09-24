@@ -64,7 +64,7 @@ public class questionRequestHandler {
         reply newReply= (reply) director.composeModel("reply",dataSent);
         try {
             JSONObject obj = new JSONObject(dataSent);
-            questionID=new ObjectId(obj.getString("stringID"));
+            questionID=new ObjectId(obj.getString("QuestionStringID"));
         } catch (JSONException e) {
             return false;
         }

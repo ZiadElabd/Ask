@@ -98,12 +98,12 @@ public class userOperation {
         Bson update=addToSet("answeredQuestions",questionID);
         collection.updateOne(queryFilter,update);
     }
-    public List<user> getAllUsers(int start,int num){
+    public List<user> getAllUsers(){
          List<user> users=new ArrayList<>();
          Bson projection=new Document("firstname",1).append("lastname",1).append("userName",1);
          collection.find()
                  .projection(projection)
-                 .skip(start).limit(num).into(users);
+                 .limit(50).into(users);
          return users;
     }
     public user getuser(String userName){

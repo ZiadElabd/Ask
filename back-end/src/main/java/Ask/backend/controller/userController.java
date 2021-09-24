@@ -50,13 +50,10 @@ public class userController {
         if (status!=null)  return new ResponseEntity<>(status, HttpStatus.OK);
         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
-    @GetMapping("/getUsers/{ID}/{start}/{num}")
-        public ResponseEntity<List<user>>  getUsersController(
-                @PathVariable("ID") String id,
-                @PathVariable("start") int start,
-                @PathVariable("num") int num)
+    @GetMapping("/getUsers/{ID}")
+        public ResponseEntity<List<user>>  getUsersController(@PathVariable("ID") String id)
     {
-         return  new ResponseEntity<>(handler.getUsers(id,start,num),HttpStatus.OK);
+         return  new ResponseEntity<>(handler.getUsers(id),HttpStatus.OK);
     }
     @GetMapping("/getProfileData/{ID}/{userName}")
     public ResponseEntity<user> getProfileController(
