@@ -35,9 +35,9 @@ public class user implements Imodel{
     @BsonProperty("gender")
     private Gender gender;
     @BsonProperty("mefollow")
-    private List<ObjectId> meFollow;
+    private List<String> meFollow;
     @BsonProperty ("followMe")
-    private List<ObjectId> followMe;
+    private List<String> followMe;
     public user() {
     }
 
@@ -139,19 +139,19 @@ public class user implements Imodel{
         this.lastname = lastname;
     }
 
-    public List<ObjectId> getMeFollow() {
+    public List<String> getMeFollow() {
         return meFollow;
     }
 
-    public void setMeFollow(List<ObjectId> meFollow) {
+    public void setMeFollow(List<String> meFollow) {
         this.meFollow = meFollow;
     }
 
-    public List<ObjectId> getFollowMe() {
+    public List<String> getFollowMe() {
         return followMe;
     }
 
-    public void setFollowMe(List<ObjectId> followMe) {
+    public void setFollowMe(List<String> followMe) {
         this.followMe = followMe;
     }
 

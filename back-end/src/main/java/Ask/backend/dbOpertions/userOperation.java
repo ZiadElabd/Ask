@@ -29,6 +29,7 @@ public class userOperation {
     CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
     MongoDatabase database = users.withCodecRegistry(pojoCodecRegistry);
     MongoCollection collection = database.getCollection("user", user.class);
+
     public boolean writeUserTOdb(user obj) {
         try {
             collection.insertOne(obj);
@@ -72,7 +73,7 @@ public class userOperation {
                 ;
         return result.getAskedQuestions();
     }
-    public List<ObjectId> getuserMeFollowlist(ObjectId id){
+    public List<String> getuserMeFollowlist(ObjectId id){
         Bson queryFilter = new Document("_id",id);
         Bson projection = new Document("mefollow",1);
         user result = (user) collection
@@ -83,11 +84,7 @@ public class userOperation {
         return result.getMeFollow();
     }
 
-    public boolean deleteUser(ObjectId id){
-        Bson queryFilter = new Document("_id",id);
-        if (collection.findOneAndDelete(queryFilter)!=null) return true;
-        return false;
-    }
+
     public void updateAskedQuestion(ObjectId id,ObjectId questionID){
         Bson queryFilter=eq("_id",id);
         Bson update=addToSet("askedQuestions",questionID);
@@ -96,6 +93,11 @@ public class userOperation {
     public void updateAnsweredQuestion(String userName,ObjectId questionID){
         Bson queryFilter=eq("userName",userName);
         Bson update=addToSet("answeredQuestions",questionID);
+        collection.updateOne(queryFilter,update);
+    }
+    public  void updatemeFollowList(ObjectId userID,String toFollow){
+        Bson queryFilter=eq("_id",userID);
+        Bson update=addToSet("askedQuestions",toFollow);
         collection.updateOne(queryFilter,update);
     }
     public List<user> getAllUsers(){
@@ -115,6 +117,11 @@ public class userOperation {
          return (user) collection.find(queryFilter)
                 .projection(projection)
                 .first();
+    }
+    public boolean deleteUser(ObjectId id){
+        Bson queryFilter = new Document("_id",id);
+        if (collection.findOneAndDelete(queryFilter)!=null) return true;
+        return false;
     }
 
 }
