@@ -12,6 +12,13 @@ import java.util.List;
 @CrossOrigin
 public class questionController {
     questionRequestHandler handler=new questionRequestHandler();
+    @GetMapping("/getHomeQuestion/{ID}/{userName}")
+    public ResponseEntity<List<question>> getHomeQuestionController
+            (@PathVariable("ID") String id,
+             @PathVariable("userName") String userName)
+    {
+        return new ResponseEntity<>(handler.getFollwersQuestions(id,userName), HttpStatus.OK);
+    }
     @PostMapping("/AddQuestion{ID}/{userName}")
     public void AddQuestionController(
             @PathVariable("ID") String id,
@@ -29,12 +36,8 @@ public class questionController {
     public void answerQuestion(@PathVariable("ID") String id,@RequestBody String reply){
         handler.AnswerQuestion(id,reply);
     }
-    /*
-    @GetMapping("/getHomeQuestion/{ID}")
-    public ResponseEntity<List<question>> getHomeQuestionController(@PathVariable("ID") String id){
 
 
-    }*/
     @GetMapping("/getProfileQuestion/{ID}/{userName}")
     public ResponseEntity<List<question>> getProfileAnsweredQuestionController
                    (@PathVariable("ID") String id,

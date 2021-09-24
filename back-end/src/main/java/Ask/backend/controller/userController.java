@@ -29,21 +29,12 @@ public class userController {
         return false;
     }
 
-    /**
-     *
-     * @return
-     */
+
     @GetMapping  ("/checkUsername/{userName}")
         public ResponseEntity<Boolean> checkUsernameController( @PathVariable("userName") String temp){
              if(handler.checkUserName(temp)) return new ResponseEntity<>(true, HttpStatus.ACCEPTED);
              return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
-
-    /**
-     *
-     * @param dataSent
-     * @return
-     */
     @PostMapping("/signin")
     public ResponseEntity<String> signinController( @RequestBody String dataSent){
         String status=handler.signIn(dataSent);
@@ -68,6 +59,13 @@ public class userController {
             @PathVariable("userName") String userName)
     {
         handler.AddFollower(id,userName);
+    }
+    @GetMapping("getFollowers/{ID}/{userName}")
+    public ResponseEntity<List<user>> getFollowersController(
+            @PathVariable("ID") String id,
+            @PathVariable("userName") String userName)
+    {
+       return   new ResponseEntity<>(handler.getFollowers(id,userName),HttpStatus.OK);
     }
 
 

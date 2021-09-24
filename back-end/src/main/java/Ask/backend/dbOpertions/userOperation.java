@@ -17,6 +17,7 @@ import java.util.NoSuchElementException;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.in;
 import static com.mongodb.client.model.Updates.addToSet;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -73,8 +74,8 @@ public class userOperation {
                 ;
         return result.getAskedQuestions();
     }
-    public List<String> getuserMeFollowlist(ObjectId id){
-        Bson queryFilter = new Document("_id",id);
+    public List<String> getMeFollowlist(String userName){
+        Bson queryFilter = new Document("userName",userName);
         Bson projection = new Document("mefollow",1);
         user result = (user) collection
                 .find(queryFilter)
@@ -83,7 +84,16 @@ public class userOperation {
                 ;
         return result.getMeFollow();
     }
-
+    public List<user> getfollowersUsers(List<String> followersUserName){
+        List<user> result=new ArrayList<>();
+        Bson queryFilter = in("userName",followersUserName);
+        Bson projection=new Document("firstname",1)
+                .append("lastname",1).
+                append("userName",1).
+                append("profileimage",1);
+        collection.find(queryFilter).projection(projection).into(result);
+        return result;
+    }
 
     public void updateAskedQuestion(ObjectId id,ObjectId questionID){
         Bson queryFilter=eq("_id",id);
@@ -97,7 +107,7 @@ public class userOperation {
     }
     public  void updatemeFollowList(ObjectId userID,String toFollow){
         Bson queryFilter=eq("_id",userID);
-        Bson update=addToSet("askedQuestions",toFollow);
+        Bson update=addToSet("mefollow",toFollow);
         collection.updateOne(queryFilter,update);
     }
     public List<user> getAllUsers(){

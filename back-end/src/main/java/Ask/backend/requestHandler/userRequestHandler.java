@@ -66,6 +66,16 @@ public class userRequestHandler {
         dbOperations.updatemeFollowList(realID,userName);
        return true;
     }
+    public boolean removeFollower(String id,String userName){
+     return true;
+    }
+    public List<user> getFollowers(String id,String userName){
+        ObjectId realID=trackingSystem.checkUserExist(id);
+        if (realID.equals(null))return null;
+        List<String> mefollowList=dbOperations.getMeFollowlist(userName);
+         return dbOperations.getfollowersUsers(mefollowList);
+    }
+
 
 
 

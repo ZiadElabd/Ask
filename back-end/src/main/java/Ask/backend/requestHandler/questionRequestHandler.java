@@ -10,6 +10,7 @@ import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class questionRequestHandler {
@@ -60,6 +61,7 @@ public class questionRequestHandler {
     }
     public boolean AnswerQuestion(String id,String dataSent){
         ObjectId realID=trackingSystem.checkAcess(id);
+        if (realID.equals(null)) return false;
         ObjectId questionID;
         reply newReply= (reply) director.composeModel("reply",dataSent);
         try {
@@ -71,7 +73,20 @@ public class questionRequestHandler {
         dbQuestionOperation.addReply(questionID,newReply);
         return true;
     }
+    public List<question> getFollwersQuestions(String id ,String userName){
+        ObjectId realID=trackingSystem.checkAcess(id);
+        if (realID.equals(null)) return null;
+        List<String> mefollowList=dbUserOperation.getMeFollowlist(userName);
+        List<question> questions=new ArrayList<>();
+        for (String user:mefollowList) {
+            questions.addAll(dbQuestionOperation.getAnsweredQuestions(user));
+        }
 
+        for (question q:questions) {
+            q.setStringID(q.getId().toHexString());
+        }
+        return questions;
+    }
 
 
 }
