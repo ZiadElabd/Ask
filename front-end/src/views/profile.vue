@@ -36,7 +36,7 @@
                   <span>Ask yourself</span>
               </div>
               <div class="question_form">  
-                    <textarea class="form-control" aria-label="With textarea" placeholder="What,When,Why..Ask" rows="1" ></textarea>
+                    <textarea class="form-control" v-model="questionContent" aria-label="With textarea" placeholder="What,When,Why..Ask" rows="1" ></textarea>
                 </div>
               <div class="question-buttons">
                   <div class="content">
@@ -45,8 +45,8 @@
                             <span class="slider round"></span>
                         </label>
                         <label for="any">Ask anonymously {{checked}}</label>
-                    </div>
-                    <span class="send">Send</span>
+                  </div>
+                  <span class="send" @click="sendQuestion">Send</span>
               </div>
               </div>  
      <div v-for="msg in messages" class="home_item" :key="msg.id">
@@ -90,6 +90,7 @@ export default {
      liked: false,
      likesCount: 12,
      checked : true ,
+     questionContent:'',
      /*messages: [
        {
          question : "What is your name",
@@ -113,10 +114,32 @@ export default {
         msg.liked = ! msg.liked;
         msg.liked ? msg.number_of_likes++ : msg.number_of_likes--;
     },
+    sendQuestion(){
+      if(this.questionCharacterCount == 0){
+        alert("question is empty");
+        return;
+      }
+      console.log("ggggggg");
+      fetch("http://localhost:5050/AddQuestion/" + this.session_userID + "/" + this.userName, {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            askedUser : this.session_userName,
+            anoymos : this.checked,
+            text: this.questionContent,
+          }),
+      })
+    }
 
   },
   computed:{
-    userName(){
+    session_userID(){
+        return this.$store.state.userID;
+    },
+    session_userName(){
+        return this.$store.state.userName;
+    },
+    userName(){ // for this profile
       console.log("in profile page => " + this.$route.params.userName)
       return this.$route.params.userName;
     },
@@ -125,6 +148,9 @@ export default {
     },
     messages(){
       return this.$store.state.profileQuestions;
+    },
+    questionCharacterCount(){
+        return this.questionContent.length;
     }
   },
   created(){
