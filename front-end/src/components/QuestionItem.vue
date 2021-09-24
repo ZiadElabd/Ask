@@ -1,13 +1,13 @@
 <template>
   
     <div class= "question-item" >
-    <div class="name">
+    <div class="name" @click="select">
         <div class="name_photo">
           <b-avatar src="https://placekitten.com/300/300"></b-avatar>
         </div>
         <div class="name_time">
           <h6 class="myname">
-              <span> Nour ahmed</span>
+              <span> Nour ahmed </span>
           </h6>
           <div class="time">
               <span>10 days ago</span>
@@ -37,23 +37,12 @@ export default {
       }
   },
   methods: {
-    answerQuestion(id){
+    answerQuestion(id){  // remove this emit
       this.$emit('answer' , id);
     },
-    async getQuestions(){
-        try {
-          const response = await fetch( "http://localhost:5050/signin/" , {
-              method: "post" , 
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(this.form)
-          }).then(this.checkState)
-          .then(this.parseJSON)
-          console.log('ziad');
-          console.log(response);
-      } catch (error) {
-          alert('error');
-      } 
-    },
+    select(){ // move to the user profile
+      console.log("userName of this question => " + this.question.userName);
+    }
   }
 }
 </script>

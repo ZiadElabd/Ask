@@ -1,5 +1,6 @@
 <template>
  <div class="questions">
+   <!--<Navbar/>-->
     <div class="container" >
     <div class= "question-answer">
       <div class="name">
@@ -41,7 +42,13 @@
 </template>
 
 <script>
+
+//import Navbar from '../components/nbar.vue'; 
+
 export default {
+  /*components: {
+    Navbar
+  },*/
   name: 'AnswerQuestion',
   data(){
       return{
@@ -49,9 +56,6 @@ export default {
       }
   },
   computed: {
-      answerCharacterCount(){
-        return this.answerContent.length;
-      },
       questionID(){
         console.log('ziad');
         console.log(this.$route.params.questionID);
@@ -62,12 +66,6 @@ export default {
       },
       question(){
         return this.questions.find(x => x.stringID == this.questionID);
-        /*for(var i=0; i<this.questions.length; i++) {
-          if(this.questions[i].id == this.questionID) {
-            return this.questions[i];
-          }
-        }
-        return null;*/
       },
       userID(){
         return this.$store.state.userID;
@@ -75,20 +73,16 @@ export default {
   },
   methods: {
     submitAnswer(){
-      //this.$emit('answer',this.answerContent)
-      // return to the previous page
-      fetch("http://localhost:5050/answerquestion/" + this.userID , {
+      fetch("http://localhost:5050/answerQuestion/" + this.userID , {
           method: "post",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            id : this.questionID,
-            answer: this.answerContent
+            QuestionStringID : this.questionID,
+            text : this.answerContent,
+            userName: this.$store.state.userName
           }),
-      })/*.then((response) => {
-          return response.text();
-      }).then((data) => {
-          console.log("signup =  " +  data);
-      });*/
+      })
+      this.$router.push({ name: "Questions" });
     }
   },
 }

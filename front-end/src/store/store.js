@@ -13,7 +13,8 @@ export const store = new Vuex.Store({
             { id: 2 , conntent: "osama is my brother" }
         ],
         users:[],
-        profile:{},
+        profileData:{},
+        profileQuestions:{},
     },
     getters: {
         
@@ -36,12 +37,16 @@ export const store = new Vuex.Store({
             state.questions = questions;
         },
         saveUsers:(state , users) =>{
-            console.log("questions = " + users);
+            console.log("users = " + users);
             state.users = users;
         },
-        saveProfile:(state , profile) =>{
-            console.log("questions = " + profile);
-            state.profile = profile;
+        saveProfileData:(state , profileData) =>{
+            console.log("profileData = " + profileData);
+            state.profileData = profileData;
+        },
+        saveProfileQuestions:(state , profileQuestions) =>{
+            console.log("profileQuestions = " + profileQuestions);
+            state.profileQuestions = profileQuestions;
         },
     },
     actions: {
@@ -49,7 +54,7 @@ export const store = new Vuex.Store({
             //try {
                 console.log('in store ' + store.state.userID);
                 let response = [];
-                response = await fetch( "http://localhost:5050/getQuestion/" + store.state.userID , {
+                response = await fetch( "http://localhost:5050/getQuestion/" + store.state.userID  + "/" + store.state.userName, {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
                 }).then((res) => {
@@ -65,7 +70,27 @@ export const store = new Vuex.Store({
                 alert('error');
             }*/
         },
-        getFriends: async context =>{
+        getUsers: async context =>{
+            //try {
+                console.log('in store ' + store.state.userID);
+                let response = [];
+                response = await fetch( "http://localhost:5050/getUsers/" + store.state.userID , {
+                    method: "get", 
+                    headers: { "Content-Type": "application/json" },
+                }).then((res) => {
+                    return res.json();
+                }).then((data) => {
+                    console.log(data);
+                    return data;
+                })
+                console.log("bbbbbbbbb")
+                console.log("questions response = " + response);
+                context.commit('saveUsers', response);
+            /*} catch (error) {
+                alert('error');
+            }*/
+        },
+        getFollowers: async context =>{  // not done yet
             //try {
                 console.log('in store ' + store.state.userID);
                 let response = [];
@@ -85,7 +110,7 @@ export const store = new Vuex.Store({
                 alert('error');
             }*/
         },
-        loadProfile: async (context,_name) => {
+        loadProfileData: async (context,_name) => { //not done yet
             //try {
                 console.log('in store ' + store.state.userID);
                 let response = [];
@@ -100,7 +125,27 @@ export const store = new Vuex.Store({
                 })
                 console.log("bbbbbbbbb")
                 console.log("questions response = " + response);
-                context.commit('saveProfile', response);
+                context.commit('saveProfileData', response);
+            /*} catch (error) {
+                alert('error');
+            }*/
+        },
+        loadProfileQuestions: async (context,_name) => { //not done yet
+            //try {
+                console.log('in store ' + store.state.userID);
+                let response = [];
+                response = await fetch( "http://localhost:5050/getProfileQuestion/" + store.state.userID + "/" + _name , {
+                    method: "get", 
+                    headers: { "Content-Type": "application/json" },
+                }).then((res) => {
+                    return res.json();
+                }).then((data) => {
+                    console.log(data);
+                    return data;
+                })
+                console.log("bbbbbbbbb")
+                console.log("questions response = " + response);
+                context.commit('saveProfileQuestions', response);
             /*} catch (error) {
                 alert('error');
             }*/

@@ -21,7 +21,7 @@
                           </div>
                           <div class="name_time">
                               <div class="time">
-                                  <span>@omarrehan0020{{userName}}</span>
+                                  <span>@omarrehan0020{{this.userName}}</span>
                               </div>
                               <h6 class="myname">
                               <span> Omar Rehan</span>
@@ -90,7 +90,7 @@ export default {
      liked: false,
      likesCount: 12,
      checked : true ,
-     messages: [
+     /*messages: [
        {
          question : "What is your name",
          sender : "Ali Ibrahem",
@@ -102,85 +102,37 @@ export default {
          number_of_likes : 12 ,
          anymonous : false ,
        },
-       {
-         question : "What is your name",
-         sender : "Ali Ibrahem",
-         reciever : "Ali Ibrahem",
-         photo : "https://placekitten.com/300/300",
-         time : "10 days ago",
-         answer : "My name is omar",
-         liked : true ,
-         number_of_likes : 12 ,
-         anymonous : true ,
-       },
-        {
-         question : "What is your name",
-         sender : "Ali Ibrahem",
-         reciever : "Ali Ibrahem",
-         photo : "https://placekitten.com/300/300",
-         time : "10 days ago",
-         answer : "My name is omar",
-         liked : true ,
-         number_of_likes : 12 ,
-         anymonous : true ,
-       },
-        {
-         question : "What is your name",
-         sender : "Ali Ibrahem",
-         reciever : "Ali Ibrahem",
-         photo : "https://placekitten.com/300/300",
-         time : "10 days ago",
-         answer : "My name is omar",
-         liked : true ,
-         number_of_likes : 12 ,
-         anymonous : true ,
-       },
-        {
-         question : "What is your name",
-         sender : "Ali Ibrahem",
-         reciever : "Ali Ibrahem",
-         photo : "https://placekitten.com/300/300",
-         time : "10 days ago",
-         answer : "My name is omar",
-         liked : true ,
-         number_of_likes : 12 ,
-         anymonous : true ,
-       },
-       {
-         question : "What is your name",
-         sender : "Ali Ibrahem",
-         reciever : "Ali Ibrahem",
-         photo : "https://placekitten.com/300/300",
-         time : "10 days ago",
-         answer : "My name is omar",
-         liked : false ,
-         number_of_likes : 11 ,
-         anymonous : true ,
-       }
-
-     ]
+     ]*/
     }
   },
   components: {
     Navbar
   },
   methods: {
-     
-        toggleLike: function(msg) { 
-            msg.liked = ! msg.liked;
+    toggleLike: function(msg) { 
+        msg.liked = ! msg.liked;
+        msg.liked ? msg.number_of_likes++ : msg.number_of_likes--;
+    },
 
-            msg.liked ? msg.number_of_likes++ : msg.number_of_likes--;
-        }
   },
   computed:{
     userName(){
       console.log("in profile page => " + this.$route.params.userName)
       return this.$route.params.userName;
+    },
+    user(){
+      return this.$store.state.profileData;
+    },
+    messages(){
+      return this.$store.state.profileQuestions;
     }
   },
   created(){
+    console.log("profile created")
+    console.log("in profile page => " + this.$route.params.userName)
     //console.log('userID in questions page' + this.$store.state.userID);
-    //this.$store.dispatch('loadProfile' , );
+    this.$store.dispatch('loadProfileData' , this.userName);
+    this.$store.dispatch('loadProfileQuestions' , this.userName);
   }
 }
 </script>

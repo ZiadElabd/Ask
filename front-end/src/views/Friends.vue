@@ -4,20 +4,17 @@
     <div class="users container">
       <input type="search" v-model="searchValue"  @keyup="filter" placeholder="Search using username" />
       
-     
-    
-     
-      <div class="user-content" v-for="user in users1" :key="user.username" ref="user.username">
+      <div class="user-content" v-for="user in users1" :key="user.userName" ref="user.userName">
               <div class="user-img"  @click="select(user)">
                 <span>
                   <b-avatar src="" size="3rem"></b-avatar>
                 </span>
-                <span>{{user.firstName + ' ' + user.lastName}}<span class="username">{{user.username}}</span></span> 
+                <span>{{user.firstName + ' ' + user.lastname}}<span class="username">{{user.userName}}</span></span> 
                 
               </div>
               <div class="follow">
-              <b-button variant="outline-danger" v-if="followers.includes(user.username)== false" @click="afterfollow(user)">Follow</b-button>
-              <b-button variant="danger" v-if="followers.includes(user.username)== true" @click="afterunfollow(user)" >Following</b-button>
+              <b-button variant="outline-danger" v-if="followers.includes(user.userName)== false" @click="afterfollow(user)">Follow</b-button>
+              <b-button variant="danger" v-if="followers.includes(user.userName)== true" @click="afterunfollow(user)" >Following</b-button>
             </div>
             
       </div>
@@ -35,42 +32,24 @@ export default {
      return{
        follow: false ,
        searchValue: '',
-       followers:['omarrehan0020' , 'omarrehan0010'],
-       users:[
-         {
-           username:'omarrehan0010',
-           firstName: 'omar',
-           lastName: 'rehan',
-         },
-         {
-           username:'omarrehan0020',
-           firstName: 'omar',
-           lastName: 'rehan',
-         },
-         {
-           username:'omarrehan0030',
-           firstName: 'omar',
-           lastName: 'rehan',
-         },
-         {
-           username:'omarrehan0040',
-           firstName: 'omar',
-           lastName: 'rehan',
-         },
-       ]
+       //followers:['omarrehan0020' , 'omarrehan0010'],
      }
    },
    methods: {
-        afterfollow: function(user) { 
-            this.followers.push(user.username) ;
+        afterfollow: function(user) {  // follow this user
+            fetch("http://localhost:5050/followUser/" + this.userID + "/" + user.userName, {
+              method: "post",
+              headers: { "Content-Type": "application/json" },
+            });
+            this.followers.push(user.userName) ;
             console.log(this.followers);
         },
-        afterunfollow:function(user) { 
-            this.followers.splice(this.followers.indexOf(user.username),1);
+        afterunfollow:function(user) {  // unfollow this user
+            this.followers.splice(this.followers.indexOf(user.userName),1);
             console.log(this.followers);
         },
-        select: function(user){
-          console.log( user.username);
+        select: function(user){//move to profile page
+          console.log( user.userName);
         },
        filter: function(users) {
 
@@ -88,22 +67,26 @@ export default {
     Navbar
   },
   computed:{
-    /*
+    userID(){
+        return this.$store.state.userID;
+    },
     users(){
       return this.$store.state.users;
-    }
-    */
-   
+    },
+    followers(){
+      return this.$store.state.users;
+    },
     users1() {
       return this.users.filter(user => {
-        return user.username.toLowerCase().includes(this.searchValue.toLowerCase())
+        return user.userName.toLowerCase().includes(this.searchValue.toLowerCase())
       })
     }
   
   },
   created(){
     console.log('userID in questions page' + this.$store.state.userID);
-    this.$store.dispatch('getFriends');
+    this.$store.dispatch('getUsers');
+    //get followers
   }
 }
 </script>
