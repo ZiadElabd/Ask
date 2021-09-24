@@ -52,7 +52,7 @@ public class questionRequestHandler {
     public List<question> getUserAnsweredQuestion(String id,String userName){
         ObjectId realID=trackingSystem.checkAcess(id);
         if (realID.equals(null)) return null;
-        List<question> result=dbQuestionOperation.getUnAnsweredQuestions(userName);
+        List<question> result=dbQuestionOperation.getAnsweredQuestions(userName);
         for (question q:result) {
             q.setStringID(q.getId().toHexString());
         }
