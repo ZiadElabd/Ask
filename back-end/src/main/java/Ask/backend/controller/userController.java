@@ -62,6 +62,13 @@ public class userController {
         {
             return  new ResponseEntity<>(handler.getuserProfile(id,userName),HttpStatus.OK);
         }
+    @PostMapping("/followUser/{ID}/{userName}")
+    public void followUser(
+            @PathVariable("ID") String id,
+            @PathVariable("userName") String userName)
+    {
+        handler.AddFollower(id,userName);
+    }
 
 
 }

@@ -60,6 +60,13 @@ public class userRequestHandler {
         return result;
 
     }
+    public boolean AddFollower(String id,String userName){
+        ObjectId realID=trackingSystem.checkUserExist(id);
+        if (realID.equals(null))return false;
+        dbOperations.updatemeFollowList(realID,userName);
+       return true;
+    }
+
 
 
 
