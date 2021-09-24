@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class questionBuilder implements Ibuilder{
     private question newQuestion;
-    public void buildaskedID(String id){
-        this.newQuestion.setAskedID(id);
+    public void buildaskedUser(String AskedUser){
+        this.newQuestion.setAskedUser(AskedUser);
     }
     public void buildquestionText(String text){
         this.newQuestion.setQuestionText(text);
@@ -38,7 +38,7 @@ public class questionBuilder implements Ibuilder{
         newQuestion=new question();
         try {
             JSONObject obj = new JSONObject(sentData);
-            buildaskedID(obj.getString("askedID"));
+            buildaskedUser(obj.getString("askedUser"));
             buildanoymos(obj.getBoolean("anoymos"));
             buildquestionText(obj.getString("text"));
             buildAnswered();

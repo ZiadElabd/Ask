@@ -11,10 +11,8 @@ public class question implements Imodel {
     private ObjectId id;
     @BsonIgnore
     private String StringID;
-    @BsonProperty("askedID")
-    private String askedID;
-    @BsonProperty("answeredID")
-    private String answeredID;
+    @BsonProperty("askedUser")
+    private String askedUser;
     @BsonProperty("questionText")
     private String questionText;
     @BsonProperty("replies")
@@ -76,20 +74,12 @@ public class question implements Imodel {
         this.anoymos = anoymos;
     }
 
-    public String getAskedID() {
-        return askedID;
+    public String getAskedUser() {
+        return askedUser;
     }
 
-    public void setAskedID(String askedID) {
-        this.askedID = askedID;
-    }
-
-    public String getAnsweredID() {
-        return answeredID;
-    }
-
-    public void setAnsweredID(String answeredID) {
-        this.answeredID = answeredID;
+    public void setAskedUser(String askedUser) {
+        this.askedUser = askedUser;
     }
 
     public List<String> getLikes() {

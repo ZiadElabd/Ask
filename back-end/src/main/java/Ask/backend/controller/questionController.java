@@ -19,7 +19,7 @@ public class questionController {
     {
         return new ResponseEntity<>(handler.getFollwersQuestions(id,userName), HttpStatus.OK);
     }
-    @PostMapping("/AddQuestion{ID}/{userName}")
+    @PostMapping("/AddQuestion/{ID}/{userName}")
     public void AddQuestionController(
             @PathVariable("ID") String id,
             @PathVariable("userName") String userName,
