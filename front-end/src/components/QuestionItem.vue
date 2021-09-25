@@ -42,6 +42,7 @@ export default {
     },
     select(){ // move to the user profile
       console.log("userName of this question => " + this.question.userName);
+      this.$router.push({ name: 'profile', params: {userName:  this.question.userName } });
     }
   }
 }
