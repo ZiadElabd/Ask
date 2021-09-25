@@ -37,10 +37,13 @@ export default {
    },
    methods: {
         afterfollow: function(user) {  // follow this user
+            console.log("userId = " + this.userID);
+            console.log("userName = " + user.userName);
             fetch("http://localhost:5050/followUser/" + this.userID + "/" + user.userName, {
               method: "post",
               headers: { "Content-Type": "application/json" },
             });
+            console.log("hhhhhhhhh");
             this.followers.push(user.userName) ;
             console.log(this.followers);
         },
