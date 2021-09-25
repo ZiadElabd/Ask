@@ -23,7 +23,7 @@ public class questionBuilder implements Ibuilder{
     public void buildtime(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        this.newQuestion.setTime(now.toString());
+        this.newQuestion.setTime(dtf.format(now));
     }
     public void buildanoymos(boolean state){
         this.newQuestion.setAnoymos(state);

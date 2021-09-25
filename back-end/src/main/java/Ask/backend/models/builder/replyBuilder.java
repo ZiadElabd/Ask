@@ -20,7 +20,7 @@ public class replyBuilder implements Ibuilder{
     public void buildTime(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        this.newRely.setTime(now.toString());
+        this.newRely.setTime(dtf.format(now));
 
     }
     public void buildLikes(){

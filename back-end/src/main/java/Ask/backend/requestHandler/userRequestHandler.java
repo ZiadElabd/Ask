@@ -46,7 +46,7 @@ public class userRequestHandler {
     public List<user> getUsers(String id){
         ObjectId realID=trackingSystem.checkUserExist(id);
         if (realID.equals(null)) return null;
-       List<user> users= dbOperations.getAllUsers(realID);
+        List<user> users= dbOperations.getAllUsers(realID);
         for (user u:users) {
             u.setStringID(u.getId().toHexString());
         }

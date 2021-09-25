@@ -15,6 +15,13 @@ public class reply implements Imodel{
     private List<String> likes;
 
 
+    public String getUserNameAnswered() {
+        return userNameAnswered;
+    }
+
+    public void setUserNameAnswered(String userNameAnswered) {
+        this.userNameAnswered = userNameAnswered;
+    }
 
     public String getReplyText() {
         return replyText;
@@ -22,14 +29,6 @@ public class reply implements Imodel{
 
     public void setReplyText(String replyText) {
         this.replyText = replyText;
-    }
-
-    public String getUserAnsweredID() {
-        return userNameAnswered;
-    }
-
-    public void setUserNameAnswered(String userNameAnswered) {
-        this.userNameAnswered = userNameAnswered;
     }
 
     public List<String> getLikes() {
