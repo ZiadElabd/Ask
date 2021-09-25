@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
-import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.in;
+import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Updates.addToSet;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -110,10 +109,11 @@ public class userOperation {
         Bson update=addToSet("mefollow",toFollow);
         collection.updateOne(queryFilter,update);
     }
-    public List<user> getAllUsers(){
+    public List<user> getAllUsers(ObjectId id){
          List<user> users=new ArrayList<>();
+         Bson queryFilter=ne("_id",id);
          Bson projection=new Document("firstname",1).append("lastname",1).append("userName",1);
-         collection.find()
+         collection.find(queryFilter)
                  .projection(projection)
                  .limit(50).into(users);
          return users;

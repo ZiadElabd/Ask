@@ -4,8 +4,6 @@ import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
-import java.util.List;
-
 public class question implements Imodel {
     @BsonProperty("_id")
     private ObjectId id;
@@ -23,8 +21,6 @@ public class question implements Imodel {
     private boolean anoymos;
     @BsonProperty("answered")
     private boolean answered;
-    @BsonProperty("likes")
-    private List<String> likes;
 
     public ObjectId getId() {
         return id;
@@ -82,13 +78,6 @@ public class question implements Imodel {
         this.askedUser = askedUser;
     }
 
-    public List<String> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<String> likes) {
-        this.likes = likes;
-    }
 
     public boolean isAnswered() {
         return answered;

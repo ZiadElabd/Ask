@@ -28,8 +28,8 @@ public class reply implements Imodel{
         return userNameAnswered;
     }
 
-    public void setUserAnsweredID(String userAnsweredID) {
-        this.userNameAnswered = userAnsweredID;
+    public void setUserNameAnswered(String userNameAnswered) {
+        this.userNameAnswered = userNameAnswered;
     }
 
     public List<String> getLikes() {
