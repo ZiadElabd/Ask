@@ -52,6 +52,7 @@ export default {
             console.log(this.followers);
         },
         select: function(user){//move to profile page
+          this.$router.push({ name: 'profile', params: {userName: user.userName } });
           console.log( user.userName);
         },
        filter: function(users) {

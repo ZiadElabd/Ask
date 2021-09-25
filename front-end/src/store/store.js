@@ -15,6 +15,7 @@ export const store = new Vuex.Store({
         users:[],
         profileData:{},
         profileQuestions:{},
+        homeQuestions:{},
     },
     getters: {
         
@@ -47,6 +48,10 @@ export const store = new Vuex.Store({
         saveProfileQuestions:(state , profileQuestions) =>{
             console.log("profileQuestions = " + profileQuestions);
             state.profileQuestions = profileQuestions;
+        },
+        saveHomeQuestions:(state , homeQuestions) =>{
+            console.log("homeQuestions = " + homeQuestions);
+            state.homeQuestions = homeQuestions;
         },
     },
     actions: {
@@ -146,6 +151,26 @@ export const store = new Vuex.Store({
                 console.log("bbbbbbbbb")
                 console.log("questions response = " + response);
                 context.commit('saveProfileQuestions', response);
+            /*} catch (error) {
+                alert('error');
+            }*/
+        },
+        loadHome: async context => { //not done yet
+            //try {
+                console.log('in store ' + store.state.userID);
+                let response = [];
+                response = await fetch( "http://localhost:5050/getHomeQuestion/" + store.state.userID + "/" + store.state.userName , {
+                    method: "get", 
+                    headers: { "Content-Type": "application/json" },
+                }).then((res) => {
+                    return res.json();
+                }).then((data) => {
+                    console.log(data);
+                    return data;
+                })
+                console.log("bbbbbbbbb")
+                console.log("home response = " + response);
+                context.commit('saveHomeQuestions', response);
             /*} catch (error) {
                 alert('error');
             }*/
