@@ -57,7 +57,8 @@ export default {
         msg.replies.likes.splice(msg.replies.likes.indexOf(this.userName));
       }else{
         msg.replies.likes.push(this.userName);
-      }// request for like
+      }
+      // request for like
     },
     select(userName){ 
       console.log("userName clicked => " + userName);
