@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class replyBuilder implements Ibuilder{
    private reply newRely;
-    public void builduserAnsweredID(String userName){
-        this.newRely.setUserAnsweredID(userName);
+    public void builduserNameAnswered(String userName){
+        this.newRely.setUserNameAnswered(userName);
     }
     public void buildReplyText(String text){
         this.newRely.setReplyText(text);
@@ -33,7 +33,7 @@ public class replyBuilder implements Ibuilder{
         try {
             JSONObject obj = new JSONObject(sentData);
             buildReplyText(obj.getString("text"));
-            builduserAnsweredID(obj.getString("userName"));
+            builduserNameAnswered(obj.getString("userName"));
             buildTime();
             buildLikes();
         } catch (JSONException e) {

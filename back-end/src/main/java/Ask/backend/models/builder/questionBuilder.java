@@ -2,13 +2,11 @@ package Ask.backend.models.builder;
 
 import Ask.backend.models.Imodel;
 import Ask.backend.models.question;
-import Ask.backend.models.reply;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class questionBuilder implements Ibuilder{
     private question newQuestion;
@@ -19,7 +17,7 @@ public class questionBuilder implements Ibuilder{
         this.newQuestion.setQuestionText(text);
     }
     public void buildreplies(){
-        this.newQuestion.setReplies(new reply());
+        this.newQuestion.setReplies(null);
     }
     public void buildtime(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -30,9 +28,6 @@ public class questionBuilder implements Ibuilder{
         this.newQuestion.setAnoymos(state);
     }
     public void buildAnswered(){this.newQuestion.setAnswered(false);}
-    public void buildLikes(){
-        this.newQuestion.setLikes(new ArrayList<>());
-    }
     @Override
     public boolean comopse(String sentData)  {
         newQuestion=new question();
@@ -44,7 +39,6 @@ public class questionBuilder implements Ibuilder{
             buildAnswered();
             buildtime();
             buildreplies();
-            buildLikes();
         } catch (JSONException e) {
             System.out.println("error in create question");
             return false;
