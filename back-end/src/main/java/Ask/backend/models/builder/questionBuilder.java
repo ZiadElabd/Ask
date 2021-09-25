@@ -2,6 +2,7 @@ package Ask.backend.models.builder;
 
 import Ask.backend.models.Imodel;
 import Ask.backend.models.question;
+import Ask.backend.models.reply;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,7 +18,7 @@ public class questionBuilder implements Ibuilder{
         this.newQuestion.setQuestionText(text);
     }
     public void buildreplies(){
-        this.newQuestion.setReplies(null);
+        this.newQuestion.setReplies(new reply());
     }
     public void buildtime(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
