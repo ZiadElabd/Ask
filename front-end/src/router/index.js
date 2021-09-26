@@ -6,6 +6,7 @@ import Notifications from '../views/Notifications.vue'
 import Questions from '../views/Questions.vue'
 import Settings from '../views/Settings.vue'
 import AnswerQuestion from '../views/AnswerQuestion.vue'
+import AnsweredQuestion from '../views/AnsweredQuestion.vue'
 import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
 import profile from '../views/profile.vue'
@@ -50,6 +51,11 @@ const routes = [
     path: '/AnswerQuestion/:questionID',
     name: 'AnswerQuestion',
     component: AnswerQuestion
+  },
+  {
+    path: '/AnsweredQuestion',
+    name: 'AnsweredQuestion',
+    component: AnsweredQuestion
   },
   {
     path: '/Settings',

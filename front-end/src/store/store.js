@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
             { id: 2 , conntent: "osama is my brother" }
         ],
         users:[],
+        followers:[],
         profileData:{},
         profileQuestions:{},
         homeQuestions:{},
@@ -33,6 +34,12 @@ export const store = new Vuex.Store({
             state.userID = data._id;
             state.userName = data._name;
         },
+        deleteUserData:(state) =>{
+            localStorage.setItem('userID', '');
+            localStorage.setItem('userName', '');
+            state.userID = '';
+            state.userName = '';
+        },
         saveQuestions:(state , questions) =>{
             console.log("questions = " + questions);
             state.questions = questions;
@@ -40,6 +47,17 @@ export const store = new Vuex.Store({
         saveUsers:(state , users) =>{
             console.log("users = " + users);
             state.users = users;
+        },
+        saveFollowers:(state , followers) =>{
+            console.log("followers = " + followers);
+            let followersList = followers.map(e => {
+                return e.userName;
+            });
+            /*console.log("followers list");
+            followersList.map(e => {
+                console.log(e);
+            });*/
+            state.followers = followersList;
         },
         saveProfileData:(state , profileData) =>{
             console.log("profileData = " + profileData);
@@ -55,7 +73,7 @@ export const store = new Vuex.Store({
         },
     },
     actions: {
-        getQuestions: async context =>{
+        getQuestions: async context => {
             //try {
                 console.log('in store ' + store.state.userID);
                 let response = [];
@@ -88,18 +106,18 @@ export const store = new Vuex.Store({
                     console.log(data);
                     return data;
                 })
-                console.log("bbbbbbbbb")
+                console.log("bbbbbbbbb");
                 console.log("questions response = " + response);
                 context.commit('saveUsers', response);
             /*} catch (error) {
                 alert('error');
             }*/
         },
-        getFollowers: async context =>{  // not done yet
+        getFollowers: async context =>{ 
             //try {
                 console.log('in store ' + store.state.userID);
                 let response = [];
-                response = await fetch( "http://localhost:5050/getUsers/" + store.state.userID + "/0/" + "30", {
+                response = await fetch( "http://localhost:5050/getFollowers/" + store.state.userID + "/" + store.state.userName, {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
                 }).then((res) => {
@@ -109,8 +127,8 @@ export const store = new Vuex.Store({
                     return data;
                 })
                 console.log("bbbbbbbbb")
-                console.log("questions response = " + response);
-                context.commit('saveUsers', response);
+                console.log("Followers response = " + response);
+                context.commit('saveFollowers', response);
             /*} catch (error) {
                 alert('error');
             }*/
@@ -174,6 +192,6 @@ export const store = new Vuex.Store({
             /*} catch (error) {
                 alert('error');
             }*/
-        }
+        },
     }
 });
