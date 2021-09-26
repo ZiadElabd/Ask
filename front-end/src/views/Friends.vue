@@ -75,7 +75,13 @@ export default {
       console.log(this.followers);
     },
     afterunfollow: function(user) {
-      // unfollow this user
+      fetch(
+        "http://localhost:5050/unFollowUser/" + this.userID + "/" + user.userName,
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       this.followers.splice(this.followers.indexOf(user.userName), 1);
       console.log(this.followers);
     },

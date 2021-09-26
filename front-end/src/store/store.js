@@ -106,7 +106,7 @@ export const store = new Vuex.Store({
                     console.log(data);
                     return data;
                 })
-                console.log("bbbbbbbbb")
+                console.log("bbbbbbbbb");
                 console.log("questions response = " + response);
                 context.commit('saveUsers', response);
             /*} catch (error) {
@@ -192,6 +192,6 @@ export const store = new Vuex.Store({
             /*} catch (error) {
                 alert('error');
             }*/
-        }
+        },
     }
 });
