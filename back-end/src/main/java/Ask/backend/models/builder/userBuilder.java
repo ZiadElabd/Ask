@@ -1,6 +1,6 @@
 package Ask.backend.models.builder;
 
-import Ask.backend.models.*;
+import Ask.backend.models.Gender;
 import Ask.backend.models.user;
 import Ask.backend.security.passcoding;
 import org.json.JSONException;
@@ -23,23 +23,15 @@ public class userBuilder implements Ibuilder {
     public void buildUsername(String username) {
        this.newUser.setUserName(username);
     }
-
-
     public void buildAskedQuestion() {
        this.newUser.setAskedQuestions(new ArrayList<>());
     }
-
-
     public void buildAnsweredQuestion() {
         this.newUser.setAnsweredQuestions(new ArrayList<>());
     }
-
-
     public void buildBirthdate(String date) {
         this.newUser.setBirthDate(date);
     }
-
-
     public void buildGender(Gender gender) {
         this.newUser.setGender(gender);
     }
@@ -55,8 +47,10 @@ public class userBuilder implements Ibuilder {
     public void buildfollowMe(){
         this.newUser.setFollowMe(new ArrayList<>());
     }
-
-
+    /*
+    public void buildProfilePhoto(){this.newUser.setProfilePhoto(new Binary(null));}
+    public void buildCoverPhoto(){this.newUser.setCoverPhoto(new Binary(null));}
+    */
 
     @Override
     public user getModel() {
@@ -74,14 +68,20 @@ public class userBuilder implements Ibuilder {
             buildAskedQuestion();
             buildmeFollow();
             buildfollowMe();
+            /*
+            buildProfilePhoto();
+            buildCoverPhoto();
+            */
             Gender sex;
-            if (obj.getString("gender").equals("Male")) sex = Gender.Male;
-            else if (obj.getString("gender").equals("Female")) sex = Gender.Female;
+            String gender=obj.getString("gender");
+            if (gender.equals("Male")) sex = Gender.Male;
+            else if (gender.equals("Female")) sex = Gender.Female;
             else sex = Gender.engineer;
             buildGender(sex);
             buildBirthdate(obj.getString("birthDate"));
             buildFirstname(obj.getString("firstName"));
             buildLastName(obj.getString("lastName"));
+
         } catch (JSONException e) {
             return false;
         }

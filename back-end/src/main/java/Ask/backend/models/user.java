@@ -24,8 +24,10 @@ public class user implements Imodel{
     private String lastname;
     @BsonProperty("userName")
     private String userName;
-    @BsonProperty("profileimage")
-    private Binary image;
+    @BsonProperty("profilePhoto")
+    private Binary profilePhoto;
+    @BsonProperty("coverPhoto")
+    private Binary coverPhoto;
     @BsonProperty("askedQuestions")
     private List<ObjectId> askedQuestions;
     @BsonProperty("answeredQuestions")
@@ -83,12 +85,20 @@ public class user implements Imodel{
         this.userName = userName;
     }
 
-    public Binary getImage() {
-        return image;
+    public Binary getProfilePhoto() {
+        return profilePhoto;
     }
 
-    public void setImage(Binary image) {
-        this.image = image;
+    public void setProfilePhoto(Binary profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
+    public Binary getCoverPhoto() {
+        return coverPhoto;
+    }
+
+    public void setCoverPhoto(Binary coverPhoto) {
+        this.coverPhoto = coverPhoto;
     }
 
     public List<ObjectId> getAskedQuestions() {

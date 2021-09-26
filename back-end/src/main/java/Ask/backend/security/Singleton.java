@@ -26,7 +26,13 @@ public class Singleton {
         return uniqueID;
     }
     public ObjectId checkUserExist(String id){
-        return onlineUser.get(id);
+        ObjectId realID=null;
+        try {
+            realID=onlineUser.get(id);
+        }catch (Exception e){
+            return null;
+        }
+        return realID;
     }
     public void deleteOnlineUser(String id){
          onlineUser.remove(id);

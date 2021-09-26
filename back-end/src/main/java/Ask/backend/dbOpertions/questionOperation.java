@@ -17,6 +17,7 @@ import java.util.List;
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Updates.*;
+import static com.mongodb.client.model.Updates.addToSet;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
@@ -66,6 +67,11 @@ public class questionOperation {
                 set("replies",newReply),
                 set("answered",true)
         );
+        collection.updateOne(queryFilter,update);
+    }
+    public void AddLike(String userName,ObjectId questionID){
+        Bson queryFilter=in("_id",questionID);
+        Bson update= addToSet("likes",userName);
         collection.updateOne(queryFilter,update);
     }
 

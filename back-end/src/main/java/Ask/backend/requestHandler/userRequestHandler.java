@@ -5,10 +5,14 @@ import Ask.backend.models.builder.Director;
 import Ask.backend.models.user;
 import Ask.backend.security.Singleton;
 import Ask.backend.security.passcoding;
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public class userRequestHandler {
@@ -66,8 +70,9 @@ public class userRequestHandler {
         dbOperations.updatemeFollowList(realID,userName);
        return true;
     }
-    public boolean removeFollower(String id,String userName){
-     return true;
+    public boolean removeFollower(ObjectId id,String userName){
+        dbOperations.meFollowListRemove(id,userName);
+        return true;
     }
     public List<user> getFollowers(String id,String userName){
         ObjectId realID=trackingSystem.checkUserExist(id);
@@ -75,6 +80,23 @@ public class userRequestHandler {
         List<String> mefollowList=dbOperations.getMeFollowlist(userName);
          return dbOperations.getfollowersUsers(mefollowList);
     }
+    public boolean setProfilePhoto(ObjectId id, MultipartFile image){
+        try {
+            dbOperations.updateProfilePhoto(id, new Binary(BsonBinarySubType.BINARY,image.getBytes()));
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+    public boolean setCoverPhoto(ObjectId id, MultipartFile image){
+        try {
+            dbOperations.updateCoverPhoto(id, new Binary(BsonBinarySubType.BINARY,image.getBytes()));
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
 
 
 

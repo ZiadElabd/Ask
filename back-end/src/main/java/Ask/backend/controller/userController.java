@@ -2,9 +2,12 @@ package Ask.backend.controller;
 
 import Ask.backend.models.user;
 import Ask.backend.requestHandler.userRequestHandler;
+import Ask.backend.security.proxy;
+import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -14,6 +17,7 @@ import java.util.List;
 public class userController {
 
     private userRequestHandler handler=new userRequestHandler();
+    private proxy  checker=new proxy();
 
     /**
      *
@@ -58,7 +62,18 @@ public class userController {
             @PathVariable("ID") String id,
             @PathVariable("userName") String userName)
     {
+
         handler.AddFollower(id,userName);
+    }
+    @PostMapping("/unFollowUser/{ID}/{userName}")
+    public ResponseEntity<Void> unFollowUser(
+            @PathVariable("ID") String id,
+            @PathVariable("userName") String userName)
+    {
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        handler.removeFollower(realID,userName) ;
+        return   new ResponseEntity<>(HttpStatus.OK);
     }
     @GetMapping("getFollowers/{ID}/{userName}")
     public ResponseEntity<List<user>> getFollowersController(
@@ -66,6 +81,20 @@ public class userController {
             @PathVariable("userName") String userName)
     {
        return   new ResponseEntity<>(handler.getFollowers(id,userName),HttpStatus.OK);
+    }
+    @PostMapping("setProfilePhoto/{ID}")
+    public  ResponseEntity<Void>setProfilePhoto(@PathVariable("ID") String id,@RequestParam("image") MultipartFile image){
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        if (handler.setProfilePhoto(realID,image)) return   new ResponseEntity<>(HttpStatus.OK);
+        else return   new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
+    @PostMapping("setCoverPhoto/{ID}")
+    public  ResponseEntity<Void>setCoverPhoto(@PathVariable("ID") String id,@RequestParam("image") MultipartFile image){
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        if (handler.setCoverPhoto(realID,image)) return   new ResponseEntity<>(HttpStatus.OK);
+        else return   new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
 

@@ -9,6 +9,7 @@ import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
+import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.NoSuchElementException;
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Updates.addToSet;
+import static com.mongodb.client.model.Updates.pull;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
@@ -107,6 +109,21 @@ public class userOperation {
     public  void updatemeFollowList(ObjectId userID,String toFollow){
         Bson queryFilter=eq("_id",userID);
         Bson update=addToSet("mefollow",toFollow);
+        collection.updateOne(queryFilter,update);
+    }
+    public void meFollowListRemove(ObjectId id,String follower){
+        Bson queryFilter=eq("_id",id);
+        Bson update=pull("mefollow",follower);
+        collection.updateOne(queryFilter,update);
+    }
+    public void updateProfilePhoto(ObjectId id, Binary photo){
+        Bson queryFilter=eq("_id",id);
+        Bson update=addToSet("profilePhoto",photo);
+        collection.updateOne(queryFilter,update);
+    }
+    public void updateCoverPhoto(ObjectId id,Binary photo){
+        Bson queryFilter=eq("_id",id);
+        Bson update=addToSet("coverPhoto",photo);
         collection.updateOne(queryFilter,update);
     }
     public List<user> getAllUsers(ObjectId id){

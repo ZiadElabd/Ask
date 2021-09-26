@@ -2,6 +2,8 @@ package Ask.backend.controller;
 
 import Ask.backend.models.question;
 import Ask.backend.requestHandler.questionRequestHandler;
+import Ask.backend.security.proxy;
+import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import java.util.List;
 @CrossOrigin
 public class questionController {
     questionRequestHandler handler=new questionRequestHandler();
+    private proxy checker=new proxy();
     @GetMapping("/getHomeQuestion/{ID}/{userName}")
     public ResponseEntity<List<question>> getHomeQuestionController
             (@PathVariable("ID") String id,
@@ -44,5 +47,16 @@ public class questionController {
                     @PathVariable("userName") String userName)
     {
         return new ResponseEntity<>(handler.getUserAnsweredQuestion(id,userName), HttpStatus.OK);
+    }
+    @PostMapping("/AddLike/{ID}/{UserName}/{QuestionId}")
+    public  ResponseEntity<Void> AddLike
+            (       @PathVariable("ID") String id,
+                    @PathVariable("userName") String userName,
+                    @PathVariable("QuestionId") String QuestionId){
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        handler.AddLike(userName,QuestionId);
+        return   new ResponseEntity<>(HttpStatus.OK);
+
     }
 }

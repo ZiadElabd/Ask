@@ -87,6 +87,11 @@ public class questionRequestHandler {
         }
         return questions;
     }
+    public void AddLike(String userName,String questionID){
+        ObjectId questionId=new ObjectId(questionID);
+        dbQuestionOperation.AddLike(userName,questionId);
+        return ;
+    }
 
 
 }
