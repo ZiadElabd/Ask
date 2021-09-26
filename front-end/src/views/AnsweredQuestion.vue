@@ -18,23 +18,25 @@
         </div>
 
         <div class="quetion">
-          <h4>{{ question.questionText }} id = {{ questionID }}</h4>
+          <h4>question Text</h4>
         </div>
 
-        <form @submit.prevent="submitAnswer">
-          <b-form-textarea
-            id="textarea"
-            v-model="answerContent"
-            placeholder="Write your answer"
-            rows="4"
-            max-rows="4"
-          >
-          </b-form-textarea>
-
-          <div class="answer__submit">
-            <button>Answer!</button>
+        <div class="name" >
+          <div class="name_photo">
+            <b-avatar src="https://placekitten.com/300/300"></b-avatar>
           </div>
-        </form>
+          <div class="name_time">
+            <h6 class="myname">
+              <span> answered userName</span>
+            </h6>
+            <div class="time">
+              <span> 10 days ago </span>
+            </div>
+          </div>
+        </div>
+        <div class="answer">
+          <span>anwer text</span>
+        </div>
       </div>
     </div>
   </div>
@@ -50,38 +52,16 @@ export default {
   name: "AnswerQuestion",
   data() {
     return {
-      answerContent: "",
+
     };
   },
   computed: {
-    questionID() {
-      console.log("ziad");
-      console.log(this.$route.params.questionID);
-      return this.$route.params.questionID;
-    },
-    questions() {
-      return this.$store.state.questions;
-    },
-    question() {
-      return this.questions.find((x) => x.stringID == this.questionID);
-    },
     userID() {
       return this.$store.state.userID;
     },
   },
   methods: {
-    submitAnswer() {
-      fetch("http://localhost:5050/answerQuestion/" + this.userID, {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          QuestionStringID: this.questionID,
-          text: this.answerContent,
-          userName: this.$store.state.userName,
-        }),
-      });
-      this.$router.push({ name: "Questions" });
-    },
+
   },
 };
 </script>

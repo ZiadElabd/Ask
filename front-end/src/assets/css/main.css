@@ -176,7 +176,7 @@
 {
   border: 2px solid #FFF ;
 }
-.home, .profile , .Settings , .notifications , .Questions-wrapper
+.home, .profile , .Settings , .notifications , .Questions-wrapper,.questions
 {
   margin-top: 60px;
   padding-top: 15px;
