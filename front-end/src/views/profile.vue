@@ -114,8 +114,10 @@ export default {
   methods: {
     toggleLike: function(msg) {
       if (msg.replies.likes.includes(this.userName)) {
+        this.$store.dispatch("unlike",msg.stringID);
         msg.replies.likes.splice(msg.replies.likes.indexOf(this.userName));
       } else {
+        this.$store.dispatch("like",msg.stringID);
         msg.replies.likes.push(this.userName);
       }
       // request for like

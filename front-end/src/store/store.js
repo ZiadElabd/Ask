@@ -193,5 +193,23 @@ export const store = new Vuex.Store({
                 alert('error');
             }*/
         },
+        like: (context,question_id) => {
+            fetch(
+                "http://localhost:5050/AddLike/" + store.state.userID + "/" + store.state.userName + "/" + question_id,
+                {
+                  method: "post",
+                  headers: { "Content-Type": "application/json" },
+                }
+            );
+        },
+        unlike: (context,question_id) => {
+            fetch(
+                "http://localhost:5050/removeLike/" + store.state.userID + "/" + store.state.userName + "/" + question_id,
+                {
+                  method: "post",
+                  headers: { "Content-Type": "application/json" },
+                }
+            );
+        }
     }
 });

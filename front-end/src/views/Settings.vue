@@ -92,7 +92,7 @@
             >
           </div>
           <div class="save_and_cancel">
-            <button type="button" class="btn btn-danger">Save</button>
+            <button type="button" class="btn btn-danger"  @click.prevent="saveSetting">Save</button>
             <button type="button" class="btn btn-outline-dark">Cancel</button>
           </div>
         </form>
@@ -111,6 +111,8 @@ export default {
       selectedfile: "",
       profileURL: "",
       coverURL: "",
+      profilePhoto:'',
+      coverPhoto:'',
       allSettings: {
         fullname: "",
         location: "",
@@ -129,6 +131,16 @@ export default {
   methods: {
     onprofileselected: function(event) {
       this.allSettings.profile = event.target.files[0];
+      let fd = new FormData();
+      fd.append("image", this.allSettings.profile);
+      this.profilePhoto = fd;
+      /*fetch(
+        "http://localhost:5050/setProfilePhoto/" + this.userID + "/" + this.userName,
+        {
+          method: "post",
+          body: fd
+        }
+      );*/
       this.getImageBase64(this.allSettings.profile);
     },
     getImageBase64: function(file) {
@@ -143,6 +155,16 @@ export default {
     },
     oncoverselected: function(event) {
       this.allSettings.cover = event.target.files[0];
+      let fd = new FormData();
+      fd.append("image", this.allSettings.cover);
+      this.coverPhoto = fd;
+      /*fetch(
+        "http://localhost:5050/setCoverPhoto/" + this.userID + "/" + this.userName,
+        {
+          method: "post",
+          body: fd
+        }
+      );*/
       this.getImageBase6(this.allSettings.cover);
     },
     getImageBase6: function(file) {
@@ -155,6 +177,49 @@ export default {
         alert("Error !!!");
       };
     },
+    saveSetting(){
+
+      fetch(
+        "http://localhost:5050/setProfilePhoto/" + this.userID + "/" + this.userName,
+        {
+          method: "post",
+          body: this.profilePhoto,
+        }
+      );
+      fetch(
+        "http://localhost:5050/setCoverPhoto/" + this.userID + "/" + this.userName,
+        {
+          method: "post",
+          body: this.coverPhoto,
+        }
+      );
+    },
+    async get(){
+      const response = await fetch( "http://localhost:5050/getSettings/" + this.userID + "/" + this.userName, {
+          method: "get", 
+          headers: { "Content-Type": "application/json" },
+      }).then((res) => {
+          return res.json();
+      }).then((data) => {
+          console.log(data);
+          return data;
+      })
+      console.log("bbbbbbbbb");
+      console.log("questions response = " + response);
+      this.allSettings.profile = response.profilePhoto;
+      this.allSettings.cover = response.coverPhoto;
+    }
+  },
+  computed:{
+    userID(){
+      return this.$store.state.userID;
+    },
+    userName(){
+      return this.$store.state.userName;
+    },
+  },
+  created() {
+    this.get();
   },
 };
 </script>
