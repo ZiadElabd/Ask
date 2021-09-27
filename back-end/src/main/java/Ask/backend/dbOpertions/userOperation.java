@@ -152,7 +152,7 @@ public class userOperation {
                 append("bio",1).
                 append("location",1).
                 append("birthDate",1).
-                append("profileimage",1).
+                append("profilePhoto",1).
                 append("coverPhoto",1);
          return (user) collection.find(queryFilter)
                 .projection(projection)
