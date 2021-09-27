@@ -82,20 +82,41 @@ public class userController {
     {
        return   new ResponseEntity<>(handler.getFollowers(id,userName),HttpStatus.OK);
     }
-    @PostMapping("setProfilePhoto/{ID}")
-    public  ResponseEntity<Void>setProfilePhoto(@PathVariable("ID") String id,@RequestParam("image") MultipartFile image){
+    @PostMapping("setProfilePhoto/{ID}/{userName}")
+    public  ResponseEntity<Void>setProfilePhoto(@PathVariable("ID") String id,
+                                                @PathVariable("userName") String userName,
+                                                @RequestParam("image") MultipartFile image){
         ObjectId realID=checker.checkAcess(id);
         if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        if (handler.setProfilePhoto(realID,image)) return   new ResponseEntity<>(HttpStatus.OK);
+        if (handler.setProfilePhoto(userName,image)) return   new ResponseEntity<>(HttpStatus.OK);
         else return   new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
-    @PostMapping("setCoverPhoto/{ID}")
-    public  ResponseEntity<Void>setCoverPhoto(@PathVariable("ID") String id,@RequestParam("image") MultipartFile image){
+
+    @PostMapping("setCoverPhoto/{ID}/{userName}")
+    public  ResponseEntity<Void>setCoverPhoto(@PathVariable("ID") String id,
+                                              @PathVariable("userName") String userName,
+                                              @RequestParam("image") MultipartFile image){
         ObjectId realID=checker.checkAcess(id);
         if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        if (handler.setCoverPhoto(realID,image)) return   new ResponseEntity<>(HttpStatus.OK);
+        if (handler.setCoverPhoto(userName,image)) return   new ResponseEntity<>(HttpStatus.OK);
         else return   new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
+
+    @GetMapping ("getSettings/{ID}/{userName}")
+    public  ResponseEntity<user> getSettings(@PathVariable("ID") String id,@PathVariable("userName") String userName){
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return   new ResponseEntity<>(handler.getuserProfile(id,userName),HttpStatus.OK);
+    }
+    @PostMapping("/settings/{ID}")
+    public  ResponseEntity<Void> settings(@PathVariable("ID") String id,@RequestBody String obj){
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        handler.updateSettings(realID,obj);
+        return   new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
 
 }

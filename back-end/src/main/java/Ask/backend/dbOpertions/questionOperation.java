@@ -70,8 +70,13 @@ public class questionOperation {
         collection.updateOne(queryFilter,update);
     }
     public void AddLike(String userName,ObjectId questionID){
-        Bson queryFilter=in("_id",questionID);
-        Bson update= addToSet("likes",userName);
+        Bson queryFilter=eq("_id",questionID);
+        Bson update= addToSet("replies.likes",userName);
+        collection.updateOne(queryFilter,update);
+    }
+    public void removeLike(String userName,ObjectId questionID){
+        Bson queryFilter=eq("_id",questionID);
+        Bson update= pull("replies.likes",userName);
         collection.updateOne(queryFilter,update);
     }
 

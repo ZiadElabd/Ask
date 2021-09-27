@@ -7,6 +7,8 @@ import java.util.List;
 public class reply implements Imodel{
     @BsonProperty("userNameAnswered")
     private String userNameAnswered;
+    @BsonProperty("answeredPhoto")
+    private String answeredPhoto;
     @BsonProperty("replyText")
     private String replyText;
     @BsonProperty("time")
@@ -29,6 +31,14 @@ public class reply implements Imodel{
 
     public void setReplyText(String replyText) {
         this.replyText = replyText;
+    }
+
+    public String getAnsweredPhoto() {
+        return answeredPhoto;
+    }
+
+    public void setAnsweredPhoto(String answeredPhoto) {
+        this.answeredPhoto = answeredPhoto;
     }
 
     public List<String> getLikes() {

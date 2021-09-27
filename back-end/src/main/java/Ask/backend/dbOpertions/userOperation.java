@@ -9,7 +9,6 @@ import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
-import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
@@ -18,8 +17,7 @@ import java.util.NoSuchElementException;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static com.mongodb.client.model.Filters.*;
-import static com.mongodb.client.model.Updates.addToSet;
-import static com.mongodb.client.model.Updates.pull;
+import static com.mongodb.client.model.Updates.*;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
@@ -90,8 +88,7 @@ public class userOperation {
         Bson queryFilter = in("userName",followersUserName);
         Bson projection=new Document("firstname",1)
                 .append("lastname",1).
-                append("userName",1).
-                append("profileimage",1);
+                append("userName",1);
         collection.find(queryFilter).projection(projection).into(result);
         return result;
     }
@@ -116,20 +113,32 @@ public class userOperation {
         Bson update=pull("mefollow",follower);
         collection.updateOne(queryFilter,update);
     }
-    public void updateProfilePhoto(ObjectId id, Binary photo){
-        Bson queryFilter=eq("_id",id);
+    public void updateProfilePhoto(String userName, String photo){
+        Bson queryFilter=eq("userName",userName);
         Bson update=addToSet("profilePhoto",photo);
         collection.updateOne(queryFilter,update);
     }
-    public void updateCoverPhoto(ObjectId id,Binary photo){
-        Bson queryFilter=eq("_id",id);
+    public String getProfilePhoto(String userName){
+        Bson queryFilter=eq("userName",userName);
+        Bson projection = new Document("profilePhoto",1);
+        user result= (user) collection.find(queryFilter).projection(projection).first();
+        return result.getProfilePhoto();
+    }
+    public void updateCoverPhoto(String userName,String photo){
+        Bson queryFilter=eq("userName",userName);
         Bson update=addToSet("coverPhoto",photo);
         collection.updateOne(queryFilter,update);
+    }
+    public String getCoverPhoto(String userName){
+        Bson queryFilter=eq("userName",userName);
+        Bson projection = new Document("coverPhoto",1);
+        user result= (user) collection.find(queryFilter).projection(projection).first();
+        return result.getCoverPhoto();
     }
     public List<user> getAllUsers(ObjectId id){
          List<user> users=new ArrayList<>();
          Bson queryFilter=ne("_id",id);
-         Bson projection=new Document("firstname",1).append("lastname",1).append("userName",1);
+         Bson projection=new Document("firstname",1).append("lastname",1).append("userName",1).append("profilePhoto",1);
          collection.find(queryFilter)
                  .projection(projection)
                  .limit(50).into(users);
@@ -137,13 +146,36 @@ public class userOperation {
     }
     public user getuser(String userName){
         Bson queryFilter=eq("userName",userName);
-        Bson projection=new Document("firstname",1)
-                .append("lastname",1).
+        Bson projection=new Document("firstname",1).
+                append("lastname",1).
                 append("userName",1).
-                append("profileimage",1);
+                append("bio",1).
+                append("location",1).
+                append("birthDate",1).
+                append("profileimage",1).
+                append("coverPhoto",1);
          return (user) collection.find(queryFilter)
                 .projection(projection)
                 .first();
+    }
+    public void setSettings(ObjectId id,
+                               String firstName,
+                               String lastName,
+                               String Location,
+                               String bio,
+                               String gender,
+                               String birthdate)
+    {
+        Bson queryFilter=ne("_id",id);
+        Bson update=combine(
+                set("firstname",firstName),
+                set("lastname",lastName),
+                set("location",Location),
+                set("bio",bio),
+                set("gender",gender),
+                set("birthDate",birthdate)
+        );
+        collection.updateOne(queryFilter,update);
     }
     public boolean deleteUser(ObjectId id){
         Bson queryFilter = new Document("_id",id);

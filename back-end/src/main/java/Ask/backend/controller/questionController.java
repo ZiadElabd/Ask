@@ -48,7 +48,7 @@ public class questionController {
     {
         return new ResponseEntity<>(handler.getUserAnsweredQuestion(id,userName), HttpStatus.OK);
     }
-    @PostMapping("/AddLike/{ID}/{UserName}/{QuestionId}")
+    @PostMapping("/AddLike/{ID}/{userName}/{QuestionId}")
     public  ResponseEntity<Void> AddLike
             (       @PathVariable("ID") String id,
                     @PathVariable("userName") String userName,
@@ -57,6 +57,15 @@ public class questionController {
         if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         handler.AddLike(userName,QuestionId);
         return   new ResponseEntity<>(HttpStatus.OK);
-
+    }
+    @PostMapping("/removeLike/{ID}/{userName}/{QuestionId}")
+    public  ResponseEntity<Void> removeLike
+            (       @PathVariable("ID") String id,
+                    @PathVariable("userName") String userName,
+                    @PathVariable("QuestionId") String QuestionId){
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        handler.removeLike(userName,QuestionId);
+        return   new ResponseEntity<>(HttpStatus.OK);
     }
 }

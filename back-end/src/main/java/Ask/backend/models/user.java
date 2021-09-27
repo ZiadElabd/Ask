@@ -2,7 +2,6 @@ package Ask.backend.models;
 
 import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.codecs.pojo.annotations.BsonProperty;
-import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 
 import java.io.UnsupportedEncodingException;
@@ -14,6 +13,8 @@ public class user implements Imodel{
     private ObjectId id ;
     @BsonIgnore
     private String StringID;
+    @BsonIgnore
+    private String Photo;
     @BsonProperty("email")
     private String email;
     @BsonProperty("password")
@@ -25,9 +26,13 @@ public class user implements Imodel{
     @BsonProperty("userName")
     private String userName;
     @BsonProperty("profilePhoto")
-    private Binary profilePhoto;
+    private String profilePhoto;
     @BsonProperty("coverPhoto")
-    private Binary coverPhoto;
+    private String coverPhoto;
+    @BsonProperty("bio")
+    private String bio;
+    @BsonProperty("location")
+    private String location;
     @BsonProperty("askedQuestions")
     private List<ObjectId> askedQuestions;
     @BsonProperty("answeredQuestions")
@@ -85,19 +90,27 @@ public class user implements Imodel{
         this.userName = userName;
     }
 
-    public Binary getProfilePhoto() {
+    public String getPhoto() {
+        return Photo;
+    }
+
+    public void setPhoto(String photo) {
+        Photo = photo;
+    }
+
+    public String getProfilePhoto() {
         return profilePhoto;
     }
 
-    public void setProfilePhoto(Binary profilePhoto) {
+    public void setProfilePhoto(String profilePhoto) {
         this.profilePhoto = profilePhoto;
     }
 
-    public Binary getCoverPhoto() {
+    public String getCoverPhoto() {
         return coverPhoto;
     }
 
-    public void setCoverPhoto(Binary coverPhoto) {
+    public void setCoverPhoto(String coverPhoto) {
         this.coverPhoto = coverPhoto;
     }
 
@@ -147,6 +160,22 @@ public class user implements Imodel{
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public List<String> getMeFollow() {

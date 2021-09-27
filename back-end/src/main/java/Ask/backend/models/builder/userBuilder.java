@@ -47,11 +47,6 @@ public class userBuilder implements Ibuilder {
     public void buildfollowMe(){
         this.newUser.setFollowMe(new ArrayList<>());
     }
-    /*
-    public void buildProfilePhoto(){this.newUser.setProfilePhoto(new Binary(null));}
-    public void buildCoverPhoto(){this.newUser.setCoverPhoto(new Binary(null));}
-    */
-
     @Override
     public user getModel() {
         return this.newUser;
@@ -68,10 +63,6 @@ public class userBuilder implements Ibuilder {
             buildAskedQuestion();
             buildmeFollow();
             buildfollowMe();
-            /*
-            buildProfilePhoto();
-            buildCoverPhoto();
-            */
             Gender sex;
             String gender=obj.getString("gender");
             if (gender.equals("Male")) sex = Gender.Male;

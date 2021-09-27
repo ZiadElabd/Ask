@@ -18,12 +18,7 @@ public class questionRequestHandler {
     private questionOperation dbQuestionOperation=new questionOperation();
     private userOperation dbUserOperation=new userOperation();
     Director director=new Director();
-   /* public List<question> getfollowersQuestion(String id){
-        ObjectId realID=trackingSystem.checkAcess(id);
-        if (realID==null) return null;
-        List<ObjectId> IDS=dbUserOperation.getuserMeFollow(realID);
-        return  null;
-    }*/
+
     public boolean AddQuestion(String AskedQuestionID,String userName,String obj){
         ObjectId realID;
         realID=trackingSystem.checkAcess(AskedQuestionID);
@@ -90,6 +85,11 @@ public class questionRequestHandler {
     public void AddLike(String userName,String questionID){
         ObjectId questionId=new ObjectId(questionID);
         dbQuestionOperation.AddLike(userName,questionId);
+        return ;
+    }
+    public void removeLike(String userName,String questionID){
+        ObjectId questionId=new ObjectId(questionID);
+        dbQuestionOperation.removeLike(userName,questionId);
         return ;
     }
 

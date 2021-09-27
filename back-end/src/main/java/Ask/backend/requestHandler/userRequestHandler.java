@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 public class userRequestHandler {
@@ -78,20 +79,45 @@ public class userRequestHandler {
         ObjectId realID=trackingSystem.checkUserExist(id);
         if (realID.equals(null))return null;
         List<String> mefollowList=dbOperations.getMeFollowlist(userName);
-         return dbOperations.getfollowersUsers(mefollowList);
+        List<user> result=dbOperations.getfollowersUsers(mefollowList);
+        return result;
     }
-    public boolean setProfilePhoto(ObjectId id, MultipartFile image){
+    public boolean setProfilePhoto(String userName, MultipartFile image){
         try {
-            dbOperations.updateProfilePhoto(id, new Binary(BsonBinarySubType.BINARY,image.getBytes()));
+            Binary profile=new Binary(BsonBinarySubType.BINARY,image.getBytes());
+            dbOperations.updateProfilePhoto(userName,Base64.getEncoder().encodeToString(profile.getData()) );
         } catch (IOException e) {
             return false;
         }
         return true;
     }
-    public boolean setCoverPhoto(ObjectId id, MultipartFile image){
+    public String getProfilePhoto(String userName){
+          dbOperations.getProfilePhoto(userName);
+        return   dbOperations.getProfilePhoto(userName);
+    }
+    public boolean setCoverPhoto(String userName, MultipartFile image){
         try {
-            dbOperations.updateCoverPhoto(id, new Binary(BsonBinarySubType.BINARY,image.getBytes()));
+            Binary profile=new Binary(BsonBinarySubType.BINARY,image.getBytes());
+            dbOperations.updateCoverPhoto(userName,Base64.getEncoder().encodeToString(profile.getData()) );
         } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+    public String getCoverPhoto(String userName){
+        return   dbOperations.getCoverPhoto(userName);
+    }
+    public boolean updateSettings(ObjectId id,String datasent){
+        try {
+            JSONObject obj = new JSONObject(datasent);
+            String firstName=obj.getString("firstName");
+            String lastName=obj.getString("lastName");
+            String bio=obj.getString("bio");
+            String location= obj.getString("location");
+            String gender= obj.getString("gender");
+            String birthDate=obj.getString("birthDate");
+            dbOperations.setSettings(id,firstName,lastName,location,bio,gender,birthDate);
+        } catch (JSONException e) {
             return false;
         }
         return true;

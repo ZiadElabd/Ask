@@ -13,6 +13,8 @@ public class question implements Imodel {
     private String askedUser;
     @BsonProperty("questionText")
     private String questionText;
+    @BsonProperty("askedPhoto")
+    private String askedPhoto;
     @BsonProperty("replies")
     private reply replies;
     @BsonProperty("time")
@@ -44,6 +46,14 @@ public class question implements Imodel {
 
     public void setQuestionText(String questionText) {
         this.questionText = questionText;
+    }
+
+    public String getAskedPhoto() {
+        return askedPhoto;
+    }
+
+    public void setAskedPhoto(String askedPhoto) {
+        this.askedPhoto = askedPhoto;
     }
 
     public reply getReplies() {

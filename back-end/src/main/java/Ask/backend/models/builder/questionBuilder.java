@@ -1,5 +1,6 @@
 package Ask.backend.models.builder;
 
+import Ask.backend.dbOpertions.userOperation;
 import Ask.backend.models.Imodel;
 import Ask.backend.models.question;
 import Ask.backend.models.reply;
@@ -11,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 public class questionBuilder implements Ibuilder{
     private question newQuestion;
+    private userOperation db=new userOperation();
     public void buildaskedUser(String AskedUser){
         this.newQuestion.setAskedUser(AskedUser);
     }
@@ -24,6 +26,9 @@ public class questionBuilder implements Ibuilder{
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         this.newQuestion.setTime(dtf.format(now));
+    }
+    public void buildPhoto(){
+        this.newQuestion.setAskedPhoto(db.getProfilePhoto(this.newQuestion.getAskedUser()));
     }
     public void buildanoymos(boolean state){
         this.newQuestion.setAnoymos(state);
@@ -40,6 +45,7 @@ public class questionBuilder implements Ibuilder{
             buildAnswered();
             buildtime();
             buildreplies();
+            buildPhoto();
         } catch (JSONException e) {
             System.out.println("error in create question");
             return false;
