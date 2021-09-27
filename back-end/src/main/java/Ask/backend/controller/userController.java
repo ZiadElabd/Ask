@@ -27,8 +27,6 @@ public class userController {
 
     @PostMapping("/signup")
     public boolean signupController( @RequestBody String temp){
-        System.out.println("ffff");
-        System.out.println(temp);
         if (handler.signup(temp)) return true;
         return false;
     }
@@ -48,22 +46,28 @@ public class userController {
     @GetMapping("/getUsers/{ID}")
         public ResponseEntity<List<user>>  getUsersController(@PathVariable("ID") String id)
     {
-         return  new ResponseEntity<>(handler.getUsers(id),HttpStatus.OK);
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+         return  new ResponseEntity<>(handler.getUsers(realID),HttpStatus.OK);
     }
     @GetMapping("/getProfileData/{ID}/{userName}")
     public ResponseEntity<user> getProfileController(
             @PathVariable("ID") String id,
             @PathVariable("userName") String userName)
         {
-            return  new ResponseEntity<>(handler.getuserProfile(id,userName),HttpStatus.OK);
+            ObjectId realID=checker.checkAcess(id);
+            if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return  new ResponseEntity<>(handler.getuserProfile(userName),HttpStatus.OK);
         }
     @PostMapping("/followUser/{ID}/{userName}")
-    public void followUser(
+    public ResponseEntity<Void> followUser(
             @PathVariable("ID") String id,
             @PathVariable("userName") String userName)
     {
-
-        handler.AddFollower(id,userName);
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        handler.AddFollower(realID,userName);
+        return   new ResponseEntity<>(HttpStatus.OK);
     }
     @PostMapping("/unFollowUser/{ID}/{userName}")
     public ResponseEntity<Void> unFollowUser(
@@ -80,7 +84,9 @@ public class userController {
             @PathVariable("ID") String id,
             @PathVariable("userName") String userName)
     {
-       return   new ResponseEntity<>(handler.getFollowers(id,userName),HttpStatus.OK);
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+       return   new ResponseEntity<>(handler.getFollowers(userName),HttpStatus.OK);
     }
     @PostMapping("setProfilePhoto/{ID}/{userName}")
     public  ResponseEntity<Void>setProfilePhoto(@PathVariable("ID") String id,
@@ -106,7 +112,7 @@ public class userController {
     public  ResponseEntity<user> getSettings(@PathVariable("ID") String id,@PathVariable("userName") String userName){
         ObjectId realID=checker.checkAcess(id);
         if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        return   new ResponseEntity<>(handler.getuserProfile(id,userName),HttpStatus.OK);
+        return   new ResponseEntity<>(handler.getuserProfile(userName),HttpStatus.OK);
     }
     @PostMapping("/settings/{ID}")
     public  ResponseEntity<Void> settings(@PathVariable("ID") String id,@RequestBody String obj){

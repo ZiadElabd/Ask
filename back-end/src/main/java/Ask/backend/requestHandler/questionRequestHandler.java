@@ -19,10 +19,7 @@ public class questionRequestHandler {
     private userOperation dbUserOperation=new userOperation();
     Director director=new Director();
 
-    public boolean AddQuestion(String AskedQuestionID,String userName,String obj){
-        ObjectId realID;
-        realID=trackingSystem.checkAcess(AskedQuestionID);
-        if(realID.equals(null)) return false;
+    public boolean AddQuestion(ObjectId realID,String userName,String obj){
         question AddedQuestion= (question) director.composeModel("question",obj);
         ObjectId questionId=dbQuestionOperation.writeQuestionTOdb(AddedQuestion);
         // thread to update and add question information in current user
@@ -36,27 +33,21 @@ public class questionRequestHandler {
         return true;
     }
 
-    public List<question>  getUserUnAnsweredQuestion(String id,String userName){
-        ObjectId realID=trackingSystem.checkAcess(id);
-        if (realID.equals(null)) return null;
+    public List<question>  getUserUnAnsweredQuestion(String userName){
         List<question> result= dbQuestionOperation.getUnAnsweredQuestions(userName);
         for (question q:result) {
             q.setStringID(q.getId().toHexString());
         }
         return result;
     }
-    public List<question> getUserAnsweredQuestion(String id,String userName){
-        ObjectId realID=trackingSystem.checkAcess(id);
-        if (realID.equals(null)) return null;
+    public List<question> getUserAnsweredQuestion(String userName){
         List<question> result=dbQuestionOperation.getAnsweredQuestions(userName);
         for (question q:result) {
             q.setStringID(q.getId().toHexString());
         }
         return result;
     }
-    public boolean AnswerQuestion(String id,String dataSent){
-        ObjectId realID=trackingSystem.checkAcess(id);
-        if (realID.equals(null)) return false;
+    public boolean AnswerQuestion(String dataSent){
         ObjectId questionID;
         reply newReply= (reply) director.composeModel("reply",dataSent);
         try {
@@ -68,9 +59,7 @@ public class questionRequestHandler {
         dbQuestionOperation.addReply(questionID,newReply);
         return true;
     }
-    public List<question> getFollwersQuestions(String id ,String userName){
-        ObjectId realID=trackingSystem.checkAcess(id);
-        if (realID.equals(null)) return null;
+    public List<question> getFollwersQuestions(String userName){
         List<String> mefollowList=dbUserOperation.getMeFollowlist(userName);
         List<question> questions=new ArrayList<>();
         for (String user:mefollowList) {

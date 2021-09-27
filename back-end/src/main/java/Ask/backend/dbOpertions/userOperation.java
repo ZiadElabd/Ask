@@ -115,7 +115,7 @@ public class userOperation {
     }
     public void updateProfilePhoto(String userName, String photo){
         Bson queryFilter=eq("userName",userName);
-        Bson update=addToSet("profilePhoto",photo);
+        Bson update=set("profilePhoto",photo);
         collection.updateOne(queryFilter,update);
     }
     public String getProfilePhoto(String userName){
@@ -126,7 +126,7 @@ public class userOperation {
     }
     public void updateCoverPhoto(String userName,String photo){
         Bson queryFilter=eq("userName",userName);
-        Bson update=addToSet("coverPhoto",photo);
+        Bson update=set("coverPhoto",photo);
         collection.updateOne(queryFilter,update);
     }
     public String getCoverPhoto(String userName){

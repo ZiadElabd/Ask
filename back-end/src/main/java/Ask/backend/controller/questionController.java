@@ -20,24 +20,34 @@ public class questionController {
             (@PathVariable("ID") String id,
              @PathVariable("userName") String userName)
     {
-        return new ResponseEntity<>(handler.getFollwersQuestions(id,userName), HttpStatus.OK);
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(handler.getFollwersQuestions(userName), HttpStatus.OK);
     }
     @PostMapping("/AddQuestion/{ID}/{userName}")
-    public void AddQuestionController(
+    public ResponseEntity<Void> AddQuestionController(
             @PathVariable("ID") String id,
             @PathVariable("userName") String userName,
             @RequestBody String question){
-        handler.AddQuestion(id,userName,question);
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        handler.AddQuestion(realID,userName,question);
+        return   new ResponseEntity<>(HttpStatus.OK);
     }
     @GetMapping("/getQuestion/{ID}/{userName}")
     public ResponseEntity<List<question>> getUnAnsweredQuestionController
             (@PathVariable("ID") String id,
              @PathVariable("userName") String userName ){
-        return new ResponseEntity<>(handler.getUserUnAnsweredQuestion(id,userName), HttpStatus.OK);
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(handler.getUserUnAnsweredQuestion(userName), HttpStatus.OK);
     }
     @PostMapping("/answerQuestion/{ID}")
-    public void answerQuestion(@PathVariable("ID") String id,@RequestBody String reply){
-        handler.AnswerQuestion(id,reply);
+    public ResponseEntity<Void> answerQuestion(@PathVariable("ID") String id,@RequestBody String reply){
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        handler.AnswerQuestion(reply);
+        return   new ResponseEntity<>(HttpStatus.OK);
     }
 
 
@@ -46,7 +56,9 @@ public class questionController {
                    (@PathVariable("ID") String id,
                     @PathVariable("userName") String userName)
     {
-        return new ResponseEntity<>(handler.getUserAnsweredQuestion(id,userName), HttpStatus.OK);
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(handler.getUserAnsweredQuestion(userName), HttpStatus.OK);
     }
     @PostMapping("/AddLike/{ID}/{userName}/{QuestionId}")
     public  ResponseEntity<Void> AddLike

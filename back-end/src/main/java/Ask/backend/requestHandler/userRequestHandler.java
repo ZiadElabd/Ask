@@ -48,26 +48,20 @@ public class userRequestHandler {
         if(dbOperations.readuserFromdb(userName)==null) return true;
         return false;
     }
-    public List<user> getUsers(String id){
-        ObjectId realID=trackingSystem.checkUserExist(id);
-        if (realID.equals(null)) return null;
+    public List<user> getUsers(ObjectId realID){
         List<user> users= dbOperations.getAllUsers(realID);
         for (user u:users) {
             u.setStringID(u.getId().toHexString());
         }
      return users;
     }
-    public user  getuserProfile(String id,String userName){
-        ObjectId realID=trackingSystem.checkUserExist(id);
-        if (realID.equals(null))return null;
+    public user  getuserProfile(String userName){
         user result=dbOperations.getuser(userName);
         result.setStringID(result.getId().toHexString());
         return result;
 
     }
-    public boolean AddFollower(String id,String userName){
-        ObjectId realID=trackingSystem.checkUserExist(id);
-        if (realID.equals(null))return false;
+    public boolean AddFollower(ObjectId realID,String userName){
         dbOperations.updatemeFollowList(realID,userName);
        return true;
     }
@@ -75,9 +69,7 @@ public class userRequestHandler {
         dbOperations.meFollowListRemove(id,userName);
         return true;
     }
-    public List<user> getFollowers(String id,String userName){
-        ObjectId realID=trackingSystem.checkUserExist(id);
-        if (realID.equals(null))return null;
+    public List<user> getFollowers(String userName){
         List<String> mefollowList=dbOperations.getMeFollowlist(userName);
         List<user> result=dbOperations.getfollowersUsers(mefollowList);
         return result;
