@@ -49,6 +49,7 @@ public class questionOperation {
                 append("questionText",1).
                 append("askedPhoto",1).
                 append("replies.userNameAnswered",1).
+                append("replies.answeredPhoto",1).
                 append("replies.time",1);
         List<question> result=new ArrayList<>();
         collection.find(queryFilter).projection(projection).into(result);
