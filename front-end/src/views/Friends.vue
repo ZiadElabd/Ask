@@ -17,7 +17,7 @@
       >
         <div class="user-img" @click="select(user)">
           <span>
-            <b-avatar src="" size="3rem"></b-avatar>
+            <b-avatar :src="decodeImage(user.profilePhoto)" size="3rem"></b-avatar>
           </span>
           <span
             >{{ user.firstName + " " + user.lastname
@@ -100,6 +100,9 @@ export default {
       return users.filter(function(user) {
         return user.username.indexOf(this.searchValue) >= 0;
       });
+    },
+    decodeImage(image){
+      return 'data:image/jpeg;base64,' + image;
     },
   },
   components: {

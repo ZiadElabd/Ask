@@ -49,12 +49,12 @@
             <div class="form-group">
               <label>Birth Date</label> <br />
               <el-date-picker
-                v-model="allSettings.birthdate"
+                v-model="allSettings.birthDate"
                 type="date"
                 placeholder="Pick a date"
               >
               </el-date-picker>
-              {{ allSettings.birthdate }}
+              {{ allSettings.birthDate }}
             </div>
           </div>
           <div class="mb-3 paddingwithborder">
@@ -105,6 +105,9 @@
 import Navbar from "../components/nbar.vue";
 export default {
   name: "Settings",
+  components: {
+    Navbar,
+  },
   data() {
     return {
       username: "omarrehan0020",
@@ -115,18 +118,17 @@ export default {
       coverPhoto:'',
       allSettings: {
         fullname: "",
+        firstName:"", // not yet
+        lastName:"", // not yet
         location: "",
         bio: "",
         username: "omarrehan0020",
-        birthdate: "",
+        birthDate: "",
         gender: "Male",
         profile: "",
         cover: "",
       },
     };
-  },
-  components: {
-    Navbar,
   },
   methods: {
     onprofileselected: function(event) {
@@ -134,13 +136,6 @@ export default {
       let fd = new FormData();
       fd.append("image", this.allSettings.profile);
       this.profilePhoto = fd;
-      /*fetch(
-        "http://localhost:5050/setProfilePhoto/" + this.userID + "/" + this.userName,
-        {
-          method: "post",
-          body: fd
-        }
-      );*/
       this.getImageBase64(this.allSettings.profile);
     },
     getImageBase64: function(file) {
@@ -158,13 +153,6 @@ export default {
       let fd = new FormData();
       fd.append("image", this.allSettings.cover);
       this.coverPhoto = fd;
-      /*fetch(
-        "http://localhost:5050/setCoverPhoto/" + this.userID + "/" + this.userName,
-        {
-          method: "post",
-          body: fd
-        }
-      );*/
       this.getImageBase6(this.allSettings.cover);
     },
     getImageBase6: function(file) {
@@ -177,8 +165,10 @@ export default {
         alert("Error !!!");
       };
     },
-    saveSetting(){
-
+    decodeImage(image){
+      return 'data:image/jpeg;base64,' + image;
+    },
+    saveProfilePhoto(){
       fetch(
         "http://localhost:5050/setProfilePhoto/" + this.userID + "/" + this.userName,
         {
@@ -186,6 +176,10 @@ export default {
           body: this.profilePhoto,
         }
       );
+    },
+    saveCoverPhoto(){
+      console.log("bio = " + this.allSettings.bio);
+      console.log("location = " + this.allSettings.location);
       fetch(
         "http://localhost:5050/setCoverPhoto/" + this.userID + "/" + this.userName,
         {
@@ -194,21 +188,18 @@ export default {
         }
       );
     },
-    async get(){
-      const response = await fetch( "http://localhost:5050/getSettings/" + this.userID + "/" + this.userName, {
-          method: "get", 
+    saveSetting(){
+      fetch(
+        "http://localhost:5050/settings/" + this.userID,
+        {
+          method: "post",
           headers: { "Content-Type": "application/json" },
-      }).then((res) => {
-          return res.json();
-      }).then((data) => {
-          console.log(data);
-          return data;
-      })
-      console.log("bbbbbbbbb");
-      console.log("questions response = " + response);
-      this.allSettings.profile = response.profilePhoto;
-      this.allSettings.cover = response.coverPhoto;
-    }
+          body: JSON.stringify(this.allSettings),
+        }
+      );
+      this.saveProfilePhoto();
+      this.saveCoverPhoto();
+    },
   },
   computed:{
     userID(){
@@ -217,9 +208,20 @@ export default {
     userName(){
       return this.$store.state.userName;
     },
+    settings(){
+      return this.$store.state.settings;
+    }
+  },
+  watch:{
+    settings(val){
+      this.profileURL = this.decodeImage(val.profilePhoto);
+      this.coverURL = this.decodeImage(val.coverPhoto);
+      this.allSettings.bio = val.bio;
+      this.allSettings.location = val.location;
+    }
   },
   created() {
-    this.get();
+    this.$store.dispatch("loadSettings");
   },
 };
 </script>

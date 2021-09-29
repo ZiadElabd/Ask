@@ -10,7 +10,7 @@
             @click="select(msg.askedUser)"
           >
             <span>
-              <b-avatar :src="msg.photo" size="1.5rem"></b-avatar>
+              <b-avatar :src="decodeImage(msg.askedPhoto)" size="1.5rem"></b-avatar>
             </span>
             <span class="sender"> {{ msg.askedUser }}</span>
           </div>
@@ -18,7 +18,7 @@
         </div>
         <div class="name" @click="select(msg.replies.userNameAnswered)">
           <div class="name_photo">
-            <b-avatar :src="msg.photo"></b-avatar>
+            <b-avatar :src="msg.replies.answeredPhoto"></b-avatar>
           </div>
           <div class="name_time">
             <h6 class="myname">
@@ -61,19 +61,20 @@ export default {
   },
   methods: {
     toggleLike: function(msg) {
-      if (msg.replies.likes.includes(this.userName)) {// request for unlike
+      if (msg.replies.likes.includes(this.userName)) {
         this.$store.dispatch("unlike",msg.stringID);
         msg.replies.likes.splice(msg.replies.likes.indexOf(this.userName));
-      } else {// request for like
+      } else {
         this.$store.dispatch("like",msg.stringID);
         msg.replies.likes.push(this.userName);
       }
-      // request for like
-      
     },
     select(userName) {
       console.log("userName clicked => " + userName);
       this.$router.push({ name: "profile", params: { userName: userName } });
+    },
+    decodeImage(image){
+      return 'data:image/jpeg;base64,' + image;
     },
   },
   computed: {
