@@ -80,7 +80,7 @@ public class questionController {
         handler.removeLike(userName,QuestionId);
         return   new ResponseEntity<>(HttpStatus.OK);
     }
-    @PostMapping("/getNotifactions/{ID}")
+    @GetMapping ("/getNotifactions/{ID}")
     public ResponseEntity<List<question>> getNotications(@PathVariable ("ID") String id)
     {
         ObjectId realID=checker.checkAcess(id);
