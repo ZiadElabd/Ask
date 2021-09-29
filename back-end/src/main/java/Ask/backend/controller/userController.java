@@ -123,6 +123,7 @@ public class userController {
     }
     @PostMapping("/settings/{ID}")
     public  ResponseEntity<Void> settings(@PathVariable("ID") String id,@RequestBody String obj){
+        System.out.println(obj);
         ObjectId realID=checker.checkAcess(id);
         if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         handler.updateSettings(realID,obj);
