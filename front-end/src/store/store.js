@@ -4,19 +4,19 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-    //strict: true,
+    strict: true,
     state: {
         userID:'',
         userName: '',
-        questions: [
-            { id: 1 , conntent: "ziad is my Name" },
-            { id: 2 , conntent: "osama is my brother" }
-        ],
+        userImage: "",
+        questions: [],
         users:[],
         followers:[],
         profileData:{},
-        profileQuestions:{},
-        homeQuestions:{},
+        profileQuestions:[],
+        homeQuestions:[],
+        settings:{},
+        notifications:[],
     },
     getters: {
         
@@ -53,10 +53,6 @@ export const store = new Vuex.Store({
             let followersList = followers.map(e => {
                 return e.userName;
             });
-            /*console.log("followers list");
-            followersList.map(e => {
-                console.log(e);
-            });*/
             state.followers = followersList;
         },
         saveProfileData:(state , profileData) =>{
@@ -71,6 +67,15 @@ export const store = new Vuex.Store({
             console.log("homeQuestions = " + homeQuestions);
             state.homeQuestions = homeQuestions;
         },
+        saveSettings:(state , settings) =>{
+            console.log("settings = " + settings);
+            state.settings = settings;
+        },
+        saveNotifications:(state , notifications) =>{
+            console.log("settings = " + notifications);
+            state.notifications = notifications;
+        },
+
     },
     actions: {
         getQuestions: async context => {
@@ -89,6 +94,26 @@ export const store = new Vuex.Store({
                 console.log("bbbbbbbbb")
                 console.log("questions response = " + response);
                 context.commit('saveQuestions',response);
+            /*} catch (error) {
+                alert('error');
+            }*/
+        },
+        getNotifications: async context =>{
+            //try {
+                console.log('in store ' + store.state.userID);
+                let response = [];
+                response = await fetch( "http://localhost:5050/getNotifactions/" + store.state.userID, {
+                    method: "get", 
+                    headers: { "Content-Type": "application/json" },
+                }).then((res) => {
+                    return res.json();
+                }).then((data) => {
+                    console.log(data);
+                    return data;
+                });
+                console.log("Notifications");
+                console.log("Notifications response = " + response);
+                context.commit('saveNotifications', response);
             /*} catch (error) {
                 alert('error');
             }*/
@@ -210,6 +235,27 @@ export const store = new Vuex.Store({
                   headers: { "Content-Type": "application/json" },
                 }
             );
-        }
-    }
+        },
+        loadSettings: async context => {
+            //try {
+                console.log('in store ' + store.state.userID);
+                let response = [];
+                response = await fetch( "http://localhost:5050/getSettings/" + store.state.userID + "/" + store.state.userName, {
+                    method: "get", 
+                    headers: { "Content-Type": "application/json" },
+                }).then((res) => {
+                    return res.json();
+                }).then((data) => {
+                    console.log(data);
+                    return data;
+                })
+                console.log("Settings")
+                console.log("Settings response = " + response);
+                context.commit('saveSettings', response);
+            /*} catch (error) {
+                alert('error');
+            }*/
+        },
+    },
+    
 });

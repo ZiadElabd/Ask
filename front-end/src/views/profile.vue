@@ -54,14 +54,14 @@
           <div class="send">
             <div class="anymo" v-if="msg.anoymos == false" @click="select(msg.askedUser)">
               <span>
-                <b-avatar :src="msg.photo" size="1.5rem"></b-avatar>
+                <b-avatar :src="decodeImage(msg.askedPhoto)" size="1.5rem"></b-avatar>
               </span>
               <span class="sender"> {{ msg.askedUser }}</span>
             </div>
             <h4>{{ msg.questionText }}</h4>
             <div class="name">
               <div class="name_photo">
-                <b-avatar :src="msg.photo"></b-avatar>
+                <b-avatar :src="msg.replies.answeredPhoto"></b-avatar>
               </div>
               <div class="name_time">
                 <h6 class="myname">
@@ -147,6 +147,9 @@ export default {
     select(userName) {
       console.log("userName clicked => " + userName);
       this.$router.push({ name: "profile", params: { userName: userName } });
+    },
+    decodeImage(image){
+      return 'data:image/jpeg;base64,' + image;
     },
   },
   computed: {
