@@ -5,6 +5,7 @@ import Ask.backend.models.reply;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import static com.mongodb.MongoClientSettings.getDefaultCodecRegistry;
 import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Sorts.descending;
 import static com.mongodb.client.model.Updates.*;
 import static com.mongodb.client.model.Updates.addToSet;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -40,25 +42,36 @@ public class questionOperation {
         return id;
     }
 
-    public List<question> getAskedQuestion(ObjectId id){
+    public List<question> getAskedansweredQuestions(ObjectId id){
         List<ObjectId> AskedQuestionsID=userDBoperation.getUserAskedQuestions(id);
-        Bson queryFilter=in("_id",AskedQuestionsID);
+        Bson queryFilter=and(in("_id",AskedQuestionsID),eq("answered",true));
+        Bson projection= new Document("askedUser",1).
+                append("questionText",1).
+                append("askedPhoto",1).
+                append("replies.userNameAnswered",1).
+                append("replies.time",1);
         List<question> result=new ArrayList<>();
-        collection.find(queryFilter).into(result);
+        collection.find(queryFilter).projection(projection).into(result);
         return result;
+    }
+    public question getAskAnsQuestion(ObjectId id){
+        Bson queryFilter=eq("_id",id);
+        Bson update=set("seen",true);
+        return  (question) collection.findOneAndUpdate(queryFilter,update);
     }
     public List<question> getAnsweredQuestions(String userName){
         List<ObjectId> AnsweredQuestionsID=userDBoperation.getUserAnsweredQuestions(userName);
         Bson queryFilter=and(in("_id",AnsweredQuestionsID),eq("answered",true));
         List<question> result=new ArrayList<>();
-        collection.find(queryFilter).into(result);
+        collection.find(queryFilter).sort(descending("replies.time")).into(result);
         return result;
     }
     public List<question> getUnAnsweredQuestions(String userName){
         List<ObjectId> AnsweredQuestionsID=userDBoperation.getUserAnsweredQuestions(userName);
         Bson queryFilter=and(in("_id",AnsweredQuestionsID),eq("answered",false));
+
         List<question> result=new ArrayList<>();
-        collection.find(queryFilter).into(result);
+        collection.find(queryFilter).sort(descending("time")).into(result);
         return result;
     }
     public void addReply(ObjectId questionID,reply newReply){

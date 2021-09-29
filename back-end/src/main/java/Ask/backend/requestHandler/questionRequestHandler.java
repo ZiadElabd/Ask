@@ -81,6 +81,17 @@ public class questionRequestHandler {
         dbQuestionOperation.removeLike(userName,questionId);
         return ;
     }
+    public List<question> getNofications(ObjectId id){
+        List <question> questions=dbQuestionOperation.getAskedansweredQuestions(id);
+        for (question q:questions) {
+            q.setStringID(q.getId().toHexString());
+        }
+        return questions;
+    }
+    public question getAskAnsQuestion(String questionID){
+        ObjectId questionId=new ObjectId(questionID);
+        return dbQuestionOperation.getAskAnsQuestion(questionId);
+    }
 
 
 }

@@ -23,6 +23,8 @@ public class question implements Imodel {
     private boolean anoymos;
     @BsonProperty("answered")
     private boolean answered;
+    @BsonProperty("seen")
+    private boolean seen;
 
     public ObjectId getId() {
         return id;
@@ -95,5 +97,13 @@ public class question implements Imodel {
 
     public void setAnswered(boolean answered) {
         this.answered = answered;
+    }
+
+    public boolean isSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen = seen;
     }
 }

@@ -97,6 +97,13 @@ public class userController {
         if (handler.setProfilePhoto(userName,image)) return   new ResponseEntity<>(HttpStatus.OK);
         else return   new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
+    @GetMapping("getProfilePhoto/{ID}/{userName}")
+    public  ResponseEntity<String>setProfilePhoto(@PathVariable("ID") String id, @PathVariable("userName") String userName)
+    {
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return  new ResponseEntity<>(handler.getProfilePhoto(userName),HttpStatus.UNAUTHORIZED);
+    }
 
     @PostMapping("setCoverPhoto/{ID}/{userName}")
     public  ResponseEntity<Void>setCoverPhoto(@PathVariable("ID") String id,

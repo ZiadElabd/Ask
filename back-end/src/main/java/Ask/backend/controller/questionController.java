@@ -80,4 +80,21 @@ public class questionController {
         handler.removeLike(userName,QuestionId);
         return   new ResponseEntity<>(HttpStatus.OK);
     }
+    @PostMapping("/getNotifactions/{ID}")
+    public ResponseEntity<List<question>> getNotications(@PathVariable ("ID") String id)
+    {
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(handler.getNofications(realID),HttpStatus.OK);
+    }
+    @GetMapping("/getAskAnsQuestion/{ID}/{questionID}")
+    public ResponseEntity<question> getAskAnsQuestion(
+            @PathVariable("ID") String id,
+            @PathVariable("QuestionId") String QuestionId)
+    {
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(handler.getAskAnsQuestion(QuestionId),HttpStatus.OK);
+    }
+
 }
