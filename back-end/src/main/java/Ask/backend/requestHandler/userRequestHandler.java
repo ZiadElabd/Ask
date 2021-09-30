@@ -105,7 +105,7 @@ public class userRequestHandler {
             String firstName=obj.getString("firstName");
             String lastName=obj.getString("lastName");
             String bio=obj.getString("bio");
-            String location= obj.getString("Location");
+            String location= obj.getString("location");
             String gender= obj.getString("gender");
             String birthDate=obj.getString("birthDate");
             dbOperations.setSettings(id,firstName,lastName,location,bio,gender,birthDate);
