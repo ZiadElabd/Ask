@@ -39,7 +39,7 @@ public class userBuilder implements Ibuilder {
         this.newUser.setFirstName(firstName);
     }
     public void buildLastName(String lastName){
-        this.newUser.setLastname(lastName);
+        this.newUser.setLastName(lastName);
     }
     public void buildmeFollow(){
         this.newUser.setMeFollow(new ArrayList<>());

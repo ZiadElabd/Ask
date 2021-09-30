@@ -13,8 +13,6 @@ public class user implements Imodel{
     private ObjectId id ;
     @BsonIgnore
     private String StringID;
-    @BsonIgnore
-    private String Photo;
     @BsonProperty("email")
     private String email;
     @BsonProperty("password")
@@ -90,13 +88,6 @@ public class user implements Imodel{
         this.userName = userName;
     }
 
-    public String getPhoto() {
-        return Photo;
-    }
-
-    public void setPhoto(String photo) {
-        Photo = photo;
-    }
 
     public String getProfilePhoto() {
         return profilePhoto;
@@ -154,12 +145,12 @@ public class user implements Imodel{
         this.firstName = firstName;
     }
 
-    public String getLastname() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastName = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getBio() {
