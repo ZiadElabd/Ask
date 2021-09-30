@@ -18,7 +18,7 @@
         </div>
 
         <div class="quetion">
-          <h4>{{ question.questionText }} id = {{ questionID }}</h4>
+          <h4>{{ question.questionText }}</h4>
         </div>
 
         <form @submit.prevent="submitAnswer">
