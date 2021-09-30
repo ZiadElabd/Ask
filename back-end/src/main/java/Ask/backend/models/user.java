@@ -22,7 +22,7 @@ public class user implements Imodel{
     @BsonProperty("firstname")
     private String firstName;
     @BsonProperty("lastname")
-    private String lastname;
+    private String lastName;
     @BsonProperty("userName")
     private String userName;
     @BsonProperty("profilePhoto")
@@ -155,11 +155,11 @@ public class user implements Imodel{
     }
 
     public String getLastname() {
-        return lastname;
+        return lastName;
     }
 
     public void setLastname(String lastname) {
-        this.lastname = lastname;
+        this.lastName = lastname;
     }
 
     public String getBio() {
