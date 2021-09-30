@@ -5,37 +5,37 @@
       <div class="question-answer">
         <div class="name">
           <div class="name_photo">
-            <b-avatar src="https://placekitten.com/300/300"></b-avatar>
+            <b-avatar :src="decodeImage(question.askedPhoto)" ></b-avatar>
           </div>
           <div class="name_time">
             <h6 class="myname">
-              <span> Nour ahmed</span>
+              <span> {{ question.askedUser }}</span>
             </h6>
             <div class="time">
-              <span>10 days ago</span>
+              <span>{{ question.time }}</span>
             </div>
           </div>
         </div>
 
         <div class="quetion">
-          <h4>question Text</h4>
+          <h4>{{ question.questionText }}</h4>
         </div>
 
         <div class="name" >
           <div class="name_photo">
-            <b-avatar src="https://placekitten.com/300/300"></b-avatar>
+            <b-avatar :src="decodeImage(question.replies.answeredPhoto)" ></b-avatar>
           </div>
           <div class="name_time">
             <h6 class="myname">
-              <span> answered userName</span>
+              <span>{{ question.replies.userNameAnswered }}</span>
             </h6>
             <div class="time">
-              <span> 10 days ago </span>
+              <span> {{ question.replies.time }} </span> 
             </div>
           </div>
         </div>
         <div class="answer">
-          <span>anwer text</span>
+          <span>{{ question.replies.replyText }}</span> 
         </div>
       </div>
     </div>
@@ -52,16 +52,27 @@ export default {
   name: "AnswerQuestion",
   data() {
     return {
-
+      questionResponse:{},
     };
   },
   computed: {
+    questionID(){
+      return this.$route.params.questionID;
+    },
     userID() {
       return this.$store.state.userID;
     },
+    question(){
+      return this.$store.state.cur_question;
+    }
   },
   methods: {
-
+    decodeImage(image){
+      return 'data:image/jpeg;base64,' + image;
+    },
+  },
+  created() {
+    this.$store.dispatch("getAQuestion", this.questionID);
   },
 };
 </script>

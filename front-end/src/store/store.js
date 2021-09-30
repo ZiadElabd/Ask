@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
         userName: '',
         userImage: "",
         questions: [],
+        cur_question:{},
         users:[],
         followers:[],
         profileData:{},
@@ -43,6 +44,10 @@ export const store = new Vuex.Store({
         saveQuestions:(state , questions) =>{
             console.log("questions = " + questions);
             state.questions = questions;
+        },
+        saveAQuestion:(state , question) =>{
+            console.log("cur_question = " + question);
+            state.cur_question = question;
         },
         saveUsers:(state , users) =>{
             console.log("users = " + users);
@@ -94,6 +99,26 @@ export const store = new Vuex.Store({
                 console.log("bbbbbbbbb")
                 console.log("questions response = " + response);
                 context.commit('saveQuestions',response);
+            /*} catch (error) {
+                alert('error');
+            }*/
+        },
+        getAQuestion: async (context,question_id) => {
+            //try {
+                console.log('question id in store =  ' + question_id);
+                let response = [];
+                response = await fetch( "http://localhost:5050/getAskAnsQuestion/" + store.state.userID  + "/" + question_id, {
+                    method: "get", 
+                    headers: { "Content-Type": "application/json" },
+                }).then((res) => {
+                    return res.json();
+                }).then((data) => {
+                    console.log(data);
+                    return data;
+                })
+                console.log("bbbbbbbbb")
+                console.log("questions response = " + response);
+                context.commit('saveAQuestion',response);
             /*} catch (error) {
                 alert('error');
             }*/

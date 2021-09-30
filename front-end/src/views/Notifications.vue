@@ -2,9 +2,9 @@
   <div class="notifications">
     <Navbar />
     <div class="users container">
-      <div class="not"  v-for="notification in notifications" :key="notification.stringID">
+      <div class="not"  v-for="notification in notifications" :key="notification.stringID" @click="select(notification.stringID)">
         <div>
-          <b-avatar src="" size="3rem"> </b-avatar>
+          <b-avatar :src="decodeImage(notification.replies.answeredPhoto)"  size="3rem"> </b-avatar> <!---->
         </div>
         <div class="que">
           <span>{{notification.replies.userNameAnswered}}</span> answered your question
@@ -24,6 +24,14 @@ export default {
   name: "Notifications",
   components: {
     Navbar,
+  },
+  methods:{
+    select(id) {
+      this.$router.push({ name: "AnsweredQuestion", params: { questionID : id } });
+    },
+    decodeImage(image){
+      return 'data:image/jpeg;base64,' + image;
+    },
   },
   computed: {
     userID() {
