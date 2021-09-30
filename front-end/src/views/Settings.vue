@@ -5,14 +5,24 @@
       <div class="Settings">
         <form>
           <div class="mb-3">
-            <label for="fullname" class="form-label">Full Name</label>
+            <label for="firstname" class="form-label">first Name</label>
             <input
               type="text"
               class="form-control"
               id="fullname"
-              v-model="allSettings.fullname"
+              v-model="allSettings.firstName"
             />
-            {{ allSettings.fullname }}
+            {{ allSettings.firstName }}
+          </div>
+          <div class="mb-3">
+            <label for="lastname" class="form-label">last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fullname"
+              v-model="allSettings.lastName"
+            />
+            {{ allSettings.lastName }}
           </div>
           <div class="mb-3">
             <label for="location" class="form-label">Location</label>
@@ -41,7 +51,7 @@
               type="text"
               class="form-control"
               id="username"
-              :value="allSettings.username"
+              :value="settings.userName"
               disabled
             />
           </div>
@@ -110,23 +120,18 @@ export default {
   },
   data() {
     return {
-      username: "omarrehan0020",
       selectedfile: "",
       profileURL: "",
       coverURL: "",
       profilePhoto:'',
       coverPhoto:'',
       allSettings: {
-        fullname: "",
-        firstName:"", // not yet
-        lastName:"", // not yet
+        firstName:"",
+        lastName:"", 
         location: "",
         bio: "",
-        username: "omarrehan0020",
         birthDate: "",
         gender: "Male",
-        profile: "",
-        cover: "",
       },
     };
   },
@@ -189,6 +194,8 @@ export default {
       );
     },
     saveSetting(){
+      console.log("sent object");
+      console.log(this.allSettings);
       fetch(
         "http://localhost:5050/settings/" + this.userID,
         {
@@ -210,14 +217,16 @@ export default {
     },
     settings(){
       return this.$store.state.settings;
+    },
+    fullname(){
+      return this.settings.firstName + " " + this.settings.lastname
     }
   },
   watch:{
     settings(val){
       this.profileURL = this.decodeImage(val.profilePhoto);
       this.coverURL = this.decodeImage(val.coverPhoto);
-      this.allSettings.bio = val.bio;
-      this.allSettings.location = val.location;
+      this.allSettings= val
     }
   },
   created() {
