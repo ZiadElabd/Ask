@@ -5,14 +5,14 @@
       <div class="question-answer">
         <div class="name">
           <div class="name_photo">
-            <b-avatar src="https://placekitten.com/300/300"></b-avatar>
+            <b-avatar :src="decodeImage(question.askedPhoto)"></b-avatar>
           </div>
           <div class="name_time">
             <h6 class="myname">
-              <span> Nour ahmed</span>
+              <span> {{ question.askedUser }} </span>
             </h6>
             <div class="time">
-              <span>10 days ago</span>
+              <span>{{ question.time }}</span>
             </div>
           </div>
         </div>
@@ -81,6 +81,9 @@ export default {
         }),
       });
       this.$router.push({ name: "Questions" });
+    },
+    decodeImage(image){
+      return 'data:image/jpeg;base64,' + image;
     },
   },
 };

@@ -70,8 +70,8 @@
           <div class="mb-3 paddingwithborder">
             <label for="gender">Gender</label> <br />
             <select v-model="allSettings.gender">
-              <option value="male">Male</option>
-              <option value="female" selected>Female</option>
+              <option value="Male">Male</option>
+              <option value="Memale" selected>Female</option>
             </select>
             {{ allSettings.gender }}
           </div>

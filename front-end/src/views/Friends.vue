@@ -20,7 +20,7 @@
             <b-avatar :src="decodeImage(user.profilePhoto)" size="3rem"></b-avatar>
           </span>
           <span
-            >{{ user.firstName + " " + user.lastname
+            >{{ user.firstName + " " + user.lastName
             }}<span class="username">{{ user.userName }}</span></span
           >
         </div>

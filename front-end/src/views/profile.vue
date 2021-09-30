@@ -20,7 +20,7 @@
                 <span>{{ this.userName }}</span>
               </div>
               <h6 class="myname">
-                <span>{{ user.firstName + " " + user.lastname }}</span>
+                <span>{{ user.firstName + " " + user.lastName }}</span>
               </h6>
             </div>
           </div>
