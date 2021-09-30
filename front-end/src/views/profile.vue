@@ -5,7 +5,7 @@
     <div class="background">
       <div class="overlay"></div>
       <div class="cover">
-        <img src="../zz.jpg" alt="" />
+        <img :src="decodeImage(user.coverPhoto)" alt="" />
       </div>
     </div>
     <div class="container">
@@ -13,14 +13,14 @@
         <div class="profile_photo">
           <div class="name">
             <div class="name_photo">
-              <b-avatar src="https://placekitten.com/300/300"></b-avatar>
+              <b-avatar :src="decodeImage(user.askedPhoto)"></b-avatar>
             </div>
             <div class="name_time">
               <div class="time">
                 <span>{{ this.userName }}</span>
               </div>
               <h6 class="myname">
-                <span>{{ user.firstName + " " + user.lastName }}</span>
+                <span>{{ fullname }}</span>
               </h6>
             </div>
           </div>
@@ -173,6 +173,9 @@ export default {
     questionCharacterCount() {
       return this.questionContent.length;
     },
+    fullname(){
+      return this.user.firstName + " " + this.user.lastName
+    }
   },
   created() {
     console.log("profile created");
