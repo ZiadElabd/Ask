@@ -13,7 +13,7 @@
         <div class="profile_photo">
           <div class="name">
             <div class="name_photo">
-              <b-avatar :src="decodeImage(user.askedPhoto)"></b-avatar>
+              <b-avatar :src="decodeImage(user.profilePhoto)"></b-avatar>
             </div>
             <div class="name_time">
               <div class="time">

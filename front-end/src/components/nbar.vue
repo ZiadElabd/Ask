@@ -21,7 +21,7 @@
               :to="{ name: 'profile', params: { userName: this.userName } }"
             >
               <b-avatar
-                src="https://placekitten.com/300/300"
+                :src="decodeImage(userImage)"
                 size="1.5rem"
               ></b-avatar></router-link
           ></b-nav-item>
@@ -55,15 +55,22 @@ export default {
       console.log("in nav bar => " + this.$store.state.userName);
       return this.$store.state.userName;
     },
+    userImage(){
+      return this.$store.state.userImage;
+    }
   },
   methods:{
     reset(){
       this.$store.commit('deleteUserData');
     },
+    decodeImage(image){
+      return 'data:image/jpeg;base64,' + image;
+    },
   },
   created() {
     console.log("nav created");
     console.log("in nav bar => " + this.$store.state.userName);
+    this.$store.dispatch("getImage");
   },
 };
 </script>
