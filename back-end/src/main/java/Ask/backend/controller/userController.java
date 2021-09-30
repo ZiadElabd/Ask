@@ -102,7 +102,7 @@ public class userController {
     {
         ObjectId realID=checker.checkAcess(id);
         if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        return  new ResponseEntity<>(handler.getProfilePhoto(userName),HttpStatus.UNAUTHORIZED);
+        return  new ResponseEntity<>(handler.getProfilePhoto(userName),HttpStatus.OK);
     }
 
     @PostMapping("setCoverPhoto/{ID}/{userName}")
