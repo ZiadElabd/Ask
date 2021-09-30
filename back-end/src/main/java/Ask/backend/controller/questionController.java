@@ -90,7 +90,7 @@ public class questionController {
     @GetMapping("/getAskAnsQuestion/{ID}/{questionID}")
     public ResponseEntity<question> getAskAnsQuestion(
             @PathVariable("ID") String id,
-            @PathVariable("QuestionId") String QuestionId)
+            @PathVariable("questionID") String QuestionId)
     {
         ObjectId realID=checker.checkAcess(id);
         if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
