@@ -125,6 +125,8 @@ export default {
       coverURL: "",
       profilePhoto:'',
       coverPhoto:'',
+      profileSelected: false,
+      coverSelected: false,
       allSettings: {
         firstName:"",
         lastName:"", 
@@ -137,6 +139,7 @@ export default {
   },
   methods: {
     onprofileselected: function(event) {
+      this.profileSelected = true;
       this.allSettings.profile = event.target.files[0];
       let fd = new FormData();
       fd.append("image", this.allSettings.profile);
@@ -154,6 +157,7 @@ export default {
       };
     },
     oncoverselected: function(event) {
+      this.coverSelected = true;
       this.allSettings.cover = event.target.files[0];
       let fd = new FormData();
       fd.append("image", this.allSettings.cover);
@@ -204,8 +208,8 @@ export default {
           body: JSON.stringify(this.allSettings),
         }
       );
-      this.saveProfilePhoto();
-      this.saveCoverPhoto();
+      if(this.profileSelected) this.saveProfilePhoto();
+      if(this.coverSelected) this.saveCoverPhoto();
     },
   },
   computed:{
