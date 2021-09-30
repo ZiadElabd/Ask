@@ -166,7 +166,7 @@ public class userOperation {
                                String gender,
                                String birthdate)
     {
-        Bson queryFilter=ne("_id",id);
+        Bson queryFilter=eq("_id",id);
         Bson update=combine(
                 set("firstname",firstName),
                 set("lastname",lastName),
