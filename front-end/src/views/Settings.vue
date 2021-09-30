@@ -219,14 +219,20 @@ export default {
       return this.$store.state.settings;
     },
     fullname(){
-      return this.settings.firstName + " " + this.settings.lastname
+      return this.settings.firstName + " " + this.settings.lastName
     }
   },
   watch:{
     settings(val){
       this.profileURL = this.decodeImage(val.profilePhoto);
       this.coverURL = this.decodeImage(val.coverPhoto);
-      this.allSettings= val
+      this.allSettings.firstName = val.firstName;
+      this.allSettings.lastName = val.lastName;
+      this.allSettings.location = val.location;
+      this.allSettings.bio = val.bio;
+      this.allSettings.birthDate = val.birthDate;
+      this.allSettings.gender = val.gender;
+
     }
   },
   created() {
