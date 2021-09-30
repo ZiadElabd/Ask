@@ -18,7 +18,7 @@
         </div>
         <div class="name" @click="select(msg.replies.userNameAnswered)">
           <div class="name_photo">
-            <b-avatar :src="msg.replies.answeredPhoto"></b-avatar>
+            <b-avatar :src="decodeImage(msg.replies.answeredPhoto)"></b-avatar>
           </div>
           <div class="name_time">
             <h6 class="myname">
