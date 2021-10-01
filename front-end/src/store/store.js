@@ -25,9 +25,9 @@ export const store = new Vuex.Store({
     mutations: {
         initialiseStore(state) {
             if (localStorage.getItem('userID') ) {
-              state.userID = localStorage.getItem('userID');
-              state.userName = localStorage.getItem('userName');
-              state.userImage = localStorage.getItem('userImage');
+                state.userID = localStorage.getItem('userID');
+                state.userName = localStorage.getItem('userName');
+                state.userImage = localStorage.getItem('userImage');
             }
         },
         saveUserData:(state , data) =>{
@@ -68,7 +68,7 @@ export const store = new Vuex.Store({
         saveProfileData:(state , profileData) =>{
             state.profileData = profileData;
         },
-        saveProfileQuestions:(state , profileQuestions) =>{
+        saveProfileQuestions:(state , profileQuestions) => {
             state.profileQuestions = profileQuestions;
         },
         saveHomeQuestions:(state , homeQuestions) =>{
@@ -80,7 +80,6 @@ export const store = new Vuex.Store({
         saveNotifications:(state , notifications) =>{
             state.notifications = notifications;
         },
-
     },
     actions: {
         getImage: async context => {
