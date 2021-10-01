@@ -16,7 +16,7 @@
         ref="user.userName"
       >
         <div class="user-img" @click="select(user)">
-          <span>
+          <span class="avatar">
             <b-avatar :src="decodeImage(user.profilePhoto)" size="3rem"></b-avatar>
           </span>
           <span
@@ -156,11 +156,15 @@ export default {
 .user-img {
   cursor: pointer;
 }
+.avatar{
+  display: inline-block;
+  margin-right: 10px;
+}
 .username {
   display: block;
   font-size: 10px;
   color: rgb(165, 156, 156);
-  margin-left: 48px;
+  margin-left: 60px;
   margin-top: -20px;
 }
 </style>

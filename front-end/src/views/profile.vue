@@ -5,7 +5,7 @@
     <div class="background">
       <div class="overlay"></div>
       <div class="cover">
-        <img :src="decodeImage(user.coverPhoto)" alt="" />
+        <img  v-if="user.coverPhoto != null" :src="decodeImage(user.coverPhoto)" alt="" />
       </div>
     </div>
     <div class="container">
