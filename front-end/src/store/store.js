@@ -49,45 +49,35 @@ export const store = new Vuex.Store({
             state.userImage = '';
         },
         saveQuestions:(state , questions) =>{
-            console.log("questions = " + questions);
             state.questions = questions;
         },
         deleteAQuestion(state, questionID){
             state.questions = state.questions.filter( q => q.stringID != questionID );
         },
         saveAQuestion:(state , question) =>{
-            console.log("cur_question = " + question);
             state.cur_question = question;
         },
         saveUsers:(state , users) =>{
-            console.log("users = " + users);
             state.users = users;
         },
         saveFollowers:(state , followers) =>{
-            console.log("followers = " + followers);
-            let followersList = followers.map(e => {
+            state.followers = followers.map(e => {
                 return e.userName;
             });
-            state.followers = followersList;
         },
         saveProfileData:(state , profileData) =>{
-            console.log("profileData = " + profileData);
             state.profileData = profileData;
         },
         saveProfileQuestions:(state , profileQuestions) =>{
-            console.log("profileQuestions = " + profileQuestions);
             state.profileQuestions = profileQuestions;
         },
         saveHomeQuestions:(state , homeQuestions) =>{
-            console.log("homeQuestions = " + homeQuestions);
             state.homeQuestions = homeQuestions;
         },
         saveSettings:(state , settings) =>{
-            console.log("settings = " + settings);
             state.settings = settings;
         },
         saveNotifications:(state , notifications) =>{
-            console.log("settings = " + notifications);
             state.notifications = notifications;
         },
 
@@ -115,49 +105,7 @@ export const store = new Vuex.Store({
         },
         getQuestions: async context => {
             //try {
-                console.log('in store ' + store.state.userID);
-                let response = [];
-                response = await fetch( "http://localhost:5050/getQuestion/" + store.state.userID  + "/" + store.state.userName, {
-                    method: "get", 
-                    headers: { "Content-Type": "application/json" },
-                }).then((res) => {
-                    return res.json();
-                }).then((data) => {
-                    console.log(data);
-                    return data;
-                })
-                console.log("bbbbbbbbb")
-                console.log("questions response = " + response);
-                context.commit('saveQuestions',response);
-            /*} catch (error) {
-                alert('error');
-            }*/
-        },
-        getAQuestion: async (context,question_id) => {
-            //try {
-                console.log('question id in store =  ' + question_id);
-                let response = [];
-                response = await fetch( "http://localhost:5050/getAskAnsQuestion/" + store.state.userID  + "/" + question_id, {
-                    method: "get", 
-                    headers: { "Content-Type": "application/json" },
-                }).then((res) => {
-                    return res.json();
-                }).then((data) => {
-                    console.log(data);
-                    return data;
-                })
-                console.log("bbbbbbbbb")
-                console.log("questions response = " + response);
-                context.commit('saveAQuestion',response);
-            /*} catch (error) {
-                alert('error');
-            }*/
-        },
-        getNotifications: async context =>{
-            //try {
-                console.log('in store ' + store.state.userID);
-                let response = [];
-                response = await fetch( "http://localhost:5050/getNotifactions/" + store.state.userID, {
+                let response = await fetch( "http://localhost:5050/getQuestion/" + store.state.userID  + "/" + store.state.userName, {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
                 }).then((res) => {
@@ -166,8 +114,39 @@ export const store = new Vuex.Store({
                     console.log(data);
                     return data;
                 });
-                console.log("Notifications");
-                console.log("Notifications response = " + response);
+                context.commit('saveQuestions',response);
+            /*} catch (error) {
+                alert('error');
+            }*/
+        },
+        getAQuestion: async (context,question_id) => {
+            //try {
+                console.log('question id in store =  ' + question_id);
+                let response = await fetch( "http://localhost:5050/getAskAnsQuestion/" + store.state.userID  + "/" + question_id, {
+                    method: "get", 
+                    headers: { "Content-Type": "application/json" },
+                }).then((res) => {
+                    return res.json();
+                }).then((data) => {
+                    console.log(data);
+                    return data;
+                })
+                context.commit('saveAQuestion',response);
+            /*} catch (error) {
+                alert('error');
+            }*/
+        },
+        getNotifications: async context =>{
+            //try {
+                let response = await fetch( "http://localhost:5050/getNotifactions/" + store.state.userID, {
+                    method: "get", 
+                    headers: { "Content-Type": "application/json" },
+                }).then((res) => {
+                    return res.json();
+                }).then((data) => {
+                    console.log(data);
+                    return data;
+                });
                 context.commit('saveNotifications', response);
             /*} catch (error) {
                 alert('error');
@@ -175,9 +154,7 @@ export const store = new Vuex.Store({
         },
         getUsers: async context =>{
             //try {
-                console.log('in store ' + store.state.userID);
-                let response = [];
-                response = await fetch( "http://localhost:5050/getUsers/" + store.state.userID , {
+                let response = await fetch( "http://localhost:5050/getUsers/" + store.state.userID , {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
                 }).then((res) => {
@@ -185,9 +162,7 @@ export const store = new Vuex.Store({
                 }).then((data) => {
                     console.log(data);
                     return data;
-                })
-                console.log("bbbbbbbbb");
-                console.log("questions response = " + response);
+                });
                 context.commit('saveUsers', response);
             /*} catch (error) {
                 alert('error');
@@ -195,9 +170,7 @@ export const store = new Vuex.Store({
         },
         getFollowers: async context =>{ 
             //try {
-                console.log('in store ' + store.state.userID);
-                let response = [];
-                response = await fetch( "http://localhost:5050/getFollowers/" + store.state.userID + "/" + store.state.userName, {
+                let response = await fetch( "http://localhost:5050/getFollowers/" + store.state.userID + "/" + store.state.userName, {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
                 }).then((res) => {
@@ -205,19 +178,15 @@ export const store = new Vuex.Store({
                 }).then((data) => {
                     console.log(data);
                     return data;
-                })
-                console.log("bbbbbbbbb")
-                console.log("Followers response = " + response);
+                });
                 context.commit('saveFollowers', response);
             /*} catch (error) {
                 alert('error');
             }*/
         },
-        loadProfileData: async (context,_name) => { //not done yet
+        loadProfileData: async (context,_name) => { 
             //try {
-                console.log('in store ' + store.state.userID);
-                let response = [];
-                response = await fetch( "http://localhost:5050/getProfileData/" + store.state.userID + "/" + _name , {
+                let response = await fetch( "http://localhost:5050/getProfileData/" + store.state.userID + "/" + _name , {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
                 }).then((res) => {
@@ -225,19 +194,15 @@ export const store = new Vuex.Store({
                 }).then((data) => {
                     console.log(data);
                     return data;
-                })
-                console.log("bbbbbbbbb")
-                console.log("questions response = " + response);
+                });
                 context.commit('saveProfileData', response);
             /*} catch (error) {
                 alert('error');
             }*/
         },
-        loadProfileQuestions: async (context,_name) => { //not done yet
+        loadProfileQuestions: async (context,_name) => { 
             //try {
-                console.log('in store ' + store.state.userID);
-                let response = [];
-                response = await fetch( "http://localhost:5050/getProfileQuestion/" + store.state.userID + "/" + _name , {
+                let response = await fetch( "http://localhost:5050/getProfileQuestion/" + store.state.userID + "/" + _name , {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
                 }).then((res) => {
@@ -245,9 +210,7 @@ export const store = new Vuex.Store({
                 }).then((data) => {
                     console.log(data);
                     return data;
-                })
-                console.log("bbbbbbbbb")
-                console.log("questions response = " + response);
+                });
                 context.commit('saveProfileQuestions', response);
             /*} catch (error) {
                 alert('error');
@@ -255,9 +218,7 @@ export const store = new Vuex.Store({
         },
         loadHome: async context => { //not done yet
             //try {
-                console.log('in store ' + store.state.userID);
-                let response = [];
-                response = await fetch( "http://localhost:5050/getHomeQuestion/" + store.state.userID + "/" + store.state.userName , {
+                let response = await fetch( "http://localhost:5050/getHomeQuestion/" + store.state.userID + "/" + store.state.userName , {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
                 }).then((res) => {
@@ -265,9 +226,7 @@ export const store = new Vuex.Store({
                 }).then((data) => {
                     console.log(data);
                     return data;
-                })
-                console.log("bbbbbbbbb")
-                console.log("home response = " + response);
+                });
                 context.commit('saveHomeQuestions', response);
             /*} catch (error) {
                 alert('error');
@@ -293,9 +252,7 @@ export const store = new Vuex.Store({
         },
         loadSettings: async context => {
             //try {
-                console.log('in store ' + store.state.userID);
-                let response = [];
-                response = await fetch( "http://localhost:5050/getSettings/" + store.state.userID + "/" + store.state.userName, {
+                let response = await fetch( "http://localhost:5050/getSettings/" + store.state.userID + "/" + store.state.userName, {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
                 }).then((res) => {
@@ -303,9 +260,7 @@ export const store = new Vuex.Store({
                 }).then((data) => {
                     console.log(data);
                     return data;
-                })
-                console.log("Settings")
-                console.log("Settings response = " + response);
+                });
                 context.commit('saveSettings', response);
             /*} catch (error) {
                 alert('error');
