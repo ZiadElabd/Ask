@@ -80,6 +80,7 @@ export default {
           userName: this.$store.state.userName,
         }),
       });
+      this.$store.commit('deleteAQuestion', this.questionID);
       this.$router.push({ name: "Questions" });
     },
     decodeImage(image){

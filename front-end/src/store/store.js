@@ -27,6 +27,7 @@ export const store = new Vuex.Store({
             if (localStorage.getItem('userID') ) {
               state.userID = localStorage.getItem('userID');
               state.userName = localStorage.getItem('userName');
+              state.userImage = localStorage.getItem('userImage');
             }
         },
         saveUserData:(state , data) =>{
@@ -35,19 +36,24 @@ export const store = new Vuex.Store({
             state.userID = data._id;
             state.userName = data._name;
         },
+        saveImage:(state , image) =>{
+            localStorage.setItem('userImage', image);
+            state.userImage = image;
+        },
         deleteUserData:(state) =>{
             localStorage.setItem('userID', '');
             localStorage.setItem('userName', '');
+            localStorage.setItem('userImage','');
             state.userID = '';
             state.userName = '';
-        },
-        saveImage:(state , image) =>{
-            //console.log("questions = " + questions);
-            state.userImage = image;
+            state.userImage = '';
         },
         saveQuestions:(state , questions) =>{
             console.log("questions = " + questions);
             state.questions = questions;
+        },
+        deleteAQuestion(state, questionID){
+            state.questions = state.questions.filter( q => q.stringID != questionID );
         },
         saveAQuestion:(state , question) =>{
             console.log("cur_question = " + question);
@@ -100,9 +106,9 @@ export const store = new Vuex.Store({
                     console.log(data);
                     return data;
                 })
-                console.log("bbbbbbbbb")
+                console.log("nav image")
                 console.log("questions response = " + response);
-                context.commit('saveImage',response);
+                context.commit('saveImage', response);
             /*} catch (error) {
                 alert('error');
             }*/
