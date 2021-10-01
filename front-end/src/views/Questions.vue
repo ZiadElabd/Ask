@@ -6,9 +6,8 @@
       <QuestionItem 
         v-for ="question in questions" 
         :key="question.StringID"
-        :userName="user.userName"
         :question = "question"  
-        @answer="answer(question.stringID)"
+        @answer="go_to_answerPage(question.stringID)"
       />
     </div>
   </div>
@@ -28,19 +27,10 @@ export default {
   },
   data() {
     return {
-      user: {
-        id: 1,
-        userName: 'ziadElabd',
-        firstName: 'ziad',
-        secondName: 'elabd',
-        email: 'ziad.elabd91@gmail.com',
-      }
     }
   },
   methods: {
-    answer(id){
-      console.log("answer");
-      console.log(id);
+    go_to_answerPage(id){
       this.$router.push({ name: "AnswerQuestion" , params: { questionID: id } });
     }
   },
@@ -50,7 +40,6 @@ export default {
     }
   },
   created(){
-    console.log('userID in questions page' + this.$store.state.userID);
     this.$store.dispatch('getQuestions');
   }
 }

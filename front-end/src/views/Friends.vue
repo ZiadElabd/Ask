@@ -48,18 +48,17 @@ import Navbar from "../components/nbar.vue";
 
 export default {
   name: "Friends",
+  components: {
+    Navbar,
+  },
   data() {
     return {
       follow: false,
       searchValue: "",
-      //followers:['omarrehan0020' , 'omarrehan0010'],
     };
   },
   methods: {
     afterfollow: function(user) {
-      // follow this user
-      console.log("userId = " + this.userID);
-      console.log("userName = " + user.userName);
       fetch(
         "http://localhost:5050/followUser/" + this.userID + "/" + user.userName,
         {
@@ -67,12 +66,7 @@ export default {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log("hhhhhhhhh");
-      console.log("followers");
-      console.log(this.followers);
       this.followers.push(user.userName);
-      console.log("followers");
-      console.log(this.followers);
     },
     afterunfollow: function(user) {
       fetch(
@@ -83,15 +77,12 @@ export default {
         }
       );
       this.followers.splice(this.followers.indexOf(user.userName), 1);
-      console.log(this.followers);
     },
     select: function(user) {
-      //move to profile page
       this.$router.push({
         name: "profile",
         params: { userName: user.userName },
       });
-      console.log(user.userName);
     },
     filter: function(users) {
       if (this.searchValue === "") {
@@ -105,9 +96,7 @@ export default {
       return 'data:image/jpeg;base64,' + image;
     },
   },
-  components: {
-    Navbar,
-  },
+  
   computed: {
     userName() {
       return this.$store.state.userName;

@@ -73,7 +73,6 @@
                         _name: this.form.userName
                     });
                     console.log(this.$store.state.userID);
-                    console.log(this.$store.state.userName);
                     this.$router.push({ name: "Home" });
                 } catch (error) {
                     alert('error');

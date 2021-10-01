@@ -102,8 +102,6 @@ export default {
   name: "profile",
   data() {
     return {
-      liked: false,
-      likesCount: 12,
       checked: true,
       questionContent: "",
     };
@@ -114,13 +112,12 @@ export default {
   methods: {
     toggleLike: function(msg) {
       if (msg.replies.likes.includes(this.userName)) {
-        this.$store.dispatch("unlike",msg.stringID);
-        msg.replies.likes.splice(msg.replies.likes.indexOf(this.userName));
+          this.$store.dispatch("unlike",msg.stringID);
+          msg.replies.likes.splice(msg.replies.likes.indexOf(this.userName));
       } else {
-        this.$store.dispatch("like",msg.stringID);
-        msg.replies.likes.push(this.userName);
+          this.$store.dispatch("like",msg.stringID);
+          msg.replies.likes.push(this.userName);
       }
-      // request for like
     },
     sendQuestion() {
       if (this.questionCharacterCount == 0) {
@@ -145,7 +142,6 @@ export default {
       );
     },
     select(userName) {
-      console.log("userName clicked => " + userName);
       this.$router.push({ name: "profile", params: { userName: userName } });
     },
     decodeImage(image){
@@ -161,7 +157,6 @@ export default {
     },
     userName() {
       // for this profile
-      console.log("in profile page => " + this.$route.params.userName);
       return this.$route.params.userName;
     },
     user() {
@@ -178,9 +173,6 @@ export default {
     }
   },
   created() {
-    console.log("profile created");
-    console.log("in profile page => " + this.$route.params.userName);
-    //console.log('userID in questions page' + this.$store.state.userID);
     this.$store.dispatch("loadProfileData", this.userName);
     this.$store.dispatch("loadProfileQuestions", this.userName);
   },

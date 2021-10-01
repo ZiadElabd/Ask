@@ -24,10 +24,6 @@
 export default {
   name: "QuestionItem",
   props: {
-    userName: {
-      type: String,
-      required: true,
-    },
     question: {
       type: Object,
       required: true,
@@ -39,7 +35,6 @@ export default {
       this.$emit("answer", id);
     },
     select() {
-      console.log("userName of this question => " + this.question.askedUser);
       this.$router.push({
         name: "profile",
         params: { userName: this.question.askedUser },
