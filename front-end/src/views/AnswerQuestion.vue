@@ -70,8 +70,8 @@ export default {
     },
   },
   methods: {
-    submitAnswer() {
-      fetch("http://localhost:5050/answerQuestion/" + this.userID, {
+    async submitAnswer() {
+      await fetch("http://localhost:5050/answerQuestion/" + this.userID, {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -80,7 +80,7 @@ export default {
           userName: this.$store.state.userName,
         }),
       });
-      this.$store.commit('deleteQuestions');
+      this.$store.commit('delete');
       this.$router.push({ name: "Questions" });
     },
     decodeImage(image){
