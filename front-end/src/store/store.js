@@ -31,28 +31,28 @@ export const store = new Vuex.Store({
             }
         },
         saveUserData:(state , data) =>{
-            localStorage.setItem('userID', data._id);
-            localStorage.setItem('userName', data._name);
             state.userID = data._id;
             state.userName = data._name;
+            localStorage.setItem('userID', data._id);
+            localStorage.setItem('userName', data._name);
         },
         saveImage:(state , image) =>{
-            localStorage.setItem('userImage', image);
             state.userImage = image;
+            localStorage.setItem('userImage', image);
         },
         deleteUserData:(state) =>{
-            localStorage.setItem('userID', '');
-            localStorage.setItem('userName', '');
-            localStorage.setItem('userImage','');
             state.userID = '';
             state.userName = '';
             state.userImage = '';
+            localStorage.setItem('userID', '');
+            localStorage.setItem('userName', '');
+            localStorage.setItem('userImage','');
         },
         saveQuestions:(state , questions) =>{
             state.questions = questions;
         },
-        deleteAQuestion(state, questionID){
-            state.questions = state.questions.filter( q => q.stringID != questionID );
+        deleteQuestions(state){
+            state.questions = [];
         },
         saveAQuestion:(state , question) =>{
             state.cur_question = question;
