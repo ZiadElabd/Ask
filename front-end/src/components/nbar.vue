@@ -70,7 +70,6 @@ export default {
   created() {
     console.log("nav created");
     console.log("in nav bar => " + this.$store.state.userName);
-    this.$store.dispatch("getImage");
   },
 };
 </script>

@@ -66,6 +66,7 @@
                         _name: this.form.userName
                     });
                     console.log(this.$store.state.userID);
+                    this.$store.dispatch("getImage");
                     this.$router.push({ name: "Home" });
                 } catch (error) {
                     alert('error');
