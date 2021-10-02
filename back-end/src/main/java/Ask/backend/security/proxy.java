@@ -12,4 +12,7 @@ public class proxy  {
         trackingSystem=Singleton.getInstance();
        return trackingSystem.checkUserExist(id);
     }
+    public void deleteActiveUser(String id){
+        trackingSystem.deleteOnlineUser(id);
+    }
 }
