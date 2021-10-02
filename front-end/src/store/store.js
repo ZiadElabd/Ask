@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
         userID:'',
         userName: '',
         userImage: "",
-        questions: [],
+        questions: [] ,
         cur_question:{},
         users:[],
         followers:[],
@@ -51,8 +51,11 @@ export const store = new Vuex.Store({
         saveQuestions:(state , questions) =>{
             state.questions = questions;
         },
-        deleteQuestions(state){
+        delete(state){
             state.questions = [];
+            state.profileData = {};
+            state.profileQuestions = [];
+            state.homeQuestions = [];
         },
         saveAQuestion:(state , question) =>{
             state.cur_question = question;
@@ -84,18 +87,19 @@ export const store = new Vuex.Store({
     actions: {
         getImage: async context => {
             //try {
+                console.log('get image');
                 console.log('in store ' + store.state.userID);
                 let response = [];
                 response = await fetch( "http://localhost:5050/getProfilePhoto/" + store.state.userID  + "/" + store.state.userName, {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
                 }).then((res) => {
-                    return res.json();
+                    return res.text();
                 }).then((data) => {
                     console.log(data);
                     return data;
-                })
-                console.log("nav image")
+                });
+                console.log("nav image");
                 console.log("questions response = " + response);
                 context.commit('saveImage', response);
             /*} catch (error) {

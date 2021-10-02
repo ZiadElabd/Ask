@@ -173,6 +173,7 @@ export default {
     }
   },
   created() {
+    this.$store.commit('delete');
     this.$store.dispatch("loadProfileData", this.userName);
     this.$store.dispatch("loadProfileQuestions", this.userName);
   },

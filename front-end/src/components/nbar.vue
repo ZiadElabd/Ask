@@ -61,7 +61,14 @@ export default {
   },
   methods:{
     reset(){
+      fetch(
+          "http://localhost:5050/logout/" + this.$store.state.userID ,
+          {
+            method: "post",
+          }
+      );
       this.$store.commit('deleteUserData');
+      this.$store.commit('delete');
     },
     decodeImage(image){
       return 'data:image/jpeg;base64,' + image;
