@@ -12,7 +12,6 @@
               id="fullname"
               v-model="allSettings.firstName"
             />
-            {{ allSettings.firstName }}
           </div>
           <div class="mb-3">
             <label for="lastname" class="form-label">last Name</label>
@@ -22,7 +21,6 @@
               id="fullname"
               v-model="allSettings.lastName"
             />
-            {{ allSettings.lastName }}
           </div>
           <div class="mb-3">
             <label for="location" class="form-label">Location</label>
@@ -32,7 +30,6 @@
               id="location"
               v-model="allSettings.location"
             />
-            {{ allSettings.location }}
           </div>
           <div class="question_form mb-3">
             <label for="bio" class="form-label">Bio</label>
@@ -43,7 +40,6 @@
               id="bio"
               v-model="allSettings.bio"
             ></textarea>
-            {{ allSettings.bio }}
           </div>
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
@@ -187,8 +183,6 @@ export default {
       );
     },
     saveCoverPhoto(){
-      console.log("bio = " + this.allSettings.bio);
-      console.log("location = " + this.allSettings.location);
       fetch(
         "http://localhost:5050/setCoverPhoto/" + this.userID + "/" + this.userName,
         {
@@ -198,8 +192,6 @@ export default {
       );
     },
     saveSetting(){
-      console.log("sent object");
-      console.log(this.allSettings);
       fetch(
         "http://localhost:5050/settings/" + this.userID,
         {

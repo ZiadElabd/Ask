@@ -67,8 +67,7 @@ export default {
             method: "post",
           }
       );
-      this.$store.commit('deleteUserData');
-      this.$store.commit('delete');
+      this.$store.commit('reset');
     },
     decodeImage(image){
       return 'data:image/jpeg;base64,' + image;

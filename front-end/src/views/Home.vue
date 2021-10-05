@@ -86,8 +86,6 @@ export default {
     },
   },
   created() {
-    this.$store.commit('delete');
-    console.log("userID in home page" + this.$store.state.userID);
     this.$store.dispatch("loadHome");
   },
 };
