@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import java.util.Hashtable;
 import java.util.UUID;
 
-public class Singleton {
+public class Singleton implements  Iproxy{
     private static Singleton instance = null;
     private static Hashtable<String , ObjectId> onlineUser=new Hashtable<>();
 
@@ -25,7 +25,10 @@ public class Singleton {
         onlineUser.put(uniqueID,id);
         return uniqueID;
     }
-    public ObjectId checkUserExist(String id){
+    public boolean checkUser(String id){
+        return onlineUser.containsKey(id);
+    }
+    public ObjectId checkAcess(String id){
         ObjectId realID=null;
         try {
             realID=onlineUser.get(id);
