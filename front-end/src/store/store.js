@@ -86,7 +86,7 @@ export const store = new Vuex.Store({
     },
     actions: {
         getImage: async context => {
-            //try {
+            try {
                 console.log('get image');
                 console.log('in store ' + store.state.userID);
                 let response = [];
@@ -102,12 +102,12 @@ export const store = new Vuex.Store({
                 console.log("nav image");
                 console.log("questions response = " + response);
                 context.commit('saveImage', response);
-            /*} catch (error) {
+            } catch (error) {
                 alert('error');
-            }*/
+            }
         },
         getQuestions: async context => {
-            //try {
+            try {
                 let response = await fetch( "http://localhost:5050/getQuestion/" + store.state.userID  + "/" + store.state.userName, {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
@@ -118,12 +118,12 @@ export const store = new Vuex.Store({
                     return data;
                 });
                 context.commit('saveQuestions',response);
-            /*} catch (error) {
+            } catch (error) {
                 alert('error');
-            }*/
+            }
         },
         getAQuestion: async (context,question_id) => {
-            //try {
+            try {
                 console.log('question id in store =  ' + question_id);
                 let response = await fetch( "http://localhost:5050/getAskAnsQuestion/" + store.state.userID  + "/" + question_id, {
                     method: "get", 
@@ -135,12 +135,12 @@ export const store = new Vuex.Store({
                     return data;
                 })
                 context.commit('saveAQuestion',response);
-            /*} catch (error) {
+            } catch (error) {
                 alert('error');
-            }*/
+            }
         },
         getNotifications: async context =>{
-            //try {
+            try {
                 let response = await fetch( "http://localhost:5050/getNotifactions/" + store.state.userID, {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
@@ -151,12 +151,12 @@ export const store = new Vuex.Store({
                     return data;
                 });
                 context.commit('saveNotifications', response);
-            /*} catch (error) {
+            } catch (error) {
                 alert('error');
-            }*/
+            }
         },
         getUsers: async context =>{
-            //try {
+            try {
                 let response = await fetch( "http://localhost:5050/getUsers/" + store.state.userID , {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
@@ -167,12 +167,12 @@ export const store = new Vuex.Store({
                     return data;
                 });
                 context.commit('saveUsers', response);
-            /*} catch (error) {
+            } catch (error) {
                 alert('error');
-            }*/
+            }
         },
         getFollowers: async context =>{ 
-            //try {
+            try {
                 let response = await fetch( "http://localhost:5050/getFollowers/" + store.state.userID + "/" + store.state.userName, {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
@@ -183,12 +183,12 @@ export const store = new Vuex.Store({
                     return data;
                 });
                 context.commit('saveFollowers', response);
-            /*} catch (error) {
+            } catch (error) {
                 alert('error');
-            }*/
+            }
         },
         loadProfileData: async (context,_name) => { 
-            //try {
+            try {
                 let response = await fetch( "http://localhost:5050/getProfileData/" + store.state.userID + "/" + _name , {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
@@ -199,12 +199,12 @@ export const store = new Vuex.Store({
                     return data;
                 });
                 context.commit('saveProfileData', response);
-            /*} catch (error) {
+            } catch (error) {
                 alert('error');
-            }*/
+            }
         },
         loadProfileQuestions: async (context,_name) => { 
-            //try {
+            try {
                 let response = await fetch( "http://localhost:5050/getProfileQuestion/" + store.state.userID + "/" + _name , {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
@@ -215,12 +215,12 @@ export const store = new Vuex.Store({
                     return data;
                 });
                 context.commit('saveProfileQuestions', response);
-            /*} catch (error) {
+            } catch (error) {
                 alert('error');
-            }*/
+            }
         },
         loadHome: async context => { //not done yet
-            //try {
+            try {
                 let response = await fetch( "http://localhost:5050/getHomeQuestion/" + store.state.userID + "/" + store.state.userName , {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
@@ -231,9 +231,9 @@ export const store = new Vuex.Store({
                     return data;
                 });
                 context.commit('saveHomeQuestions', response);
-            /*} catch (error) {
+            } catch (error) {
                 alert('error');
-            }*/
+            }
         },
         like: (context,question_id) => {
             fetch(
@@ -254,7 +254,7 @@ export const store = new Vuex.Store({
             );
         },
         loadSettings: async context => {
-            //try {
+            try {
                 let response = await fetch( "http://localhost:5050/getSettings/" + store.state.userID + "/" + store.state.userName, {
                     method: "get", 
                     headers: { "Content-Type": "application/json" },
@@ -265,10 +265,30 @@ export const store = new Vuex.Store({
                     return data;
                 });
                 context.commit('saveSettings', response);
-            /*} catch (error) {
+            } catch (error) {
                 alert('error');
-            }*/
+            }
         },
     },
     
 });
+
+parseJSON = function (resp) {
+    return resp.json();
+}
+
+parseText = function (resp) {
+    return resp.text();
+}
+
+checkStatus = function (resp) {
+    console.log('status');
+    if (resp.status >= 200 && resp.status < 300) {
+        console.log('good status');
+        return resp;
+    }
+    console.log('bad status');
+    return this.parseJSON(resp).then((resp) => {
+        throw resp;
+    });
+}
