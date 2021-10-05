@@ -4,11 +4,11 @@
     <div class="container">
       <div class="question-answer">
         <div class="name">
-          <div class="name_photo">
+          <div class="name_photo" v-if=" ! question.anoymos">
             <b-avatar :src="decodeImage(question.askedPhoto)" ></b-avatar>
           </div>
           <div class="name_time">
-            <h6 class="myname">
+            <h6 class="myname" v-if=" ! question.anoymos">
               <span> {{ question.askedUser }}</span>
             </h6>
             <div class="time">
