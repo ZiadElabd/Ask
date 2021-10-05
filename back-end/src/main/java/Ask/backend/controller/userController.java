@@ -129,6 +129,13 @@ public class userController {
         handler.updateSettings(realID,obj);
         return   new ResponseEntity<>(HttpStatus.OK);
     }
+    @PostMapping("/logout/{ID}")
+    public  ResponseEntity<Void> logOut(@PathVariable("ID") String id){
+        ObjectId realID=checker.checkAcess(id);
+        if(realID.equals(null)) return   new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        checker.deleteActiveUser(id);
+        return   new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 
